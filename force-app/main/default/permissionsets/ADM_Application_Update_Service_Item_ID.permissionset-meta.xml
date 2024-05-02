@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Update Service Item ID on Application.</description>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>hed__Application__c.Service_Item_ID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>ADM_Application Update Service Item ID</label>
+</PermissionSet>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>59.0</apiVersion>
+    <decisions>
+        <description>We need data from &apos;Parent&apos; objects to be populated for this to work - so just a failsafe</description>
+        <name>Should_we_proceed_with_the_record</name>
+        <label>Should we proceed with the record ?</label>
+        <locationX>182</locationX>
+        <locationY>323</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Yes</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Course_Offering__r.Qualified_Faculty__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.RecordType.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Faculty Evaluation</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Qualified_Faculty</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <description>When an Evaluation is created - we populate the Last Evaluation Date on the Qualified Faculty Record and Course</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>LastEvalDateFormula</name>
+        <dataType>Date</dataType>
+        <expression>DATEVALUE({!$Record.CreatedDate})</expression>
+    </formulas>
+    <interviewLabel>RT-C-AS Update Last Eval Date on QF and Course {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>RT-C-AS Update Last Eval Date on QF and Course</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Update_Course_Offering</name>
+        <label>Update Course Offering</label>
+        <locationX>50</locationX>
+        <locationY>539</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Course_Offering__c</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Last_Evaluation_Date__c</field>
+            <value>
+                <elementReference>LastEvalDateFormula</elementReference>
+            </value>
+        </inputAssignments>
+        <object>hed__Course_Offering__c</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Qualified_Faculty</name>
+        <label>Update Qualified Faculty</label>
+        <locationX>50</locationX>
+        <locationY>431</locationY>
+        <connector>
+            <targetReference>Update_Course_Offering</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Course_Offering__r.Qualified_Faculty__c</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Last_Evaluation_Date__c</field>
+            <value>
+                <elementReference>LastEvalDateFormula</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Qualified_Faculty__c</object>
+    </recordUpdates>
+    <start>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Should_we_proceed_with_the_record</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Course_Offering__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <object>Evaluation__c</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

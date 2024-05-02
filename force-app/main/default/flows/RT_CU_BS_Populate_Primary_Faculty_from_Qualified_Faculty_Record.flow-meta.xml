@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <description>Flow to trigger when Primary faculty is null and Qualified Faculty is filled. Used when new faculty is assigned to the record.</description>
+    <environments>Default</environments>
+    <interviewLabel>RT-CU-BS-Populate Primary Faculty from Qualified Faculty Record {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>RT-CU-BS-Populate Primary Faculty from Qualified Faculty Record</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Update_Primary_Faculty_Value</name>
+        <label>Update Primary Faculty Value</label>
+        <locationX>176</locationX>
+        <locationY>287</locationY>
+        <inputAssignments>
+            <field>hed__Faculty__c</field>
+            <value>
+                <elementReference>$Record.Qualified_Faculty__r.Faculty__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Update_Primary_Faculty_Value</targetReference>
+        </connector>
+        <filterFormula>AND(ISBLANK({!$Record.hed__Faculty__c}),
+NOT(ISBLANK({!$Record.Qualified_Faculty__c} )))</filterFormula>
+        <object>hed__Course_Offering__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

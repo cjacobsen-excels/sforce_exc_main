@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>FALL  I - 8 WEEK-2022</fullName>
+        <default>false</default>
+        <label>FALL  I - 8 WEEK-2022</label>
+    </customValue>
+    <customValue>
+        <fullName>FALL II - 8 WEEK-2022</fullName>
+        <default>false</default>
+        <label>FALL II - 8 WEEK-2022</label>
+    </customValue>
+    <customValue>
+        <fullName>SUMMER  I - 8 WEEK-2023</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>SUMMER  I - 8 WEEK-2023</label>
+    </customValue>
+    <customValue>
+        <fullName>SUMMER II - 8 WEEK-2023</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>SUMMER II - 8 WEEK-2023</label>
+    </customValue>
+    <customValue>
+        <fullName>FALL I - 8 WEEK-2024</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>FALL I - 8 WEEK-2024</label>
+    </customValue>
+    <customValue>
+        <fullName>FALL II - 8 WEEK-2024</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>FALL II - 8 WEEK-2024</label>
+    </customValue>
+    <customValue>
+        <fullName>SPRING  I - 8 WEEK-2024</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>SPRING  I - 8 WEEK-2024</label>
+    </customValue>
+    <customValue>
+        <fullName>SPRING II - 8 WEEK-2024</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>SPRING II - 8 WEEK-2024</label>
+    </customValue>
+    <customValue>
+        <fullName>SUMMER  I - 8 WEEK-2024</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>SUMMER  I - 8 WEEK-2024</label>
+    </customValue>
+    <customValue>
+        <fullName>SPRING  I - 8 WEEK-2023</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>SPRING  I - 8 WEEK-2023</label>
+    </customValue>
+    <customValue>
+        <fullName>SUMMER  I - 8 WEEK-2022</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>SUMMER  I - 8 WEEK-2022</label>
+    </customValue>
+    <customValue>
+        <fullName>SPRING  I - 8 WEEK-2022</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>SPRING  I - 8 WEEK-2022</label>
+    </customValue>
+    <customValue>
+        <fullName>SPRING II - 8 WEEK-2022</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>SPRING II - 8 WEEK-2022</label>
+    </customValue>
+    <customValue>
+        <fullName>FALL II - 8 WEEK-2023</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>FALL II - 8 WEEK-2023</label>
+    </customValue>
+    <customValue>
+        <fullName>SUMMER II - 8 WEEK-2022</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>SUMMER II - 8 WEEK-2022</label>
+    </customValue>
+    <customValue>
+        <fullName>FALL I - 8 WEEK-2023</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>FALL I - 8 WEEK-2023</label>
+    </customValue>
+    <customValue>
+        <fullName>SUMMER II - 8 WEEK-2024</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>SUMMER II - 8 WEEK-2024</label>
+    </customValue>
+    <customValue>
+        <fullName>SPRING II - 8 WEEK-2023</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>SPRING II - 8 WEEK-2023</label>
+    </customValue>
+    <description>The full term names</description>
+    <masterLabel>Full Terms</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

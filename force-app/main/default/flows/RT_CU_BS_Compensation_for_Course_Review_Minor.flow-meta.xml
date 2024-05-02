@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <assignments>
+        <name>Compensation_ON_Load</name>
+        <label>Compensation - ON Load</label>
+        <locationX>50</locationX>
+        <locationY>395</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Compensation__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <numberValue>0.0</numberValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <name>Default_Compensation</name>
+        <label>Default Compensation</label>
+        <locationX>314</locationX>
+        <locationY>503</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Compensation__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>DefaultCompensation</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <decisions>
+        <name>Load_Type</name>
+        <label>Load Type</label>
+        <locationX>182</locationX>
+        <locationY>287</locationY>
+        <defaultConnector>
+            <targetReference>Get_Faculty_Payment_Metadata</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>On_Load</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Faculty_Load_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>On Load</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Compensation_ON_Load</targetReference>
+            </connector>
+            <label>On Load</label>
+        </rules>
+    </decisions>
+    <description>Populate the Compensation for a Course Review Minor Offering.</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>DefaultCompensation</name>
+        <dataType>Currency</dataType>
+        <expression>{!Get_Faculty_Payment_Metadata.Flat_Fee__c}*{!$Record.Contract_Hours__c}</expression>
+        <scale>2</scale>
+    </formulas>
+    <interviewLabel>RT-CU-BS- Compensation for Course Review Minor {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>RT-CU-BS- Compensation for Course Review Minor</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_Faculty_Payment_Metadata</name>
+        <label>Get Faculty Payment Metadata</label>
+        <locationX>314</locationX>
+        <locationY>395</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Default_Compensation</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>DeveloperName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Course_Review_Minor_Hourly</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Faculty_Payments__mdt</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Load_Type</targetReference>
+        </connector>
+        <filterFormula>{!$Record.RecordType.Name} = &apos;Course Review Minor&apos; &amp;&amp; NOT(ISNULL({!$Record.Contract_Hours__c}))</filterFormula>
+        <object>hed__Course_Offering__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

@@ -1,0 +1,3 @@
+<design:component>
+	<design:attribute name="relatedLists" label="Show Only Related Lists" description="True only realted lists." />
+</design:component>

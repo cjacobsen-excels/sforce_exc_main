@@ -1,0 +1,75 @@
+<aura:component controller="ContactPageViewerController" implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes" access="global" >
+<aura:attribute name="data" type="object"/>	
+<aura:attribute name="relatedLists" type="boolean" default="false"/>
+<aura:attribute name="spinner" type="boolean" default="true"/>	
+<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+	<!--loading spinner start-->
+    <aura:if isTrue="{!v.spinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container">
+            <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                <span class="slds-assistive-text">Loading...</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+		<aura:set attribute="else">
+
+	<div class="slds-page-header">
+	  <div class="slds-page-header__row">
+		<div class="slds-page-header__col-title">
+		  <div class="slds-media">
+			<div class="slds-media__figure">
+			  <span class="slds-icon_container slds-icon-standard-contact" title="contact">
+					<lightning:icon iconName="standard:contact" alternativeText="contact" title="contact" />
+				<span class="slds-assistive-text">Contact</span>
+			  </span>
+			</div>
+			<div class="slds-media__body">
+			  <div class="slds-page-header__name">
+				<div class="slds-page-header__name-title">
+				  <h1>
+					<span class="slds-page-header__title slds-truncate" title="{!v.data.contact.Name == null ? 'No Contact' : v.data.contact.Name}">{!v.data.contact.Name == null ? 'No Contact' : v.data.contact.Name}</span>
+				  </h1>
+				</div>
+			  </div>
+			  <p class="slds-page-header__name-meta">Contact</p>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	<aura:if isTrue="{!v.data.contact.Id != null}">
+		<div Class="slds-box slds-theme_default slds-scrollable" >
+			<aura:if isTrue="{!!v.relatedLists}">
+				<force:recordView recordId="{!v.data.contact.Id}" type="FULL"/>
+				<aura:set attribute="else">
+					<aura:iteration items="{!v.data.relatedListItems}" var="item">
+						<lightning:card title="">
+							<p class="slds-p-horizontal_small"> 
+								<lightning:layout multipleRows="true">
+									<lightning:layoutItem padding="around-small" size="12">                        
+										<c:singleRelatedList recordId="{!v.data.contact.Id}" 
+															 sobjectApiName="{!item.Sobject_Api_Name}"
+															 relatedFieldApiName="{!item.Related_Field_Api_Name}"
+															 sortedBy="{!item.Sorted_By}"
+															 fields="{!item.Fields}"
+															 columns="{!item.Columns}"
+															 showNew="{!item.Show_New}"
+															 />
+									</lightning:layoutItem>
+								</lightning:layout>
+							</p>
+						</lightning:card>
+					</aura:iteration>
+				</aura:set>
+			</aura:if>
+		</div>
+		<aura:set attribute="else">
+			<div Class="slds-box slds-theme_default slds-scrollable" style="height:50px;width:100%">No Contact Found</div>
+		</aura:set>
+	</aura:if>
+	</aura:set>
+</aura:if>
+
+</aura:component>

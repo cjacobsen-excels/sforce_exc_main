@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <description>This flow triggers on ANY Updates on an affiliation where type = partner and checks the box &apos;Trigger Best Status Calculation&apos; on contact</description>
+    <environments>Default</environments>
+    <interviewLabel>RT-CU-AS-Affiliation - Partner Affiliation {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>RT-CU-AS-Affiliation - Partner Affiliation</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <description>Whenever a Partnet Affiliation is changed - We need to re-calculate Budget Group</description>
+        <name>Update_Related_Contact</name>
+        <label>Update Related Contact</label>
+        <locationX>308</locationX>
+        <locationY>276</locationY>
+        <inputAssignments>
+            <field>Trigger_Budget_Group_Calculation__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record.hed__Contact__r</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <filterFormula>{!$Record.hed__Account__r.RecordType.Name} = &apos;Partner&apos; &amp;&amp; ISNULL({!$Record.hed__Contact__r.Student_ID_Number_SIS_ID__c})</filterFormula>
+        <object>hed__Affiliation__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <scheduledPaths>
+            <name>Dummy_Delay</name>
+            <connector>
+                <targetReference>Update_Related_Contact</targetReference>
+            </connector>
+            <label>Dummy Delay</label>
+            <maxBatchSize>1</maxBatchSize>
+            <offsetNumber>1</offsetNumber>
+            <offsetUnit>Minutes</offsetUnit>
+            <recordField>LastModifiedDate</recordField>
+            <timeSource>RecordField</timeSource>
+        </scheduledPaths>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

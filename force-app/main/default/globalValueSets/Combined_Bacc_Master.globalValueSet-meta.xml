@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>BS Business/MBA</fullName>
+        <default>false</default>
+        <label>BS Business/MBA</label>
+    </customValue>
+    <customValue>
+        <fullName>BS Health Care Management/MBA</fullName>
+        <default>false</default>
+        <label>BS Health Care Management/MBA</label>
+    </customValue>
+    <customValue>
+        <fullName>BS Information Tech/MBA</fullName>
+        <default>false</default>
+        <label>BS Information Tech/MBA</label>
+    </customValue>
+    <customValue>
+        <fullName>BS Information Technology/MS Cybersecurity</fullName>
+        <default>false</default>
+        <label>BS Information Technology/MS Cybersecurity</label>
+    </customValue>
+    <customValue>
+        <fullName>BS Nuclear Engineering Technology/MBA</fullName>
+        <default>false</default>
+        <label>BS Nuclear Engineering Technology/MBA</label>
+    </customValue>
+    <customValue>
+        <fullName>RN to MS Nursing</fullName>
+        <default>false</default>
+        <label>RN to MS Nursing</label>
+    </customValue>
+    <masterLabel>Combined Bacc/Master</masterLabel>
+    <sorted>true</sorted>
+</GlobalValueSet>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Component to let the user add an on-call instructor to specific course offering schedules.</description>
+    <height>300</height>
+    <label>Add Clinical Instructor On Call</label>
+    <lightningComponent>AddClinicalInstructorOnCall</lightningComponent>
+    <optionsCreateFeedItem>false</optionsCreateFeedItem>
+    <type>LightningComponent</type>
+    <width>-100</width>
+</QuickAction>

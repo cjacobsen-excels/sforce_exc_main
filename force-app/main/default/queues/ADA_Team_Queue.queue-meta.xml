@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <name>ADA Team Queue</name>
+    <queueMembers>
+        <roles>
+            <role>ADA_Team</role>
+        </roles>
+        <users>
+            <user>apotter2@excelsior.edu</user>
+            <user>aoconnel@excelsior.edu</user>
+            <user>aburns@excelsior.edu</user>
+            <user>kmoran@excelsior.edu</user>
+            <user>tspenziero@excelsior.edu</user>
+            <user>tlenz@excelsior.edu</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+    <queueSobject>
+        <sobjectType>Task</sobjectType>
+    </queueSobject>
+    <queueSobject>
+        <sobjectType>hed__Attribute__c</sobjectType>
+    </queueSobject>
+</Queue>

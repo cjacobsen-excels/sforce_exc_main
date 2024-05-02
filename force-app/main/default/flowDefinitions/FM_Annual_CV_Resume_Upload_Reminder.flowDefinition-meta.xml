@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>De-activated per Ticket IN00093244 ||Send email to all active faculty contacts on January 1 each year to remind them to upload CV.</description>
+    <masterLabel>FM - Annual CV/Resume Upload Reminder</masterLabel>
+</FlowDefinition>

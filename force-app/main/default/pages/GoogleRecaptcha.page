@@ -1,0 +1,59 @@
+<apex:page sidebar="false" showHeader="false" standardStylesheets="false" cache="false" id="pg" applyBodyTag="false" applyHtmlTag="false">
+    <html>
+        <head>
+            
+            <script type='text/javascript'>
+            var lexOrigin = '{!$Label.Lex_Host}';
+            var verifyCallback = function(token) {
+                var message = {
+                    name : 'grecaptchaVerified',
+                    detail : {response: token}
+                    }
+                parent.postMessage(message,lexOrigin);
+                
+            };
+            var expireCallback = function() {
+                var message = {
+                    name : 'grecaptchaExpired'
+                    }
+                parent.postMessage(message,lexOrigin);
+                
+            }
+            var errorCallback = function() {
+                var message = {
+                    name : 'grecaptchaError'
+                    }
+                parent.postMessage(message,lexOrigin);
+                
+            }
+            var onloadCallback = function() {
+                grecaptcha.render('reCAPTCHAWidget', {
+                    'sitekey' : '{!$Label.Google_Recaptcha_Site_Key}', 
+                    'callback' : verifyCallback,
+                    'expired-callback': expireCallback,
+                    'error-callback': errorCallback
+                });
+            };
+            window.addEventListener("message", function(event) {
+                if (event.origin !== lexOrigin) {
+                    // Not the expected origin: reject message!
+                    return;
+                }
+                // Handle message
+                if(event.data.name === 'grecaptchaReset') {
+                    grecaptcha.reset();
+                }
+            }, false);
+        </script>
+        </head>
+        <body>
+            <form action="?" method="POST">
+                <div id="reCAPTCHAWidget" class="g-recaptcha"></div>
+                <br/>
+                <input type="submit" value="Submit" style="display:none"/>
+            </form>
+            <script src='https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit' async='' defer=''>
+            </script>
+        </body>
+    </html>
+</apex:page>

@@ -1,0 +1,1304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <actionCalls>
+        <description>If a flag is created for the advisor, send confirmation to faculty</description>
+        <name>Notify_Faculty_of_New_Flag</name>
+        <label>Notify Faculty of New Flag</label>
+        <locationX>182</locationX>
+        <locationY>2522</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <connector>
+            <targetReference>Get_Single_Open_Evaluations</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <elementReference>Get_Course_Offering.hed__Faculty__r.Faculty_User_Record__r.Email</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderType</name>
+            <value>
+                <stringValue>OrgWideEmailAddress</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderAddress</name>
+            <value>
+                <stringValue>student_success_flags@excelsior.edu</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <stringValue>Flag Creation Confirmation</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>emailBody4Faculty</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>emailSimple</nameSegment>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <actionCalls>
+        <description>If a flag is created for the advisor, notify them.</description>
+        <name>Notify_the_Advisor_of_New_Flag</name>
+        <label>Notify the Advisor of New Flag</label>
+        <locationX>182</locationX>
+        <locationY>2414</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <connector>
+            <targetReference>Notify_Faculty_of_New_Flag</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <elementReference>Get_Advisor_Email.Owner:User.Email</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderType</name>
+            <value>
+                <stringValue>OrgWideEmailAddress</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderAddress</name>
+            <value>
+                <stringValue>student_success_flags@excelsior.edu</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <stringValue>Flag Raised for Student</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>EmailBody4Advisor</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>emailSimple</nameSegment>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <actionCalls>
+        <description>Send an email to the student regarding their mid point evaluation based on values selected by the evaluator.</description>
+        <name>Send_Student_Email</name>
+        <label>Send Student Email</label>
+        <locationX>468</locationX>
+        <locationY>866</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <connector>
+            <targetReference>Update_Evaluation_Record</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <elementReference>StudentSelectionDataTable.firstSelectedRow.Faculty_Member__r.Email</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderType</name>
+            <value>
+                <stringValue>OrgWideEmailAddress</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderAddress</name>
+            <value>
+                <stringValue>midpoint-evaluation@excelsior.edu</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <stringValue>Mid Point Evaluation from Excelsior University</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>StudentEmailTemplate</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>sendRichBody</name>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>relatedRecordId</name>
+        </inputParameters>
+        <nameSegment>emailSimple</nameSegment>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <apiVersion>59.0</apiVersion>
+    <assignments>
+        <name>Add_Value</name>
+        <label>Add Value</label>
+        <locationX>50</locationX>
+        <locationY>1298</locationY>
+        <assignmentItems>
+            <assignToReference>NeedsIntervention_Collection</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>Assignments</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Attendance_Participation_Needs_Intervention</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Copy_1_of_Add_Value</name>
+        <label>Add Value</label>
+        <locationX>50</locationX>
+        <locationY>1598</locationY>
+        <assignmentItems>
+            <assignToReference>NeedsIntervention_Collection</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>Attendance Participation</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Discussion_Needs_Intervention</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Copy_2_of_Add_Value</name>
+        <label>Add Value</label>
+        <locationX>50</locationX>
+        <locationY>1898</locationY>
+        <assignmentItems>
+            <assignToReference>NeedsIntervention_Collection</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>Discussion</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Get_Student_Type_Eval_RT</targetReference>
+        </connector>
+    </assignments>
+    <choices>
+        <name>Excellent</name>
+        <choiceText>Excellent</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Excellent</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Good</name>
+        <choiceText>Good</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Good</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>NeedsImprovement</name>
+        <choiceText>Needs Improvement</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Needs Improvement</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>NeedsIntervention</name>
+        <choiceText>Needs Intervention</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Needs Intervention</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Test</name>
+        <choiceText>Test</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Test</stringValue>
+        </value>
+    </choices>
+    <decisions>
+        <name>Assignments_Needs_Intervention</name>
+        <label>Assignments Needs Intervention</label>
+        <locationX>182</locationX>
+        <locationY>1190</locationY>
+        <defaultConnector>
+            <targetReference>Attendance_Participation_Needs_Intervention</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Yes_Assignments_Needs_Intervention</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Assignments_Select</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>NeedsIntervention</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Add_Value</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Attendance_Participation_Needs_Intervention</name>
+        <label>Attendance/Participation Needs Intervention</label>
+        <locationX>182</locationX>
+        <locationY>1490</locationY>
+        <defaultConnector>
+            <targetReference>Discussion_Needs_Intervention</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Copy_1_of_Yes</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Attendance_Participation_Select</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>NeedsIntervention</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Copy_1_of_Add_Value</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Discussion_Needs_Intervention</name>
+        <label>Discussion Needs Intervention</label>
+        <locationX>182</locationX>
+        <locationY>1790</locationY>
+        <defaultConnector>
+            <targetReference>Get_Student_Type_Eval_RT</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Copy_2_of_Yes</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Discussion_Select</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>NeedsIntervention</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Copy_2_of_Add_Value</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Does_this_need_a_Flag</name>
+        <label>Does this need a Flag</label>
+        <locationX>468</locationX>
+        <locationY>1082</locationY>
+        <defaultConnector>
+            <targetReference>Get_Single_Open_Evaluations</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Yes_FlagCreate</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Message_to_Advisor</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assignments_Needs_Intervention</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>If_the_person_running_the_flow_is_Primary_Faculty</name>
+        <label>If the person running the flow is Primary Faculty</label>
+        <locationX>468</locationX>
+        <locationY>350</locationY>
+        <defaultConnector>
+            <targetReference>Error_Screen</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Yes_Primary_Faculty</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Course_Offering.hed__Faculty__r.Faculty_ID__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>$User.FederationIdentifier</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Open_Evaluations</targetReference>
+            </connector>
+            <label>Yes_Primary Faculty</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Records_Found</name>
+        <label>Records Found</label>
+        <locationX>468</locationX>
+        <locationY>2822</locationY>
+        <defaultConnector>
+            <targetReference>Update_Course_Offering_to_Closed</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>Yes</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Single_Open_Evaluations</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <isGoTo>true</isGoTo>
+                <targetReference>Get_Open_Evaluations</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <description>Flow that guides faculty through the student mid-term evaluations. If any field needs intervention, a separate flag is created for the best academic advisor on the student&apos;s contact record.</description>
+    <dynamicChoiceSets>
+        <name>Assignments</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>MidPoint_Assignments__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>Attendance_Participation</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>MidPoint_Attendance_Participation__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>Discussion</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>MidPoint_Discussion__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <environments>Default</environments>
+    <formulas>
+        <description>additional comments added for assignment rating</description>
+        <name>Additional_Comments_Assignments_Select_EmailTemplate</name>
+        <dataType>String</dataType>
+        <expression>IF(ISBLANK({!Additional_Comments_Assignments_Select}), 
+   &quot;&quot;, 
+   &quot;Additional Comments for Assignments/Select: &quot; &amp; {!Additional_Comments_Assignments_Select}
+)</expression>
+    </formulas>
+    <formulas>
+        <description>Determines what goes in email template for student for attendance rating</description>
+        <name>Additional_Comments_Attendance_Participation_EmailTemplate</name>
+        <dataType>String</dataType>
+        <expression>IF(ISBLANK({!Additional_Comments_Attendance_Participation}), 
+   &quot;&quot;, 
+   &quot;Additional Comments for Attendance/Participation: &quot; &amp; {!Additional_Comments_Attendance_Participation}
+)</expression>
+    </formulas>
+    <formulas>
+        <description>Determines what goes in the student email regarding discussion rating.</description>
+        <name>Additional_Comments_Discussion_Select_EmailTemplate</name>
+        <dataType>String</dataType>
+        <expression>IF(ISBLANK({!Additional_Comments_Discussion_Select}), 
+   &quot;&quot;, 
+   &quot;Additional Comments for Discussion/Select: &quot; &amp; {!Additional_Comments_Discussion_Select}
+)</expression>
+    </formulas>
+    <formulas>
+        <description>Determines what goes in the student email regarding assignment performance.</description>
+        <name>Assignments_Select_EmailTemplate</name>
+        <dataType>String</dataType>
+        <expression>IF({!Assignments_Select} = &quot;Excellent&quot;, 
+   &quot;excellent. Your work and participation demonstrate a strong commitment to your academic journey at Excelsior. Keep up the good work!&quot;, 
+   IF({!Assignments_Select} = &quot;Good&quot;, 
+      &quot;on the right track. You are doing good work. I look forward to seeing you grow and achieve your goals in this class. Remember, we are in this together and there are many resources at your disposal if you want to take advantage of them.&quot;,
+      IF({!Assignments_Select} = &quot;Needs Improvement&quot;, 
+         &quot;not yet meeting expectations. I know that you can grow through continued hard work. There are many supports available to you here at Excelsior. We will get through this together. I have identified some resources that may help you get to the finish line.&quot;,
+         IF({!Assignments_Select} = &quot;Needs Intervention&quot;, 
+            &quot;not yet meeting expectations. I know that you can grow through continued hard work. There are many supports available to you here at Excelsior. We will get through this together. I have identified some resources that may help you get to the finish line. Your advisor will be reaching out soon to help ensure your success in this class.&quot;,
+            &quot;&quot;
+
+
+	    )
+         )
+     )
+)</expression>
+    </formulas>
+    <formulas>
+        <description>Determines what goes in the email template for Attendance value.</description>
+        <name>Attendance_Participation_Select_EmailTemplate</name>
+        <dataType>String</dataType>
+        <expression>IF({!Attendance_Participation_Select} = &quot;Excellent&quot;, 
+   &quot;excellent. Your work and participation demonstrate a strong commitment to your academic journey at Excelsior. Keep up the good work!&quot;, 
+   IF({!Attendance_Participation_Select} = &quot;Good&quot;, 
+      &quot;on the right track. You are doing good work. I look forward to seeing you grow and achieve your goals in this class. Remember, we are in this together and there are many resources at your disposal if you want to take advantage of them.&quot;,
+      IF({!Attendance_Participation_Select} = &quot;Needs Improvement&quot;, 
+         &quot;not yet meeting expectations. I know that you can grow through continued hard work. There are many supports available to you here at Excelsior. We will get through this together. I have identified some resources that may help you get to the finish line.&quot;,
+         IF({!Attendance_Participation_Select} = &quot;Needs Intervention&quot;, 
+            &quot;not yet meeting expectations. I know that you can grow through continued hard work. There are many supports available to you here at Excelsior. We will get through this together. I have identified some resources that may help you get to the finish line. Your advisor will be reaching out soon to help ensure your success in this class.&quot;,
+            &quot;&quot;
+
+
+	    )
+         )
+     )
+)</expression>
+    </formulas>
+    <formulas>
+        <description>Students rating as noted in the email to student</description>
+        <name>Discussion_Select_EmailTemplate</name>
+        <dataType>String</dataType>
+        <expression>IF({!Discussion_Select} = &quot;Excellent&quot;, 
+   &quot;excellent. Your work and participation demonstrate a strong commitment to your academic journey at Excelsior. Keep up the good work!&quot;, 
+   IF({!Discussion_Select} = &quot;Good&quot;, 
+      &quot;on the right track. You are doing good work. I look forward to seeing you grow and achieve your goals in this class. Remember, we are in this together and there are many resources at your disposal if you want to take advantage of them.&quot;,
+      IF({!Discussion_Select} = &quot;Needs Improvement&quot;, 
+         &quot;not yet meeting expectations. I know that you can grow through continued hard work. There are many supports available to you here at Excelsior. We will get through this together. I have identified some resources that may help you get to the finish line.&quot;,
+         IF({!Discussion_Select} = &quot;Needs Intervention&quot;, 
+            &quot;not yet meeting expectations. I know that you can grow through continued hard work. There are many supports available to you here at Excelsior. We will get through this together. I have identified some resources that may help you get to the finish line. Your advisor will be reaching out soon to help ensure your success in this class.&quot;,
+            &quot;&quot;
+
+
+	    )
+         )
+     )
+)</expression>
+    </formulas>
+    <formulas>
+        <description>Determines what resources will be in the students email based on choices selected by evaluator.</description>
+        <name>ResourcesSelected_EmailTemplate</name>
+        <dataType>String</dataType>
+        <expression>IF(
+    AND(
+        {!Accessibility_Services_Resource} = false,
+        {!Bookstore_Resource} = false,
+        {!CareerDevelopment_Resource} = false,
+        {!Brainfusetutoring_Resource} = false,
+        {!ComPsych_Resource} = false,
+        {!Library_Resource} = false,
+        {!OWL_Resource} = false
+    ),
+    &quot;No recommendations at this time&quot;,
+    IF({!Accessibility_Services_Resource}, &quot;Accessibility Services - For students who demonstrate a need for reasonable accommodations per ADA regulations. Contact ACS@excelsior.edu or 844-427-4356&quot; &amp; &quot;&lt;br&gt;&quot;, &quot;&quot;) &amp;
+    IF({!Bookstore_Resource}, &quot;Bookstore - Contact information for the bookstore through https://www.excelsior.edu/support-resources/bookstore-and-more/&quot; &amp; &quot;&lt;br&gt;&quot;, &quot;&quot;) &amp;
+    IF({!CareerDevelopment_Resource}, &quot;Career Development - Offers Career Exploration and planning services. Contact at careerinfo@excelsior.edu or 888-533-9267&quot; &amp; &quot;&lt;br&gt;&quot;, &quot;&quot;) &amp;
+    IF({!Brainfusetutoring_Resource}, &quot;Brainfuse (tutoring) - Work with a tutor online in real-time or submit questions and/or essays and coursework. You can also pre-schedule an online appointment. Choose from a wide variety of subjects. *available within Excelsior University courses&quot; &amp; &quot;&lt;br&gt;&quot;, &quot;&quot;) &amp;
+    IF({!ComPsych_Resource}, &quot;ComPsych - Find 24/7 support and assistance from licensed clinicians and other professionals for issues that arise. This program offers confidential support and self-service resources at no additional cost. A link to these resources can be accessed within your MyExcelsior student portal&quot; &amp; &quot;&lt;br&gt;&quot;, &quot;&quot;) &amp;
+    IF({!Library_Resource}, &quot;Library - Access online resources, including research databases, and contact librarians for customized help. https://library.excelsior.edu/home&quot; &amp; &quot;&lt;br&gt;&quot;, &quot;&quot;) &amp;
+    IF({!OWL_Resource}, &quot;OWL - The Excelsior Online Writing Lab (OWL) is a free public writing resource offering comprehensive support for college-level writing and reading, including grammar guidance through the use of rich, multimedia technology. https://owl.excelsior.edu/&quot; &amp; &quot;&lt;br&gt;&quot;, &quot;&quot;)
+)</expression>
+    </formulas>
+    <interviewLabel>Mid Point Evaluation Screen Flow {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Mid Point Evaluation Screen Flow</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <recordCreates>
+        <name>Create_Evaluation_Flag</name>
+        <label>Create Evaluation Flag</label>
+        <locationX>182</locationX>
+        <locationY>2198</locationY>
+        <connector>
+            <targetReference>Get_Advisor_Email</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>CreateEvaluationError</targetReference>
+        </faultConnector>
+        <inputAssignments>
+            <field>Course_Offering__c</field>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Evaluation_Type__c</field>
+            <value>
+                <stringValue>Flag</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Faculty_Member__c</field>
+            <value>
+                <elementReference>StudentSelectionDataTable.firstSelectedRow.Faculty_Member__r.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Flag_Comments__c</field>
+            <value>
+                <elementReference>Flag_Comments</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>StudentSelectionDataTable.firstSelectedRow.Faculty_Member__r.Best_Academic_Advisor__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>RecordTypeId</field>
+            <value>
+                <elementReference>Get_Student_Type_Eval_RT.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status__c</field>
+            <value>
+                <stringValue>Draft</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Evaluation__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordLookups>
+        <description>Get the email of the owner and the student of the new flag to be used to send an email notification.</description>
+        <name>Get_Advisor_Email</name>
+        <label>Get Advisor Email</label>
+        <locationX>182</locationX>
+        <locationY>2306</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Notify_the_Advisor_of_New_Flag</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Create_Evaluation_Flag</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Evaluation__c</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>OwnerId</queriedFields>
+        <queriedFields>Faculty_Member__c</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Course_Offering</name>
+        <label>Get Course Offering</label>
+        <locationX>468</locationX>
+        <locationY>242</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>If_the_person_running_the_flow_is_Primary_Faculty</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>hed__Course_Offering__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Open_Evaluations</name>
+        <label>Get Open Evaluations</label>
+        <locationX>468</locationX>
+        <locationY>650</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Select_Student_Screen</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Course_Offering__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Draft</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Evaluation_Type__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Mid Point Feedback</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>Evaluation__c</object>
+        <sortField>Name__c</sortField>
+        <sortOrder>Asc</sortOrder>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Single_Open_Evaluations</name>
+        <label>Get Single Open Evaluations</label>
+        <locationX>468</locationX>
+        <locationY>2714</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Records_Found</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Course_Offering__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Draft</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Evaluation_Type__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Mid Point Feedback</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Evaluation__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Student_Type_Eval_RT</name>
+        <label>Get Student Type Eval RT</label>
+        <locationX>182</locationX>
+        <locationY>2090</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Create_Evaluation_Flag</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>DeveloperName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Student_Evaluation</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>SobjectType</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Evaluation__c</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>RecordType</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_Course_Offering_to_Closed</name>
+        <label>Update Course Offering to Closed</label>
+        <locationX>600</locationX>
+        <locationY>2930</locationY>
+        <connector>
+            <targetReference>End_Screen</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Mid_Point_Feedback_Status__c</field>
+            <value>
+                <stringValue>Close</stringValue>
+            </value>
+        </inputAssignments>
+        <object>hed__Course_Offering__c</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Evaluation_Record</name>
+        <label>Update Evaluation Record</label>
+        <locationX>468</locationX>
+        <locationY>974</locationY>
+        <connector>
+            <targetReference>Does_this_need_a_Flag</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>StudentSelectionDataTable.firstSelectedRow.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>MidPoint_Assignments_Addtl_Comment__c</field>
+            <value>
+                <elementReference>Additional_Comments_Assignments_Select</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>MidPoint_Assignments__c</field>
+            <value>
+                <elementReference>Assignments_Select</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>MidPoint_Atten_Participat_Addtl_Comment__c</field>
+            <value>
+                <elementReference>Additional_Comments_Attendance_Participation</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>MidPoint_Attendance_Participation__c</field>
+            <value>
+                <elementReference>Attendance_Participation_Select</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>MidPoint_CurrentAvg__c</field>
+            <value>
+                <elementReference>Current_Average</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>MidPoint_Discussion_Addtl_Comment__c</field>
+            <value>
+                <elementReference>Additional_Comments_Discussion_Select</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>MidPoint_Discussion__c</field>
+            <value>
+                <elementReference>Discussion_Select</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status__c</field>
+            <value>
+                <stringValue>Completed</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Evaluation__c</object>
+    </recordUpdates>
+    <runInMode>SystemModeWithoutSharing</runInMode>
+    <screens>
+        <name>CreateEvaluationError</name>
+        <label>CreateEvaluationError</label>
+        <locationX>490</locationX>
+        <locationY>2306</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>Copy_4_of_FaultMessage</name>
+            <fieldText>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); font-size: 14px; font-family: Roboto, arial, sans-serif; color: rgb(0, 0, 0);&quot;&gt;Hmm, we have encountered an error in trying to create this flag. Please share the below message with the Salesforce Administrator to aid in troubleshooting. &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;If the error message contains &quot;&lt;/span&gt;&lt;span style=&quot;color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);&quot;&gt;NUMBER_OUTSIDE_VALID_RANGE&quot;, please check the Current Average field and confirm an invalid number (greater than 100) has been entered.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); font-size: 14px; font-family: Roboto, arial, sans-serif; color: rgb(77, 81, 86);&quot;&gt;{!$Flow.FaultMessage} &lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>End_Screen</name>
+        <label>End Screen</label>
+        <locationX>600</locationX>
+        <locationY>3038</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>Thankyou</name>
+            <fieldText>&lt;p&gt;You have Completed all Mid Point Evaluations for this offering. &lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>false</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Error_Screen</name>
+        <label>Error Screen</label>
+        <locationX>556</locationX>
+        <locationY>458</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Get_Open_Evaluations</targetReference>
+        </connector>
+        <fields>
+            <name>Error</name>
+            <fieldText>&lt;p&gt;Sorry, You can&apos;t complete the mid-point feedback as you are not listed as the primary faculty&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>false</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Select_Student_Screen</name>
+        <label>Select Student Screen</label>
+        <locationX>468</locationX>
+        <locationY>758</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Send_Student_Email</targetReference>
+        </connector>
+        <fields>
+            <name>StudentSelectionDataTable</name>
+            <dataTypeMappings>
+                <typeName>T</typeName>
+                <typeValue>Evaluation__c</typeValue>
+            </dataTypeMappings>
+            <extensionName>flowruntime:datatable</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>label</name>
+                <value>
+                    <stringValue>Data Table</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>selectionMode</name>
+                <value>
+                    <stringValue>SINGLE_SELECT</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>minRowSelection</name>
+                <value>
+                    <numberValue>1.0</numberValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>tableData</name>
+                <value>
+                    <elementReference>Get_Open_Evaluations</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>maxRowSelection</name>
+                <value>
+                    <numberValue>1.0</numberValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>columns</name>
+                <value>
+                    <stringValue>[{&quot;apiName&quot;:&quot;Name__c&quot;,&quot;guid&quot;:&quot;column-451f&quot;,&quot;editable&quot;:false,&quot;hasCustomHeaderLabel&quot;:true,&quot;customHeaderLabel&quot;:&quot;Student Name&quot;,&quot;wrapText&quot;:false,&quot;order&quot;:0,&quot;label&quot;:&quot;Name&quot;,&quot;type&quot;:&quot;customRichText&quot;}]</stringValue>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>ResetValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <fields>
+            <name>Current_Average</name>
+            <dataType>Number</dataType>
+            <fieldText>Current Average</fieldText>
+            <fieldType>InputField</fieldType>
+            <helpText>&lt;p&gt;Please input the student&apos;s current estimated grade&lt;/p&gt;</helpText>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>false</isRequired>
+            <scale>0</scale>
+        </fields>
+        <fields>
+            <name>FlagNotice</name>
+            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-size: 14px; color: rgb(225, 5, 5);&quot;&gt;&lt;u&gt;Your Current Selection will create a flag for the advisor for this student&lt;/u&gt;&lt;/strong&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <visibilityRule>
+                <conditionLogic>or</conditionLogic>
+                <conditions>
+                    <leftValueReference>Assignments_Select</leftValueReference>
+                    <operator>EqualTo</operator>
+                    <rightValue>
+                        <elementReference>NeedsIntervention</elementReference>
+                    </rightValue>
+                </conditions>
+                <conditions>
+                    <leftValueReference>Attendance_Participation_Select</leftValueReference>
+                    <operator>EqualTo</operator>
+                    <rightValue>
+                        <elementReference>NeedsIntervention</elementReference>
+                    </rightValue>
+                </conditions>
+                <conditions>
+                    <leftValueReference>Discussion_Select</leftValueReference>
+                    <operator>EqualTo</operator>
+                    <rightValue>
+                        <elementReference>NeedsIntervention</elementReference>
+                    </rightValue>
+                </conditions>
+            </visibilityRule>
+        </fields>
+        <fields>
+            <name>Attendance_Participation_Select</name>
+            <choiceReferences>Excellent</choiceReferences>
+            <choiceReferences>Good</choiceReferences>
+            <choiceReferences>NeedsImprovement</choiceReferences>
+            <choiceReferences>NeedsIntervention</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Attendance/Participation</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Recommendation</name>
+            <fieldText>&lt;p&gt;Provide a recommendation for how the student can improve&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <visibilityRule>
+                <conditionLogic>and</conditionLogic>
+                <conditions>
+                    <leftValueReference>Attendance_Participation_Select</leftValueReference>
+                    <operator>EqualTo</operator>
+                    <rightValue>
+                        <elementReference>NeedsImprovement</elementReference>
+                    </rightValue>
+                </conditions>
+            </visibilityRule>
+        </fields>
+        <fields>
+            <name>Additional_Comments_Attendance_Participation</name>
+            <fieldText>Additional Comments</fieldText>
+            <fieldType>LargeTextArea</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>false</isRequired>
+            <validationRule>
+                <errorMessage>&lt;p&gt;Enter Less than 250 Characters&lt;/p&gt;</errorMessage>
+                <formulaExpression>LEN({!Additional_Comments_Attendance_Participation})&lt;250</formulaExpression>
+            </validationRule>
+        </fields>
+        <fields>
+            <name>Assignments_Select</name>
+            <choiceReferences>Excellent</choiceReferences>
+            <choiceReferences>Good</choiceReferences>
+            <choiceReferences>NeedsImprovement</choiceReferences>
+            <choiceReferences>NeedsIntervention</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Assignments</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Recommendation1</name>
+            <fieldText>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;Provide a recommendation for how the student can improve&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <visibilityRule>
+                <conditionLogic>and</conditionLogic>
+                <conditions>
+                    <leftValueReference>Assignments_Select</leftValueReference>
+                    <operator>EqualTo</operator>
+                    <rightValue>
+                        <elementReference>NeedsImprovement</elementReference>
+                    </rightValue>
+                </conditions>
+            </visibilityRule>
+        </fields>
+        <fields>
+            <name>Additional_Comments_Assignments_Select</name>
+            <fieldText>Additional Comments</fieldText>
+            <fieldType>LargeTextArea</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>false</isRequired>
+            <validationRule>
+                <errorMessage>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;Enter Less than 250 Characters&lt;/span&gt;&lt;/p&gt;</errorMessage>
+                <formulaExpression>LEN({!Additional_Comments_Assignments_Select})&lt;250</formulaExpression>
+            </validationRule>
+        </fields>
+        <fields>
+            <name>Discussion_Select</name>
+            <choiceReferences>Excellent</choiceReferences>
+            <choiceReferences>Good</choiceReferences>
+            <choiceReferences>NeedsImprovement</choiceReferences>
+            <choiceReferences>NeedsIntervention</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Discussion</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Recommendation2</name>
+            <fieldText>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;Provide a recommendation for how the student can improve&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <visibilityRule>
+                <conditionLogic>and</conditionLogic>
+                <conditions>
+                    <leftValueReference>Discussion_Select</leftValueReference>
+                    <operator>EqualTo</operator>
+                    <rightValue>
+                        <elementReference>NeedsImprovement</elementReference>
+                    </rightValue>
+                </conditions>
+            </visibilityRule>
+        </fields>
+        <fields>
+            <name>Additional_Comments_Discussion_Select</name>
+            <fieldText>Additional Comments</fieldText>
+            <fieldType>LargeTextArea</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>false</isRequired>
+            <validationRule>
+                <errorMessage>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;Enter Less than 250 Characters&lt;/span&gt;&lt;/p&gt;</errorMessage>
+                <formulaExpression>LEN({!Additional_Comments_Discussion_Select})&lt;250</formulaExpression>
+            </validationRule>
+        </fields>
+        <fields>
+            <name>DT09</name>
+            <fieldText>&lt;p&gt;&lt;strong style=&quot;font-size: 14px; background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;Resources&lt;/strong&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Select_Student_Screen_Section1</name>
+            <fieldType>RegionContainer</fieldType>
+            <fields>
+                <name>Select_Student_Screen_Section1_Column1</name>
+                <fieldType>Region</fieldType>
+                <fields>
+                    <name>Accessibility_Services_Resource</name>
+                    <dataType>Boolean</dataType>
+                    <fieldText>Accessibility Services</fieldText>
+                    <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+                    <isRequired>true</isRequired>
+                </fields>
+                <fields>
+                    <name>Brainfusetutoring_Resource</name>
+                    <dataType>Boolean</dataType>
+                    <fieldText>Brainfuse (tutoring)</fieldText>
+                    <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+                    <isRequired>true</isRequired>
+                </fields>
+                <fields>
+                    <name>OWL_Resource</name>
+                    <dataType>Boolean</dataType>
+                    <fieldText>OWL</fieldText>
+                    <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+                    <isRequired>true</isRequired>
+                </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>4</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <fields>
+                <name>Select_Student_Screen_Section1_Column2</name>
+                <fieldType>Region</fieldType>
+                <fields>
+                    <name>Bookstore_Resource</name>
+                    <dataType>Boolean</dataType>
+                    <fieldText>Bookstore</fieldText>
+                    <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+                    <isRequired>true</isRequired>
+                </fields>
+                <fields>
+                    <name>ComPsych_Resource</name>
+                    <dataType>Boolean</dataType>
+                    <fieldText>ComPsych</fieldText>
+                    <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+                    <isRequired>true</isRequired>
+                </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>4</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <fields>
+                <name>Select_Student_Screen_Section1_Column3</name>
+                <fieldType>Region</fieldType>
+                <fields>
+                    <name>CareerDevelopment_Resource</name>
+                    <dataType>Boolean</dataType>
+                    <fieldText>Career Development</fieldText>
+                    <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+                    <isRequired>true</isRequired>
+                </fields>
+                <fields>
+                    <name>Library_Resource</name>
+                    <dataType>Boolean</dataType>
+                    <fieldText>Library</fieldText>
+                    <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+                    <isRequired>true</isRequired>
+                </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>4</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <isRequired>false</isRequired>
+            <regionContainerType>SectionWithoutHeader</regionContainerType>
+        </fields>
+        <fields>
+            <name>Message_to_Advisor</name>
+            <fieldText>Message to Advisor</fieldText>
+            <fieldType>LargeTextArea</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <visibilityRule>
+                <conditionLogic>or</conditionLogic>
+                <conditions>
+                    <leftValueReference>Assignments_Select</leftValueReference>
+                    <operator>EqualTo</operator>
+                    <rightValue>
+                        <elementReference>NeedsIntervention</elementReference>
+                    </rightValue>
+                </conditions>
+                <conditions>
+                    <leftValueReference>Attendance_Participation_Select</leftValueReference>
+                    <operator>EqualTo</operator>
+                    <rightValue>
+                        <elementReference>NeedsIntervention</elementReference>
+                    </rightValue>
+                </conditions>
+                <conditions>
+                    <leftValueReference>Discussion_Select</leftValueReference>
+                    <operator>EqualTo</operator>
+                    <rightValue>
+                        <elementReference>NeedsIntervention</elementReference>
+                    </rightValue>
+                </conditions>
+            </visibilityRule>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Welcome_Screen</name>
+        <label>Welcome Screen</label>
+        <locationX>468</locationX>
+        <locationY>134</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Get_Course_Offering</targetReference>
+        </connector>
+        <fields>
+            <name>DT01</name>
+            <fieldText>&lt;p&gt;Click Next to Start your Mid-Point Feedback for this course offering.&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <start>
+        <locationX>342</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Welcome_Screen</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <textTemplates>
+        <description>Notify Advisor of Flag</description>
+        <name>EmailBody4Advisor</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>An intervention flag has been raised for student {!Get_Advisor_Email.Faculty_Member__r.FirstName} {!Get_Advisor_Email.Faculty_Member__r.LastName} for course offering {!Get_Course_Offering.Name}. Please view your open flags list view to access the flag.</text>
+    </textTemplates>
+    <textTemplates>
+        <description>Send a confirmation email to the faculty that the flag was opened.</description>
+        <name>emailBody4Faculty</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>This email is confirmation that you have created an intervention flag for student {!Get_Advisor_Email.Faculty_Member__r.FirstName} {!Get_Advisor_Email.Faculty_Member__r.LastName} for course offering {!Get_Course_Offering.Name}. 
+
+
+Thank You,
+Excelsior University</text>
+    </textTemplates>
+    <textTemplates>
+        <name>Flag_Comments</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>Needs Intervention Selected for: {!NeedsIntervention_Collection}
+{!Message_to_Advisor}</text>
+    </textTemplates>
+    <textTemplates>
+        <description>Body of the email that goes to the student.</description>
+        <name>StudentEmailTemplate</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>&lt;p&gt;Dear {!StudentSelectionDataTable.firstSelectedRow.Name__c},&lt;/p&gt;&lt;p&gt;As we navigate the midpoint of our journey in {!Get_Course_Offering.hed__Course__r.Name}, I want to share some insights on your performance thus far.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Current Estimated Grade&lt;/strong&gt;: {!Current_Average}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Attendance and Participation:&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;For attendance and participation, your performance has been {!Attendance_Participation_Select_EmailTemplate}&lt;/p&gt;&lt;p&gt;{!Additional_Comments_Attendance_Participation_EmailTemplate}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Assignments:&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;For assignments, your performance has been {!Assignments_Select_EmailTemplate}&lt;/p&gt;&lt;p&gt;{!Additional_Comments_Assignments_Select_EmailTemplate}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Discussions:&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;For discussions, your performance has been {!Discussion_Select_EmailTemplate}&lt;/p&gt;&lt;p&gt;{!Additional_Comments_Discussion_Select_EmailTemplate}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Resources:&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;Resources that may help you improve your course performance:&lt;/p&gt;&lt;p&gt;{!ResourcesSelected_EmailTemplate}&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;I’m committed to assisting you in optimizing your performance and achieving your academic goals.  Please contact me via Canvas Inbox if you have any questions or would like to discuss this mid-course feedback.&lt;/p&gt;&lt;p&gt;Thank you for your ongoing dedication to your studies.&lt;/p&gt;&lt;p&gt;Warm regards,&lt;/p&gt;&lt;p&gt;{!Get_Course_Offering.Qualified_Faculty__r.Faculty_Name__c}&lt;/p&gt;</text>
+    </textTemplates>
+    <variables>
+        <name>NeedsIntervention_Collection</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>recordId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

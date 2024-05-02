@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Send_Lib_Arts_Invitation</name>
+        <label>Send Lib Arts Invitation</label>
+        <locationX>314</locationX>
+        <locationY>695</locationY>
+        <actionName>hed__Course_Offering__c.Invitation_to_Teach_College_of_Liberal_Arts_and_Sciences</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>hed__Course_Offering__c.Invitation_to_Teach_College_of_Liberal_Arts_and_Sciences</nameSegment>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <actionCalls>
+        <name>Send_Nursing_Invitation</name>
+        <label>Send Nursing Invitation</label>
+        <locationX>50</locationX>
+        <locationY>695</locationY>
+        <actionName>hed__Course_Offering__c.Invitation_to_Teach_College_of_Nursing_and_Health_Sciences</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>hed__Course_Offering__c.Invitation_to_Teach_College_of_Nursing_and_Health_Sciences</nameSegment>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <apiVersion>57.0</apiVersion>
+    <decisions>
+        <description>Determine which school/college the course (offering) belongs to, to send out correct email</description>
+        <name>Which_School</name>
+        <label>Which School</label>
+        <locationX>314</locationX>
+        <locationY>575</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Nursing</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.hed__Course__r.hed__Account__r.ParentId</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Get_Nursing_Account.Id</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_Nursing_Invitation</targetReference>
+            </connector>
+            <label>Nursing</label>
+        </rules>
+        <rules>
+            <name>Liberal_Arts</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.hed__Course__r.hed__Account__r.ParentId</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Get_Lib_Arts_Account.Id</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_Lib_Arts_Invitation</targetReference>
+            </connector>
+            <label>Liberal Arts</label>
+        </rules>
+    </decisions>
+    <description>Sends an invitation email to faculty when the invitation status is set to Send Invitation</description>
+    <environments>Default</environments>
+    <interviewLabel>RT-CU-AS-Send Invitation To Teach {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>RT-CU-AS-Send Invitation To Teach</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <description>Get the accountid of lib arts to use later</description>
+        <name>Get_Lib_Arts_Account</name>
+        <label>Get Lib Arts Account</label>
+        <locationX>314</locationX>
+        <locationY>335</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Nursing_Account</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Name</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>College of Liberal Arts and Sciences</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Account</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <description>Get the accountid of lib arts to use later</description>
+        <name>Get_Nursing_Account</name>
+        <label>Get Nursing Account</label>
+        <locationX>314</locationX>
+        <locationY>455</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Which_School</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Name</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>College of Nursing and Health Sciences</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Account</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>188</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Lib_Arts_Account</targetReference>
+        </connector>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Invitation_Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Send Invitation</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>hed__Faculty__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <object>hed__Course_Offering__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <variables>
+        <description>Determines what email alert to send</description>
+        <name>varEmailAlert</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+</Flow>

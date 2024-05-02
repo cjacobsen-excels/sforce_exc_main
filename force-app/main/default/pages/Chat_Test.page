@@ -1,0 +1,19 @@
+<apex:page >
+<h1> Test Chat Page </h1>
+<br /> <br />
+
+<a id="liveagent_button_online_573U0000000GpKe" href="javascript://Chat" style="display: none;" 
+onclick="liveagent.startChat('573U0000000GpKe')">
+Chat Now!</a>
+<div id="liveagent_button_offline_573U0000000GpKe" style="display: none;">Please try again later.</div>
+<script type="text/javascript">
+if (!window._laq) { window._laq = []; }
+window._laq.push(function(){liveagent.showWhenOnline('573U0000000GpKe', document.getElementById('liveagent_button_online_573U0000000GpKe'));
+liveagent.showWhenOffline('573U0000000GpKe', document.getElementById('liveagent_button_offline_573U0000000GpKe'));
+});</script>
+
+<script type='text/javascript' src='https://c.la1w1.salesforceliveagent.com/content/g/js/29.0/deployment.js'></script>
+<script type='text/javascript'>
+liveagent.init('https://d.la1w1.salesforceliveagent.com/chat', '572U0000000Goru', '00D7X000001BJvM');
+</script>
+</apex:page>

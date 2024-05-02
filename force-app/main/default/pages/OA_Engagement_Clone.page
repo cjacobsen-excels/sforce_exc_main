@@ -1,0 +1,5 @@
+<apex:page standardController="OA_Engagements__c">
+    <flow:interview name="Clone_OA_Engagements" finishLocation="{!URLFOR('/a0w/o?hotlist_mode=2')}">
+        <apex:param name="vOldEngagementID" value="{!OA_Engagements__c.Id}"/>
+    </flow:interview>
+</apex:page>

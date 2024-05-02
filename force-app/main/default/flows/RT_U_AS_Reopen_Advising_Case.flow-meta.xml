@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>59.0</apiVersion>
+    <environments>Default</environments>
+    <interviewLabel>RT-U-AS Reopen Advising Case {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>RT-U-AS Reopen Advising Case</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Re_Open_Case</name>
+        <label>Re-Open Case</label>
+        <locationX>176</locationX>
+        <locationY>323</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Advising_Case_Number__c</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Resolution_Code__c</field>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Open</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordUpdates>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Re_Open_Case</targetReference>
+        </connector>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterFormula>AND(
+    OR(
+        {!$Record.Service_Program_Code__c} = &apos;UG&apos;,
+        {!$Record.Service_Program_Code__c} = &apos;GL&apos;,
+        {!$Record.Service_Program_Code__c} = &apos;CT&apos;
+    ),
+    OR(
+        TEXT({!$Record.Student_Status__c}) = &apos;Enrolled-Active&apos;,
+        TEXT({!$Record.Student_Status__c}) = &apos;Open&apos;
+    ),
+    NOT(ISBLANK({!$Record.Advising_Case_Number__c})),
+    TEXT({!$Record.Advising_Case_Number__r.Status}) = &apos;Closed&apos;,
+    NOT(ISBLANK({!$Record.Academic_Advisor__c}))
+)</filterFormula>
+        <object>Degree_Program__c</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Draft</status>
+</Flow>

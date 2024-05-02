@@ -1,0 +1,771 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>59.0</apiVersion>
+    <assignments>
+        <description>If the Media Type value isn&apos;t already in the record collection, add it. Then set the previous entry value to the value just added to use it to compare to the next item in the loop.</description>
+        <name>Assign_to_variable</name>
+        <label>Assign to variable</label>
+        <locationX>1634</locationX>
+        <locationY>674</locationY>
+        <assignmentItems>
+            <assignToReference>varMediaTypeCollection</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>Loop_through_all_Media_Channel_Records.Media_Type__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>varPreviousEntry</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Loop_through_all_Media_Channel_Records.Media_Type__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Loop_through_all_Media_Channel_Records</targetReference>
+        </connector>
+    </assignments>
+    <choices>
+        <description>Option to create an affiliate</description>
+        <name>choiceAffiliate</name>
+        <choiceText>Affiliate</choiceText>
+        <dataType>String</dataType>
+    </choices>
+    <choices>
+        <description>Choose to create Differentiator</description>
+        <name>ChoiceDifferentiator</name>
+        <choiceText>Differentiator</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Differentiator</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <description>Use this option to create a new media channel record</description>
+        <name>ChoiceMediaChannel</name>
+        <choiceText>Media Channel</choiceText>
+        <dataType>String</dataType>
+    </choices>
+    <decisions>
+        <description>Decision to add the current Media Type value to the collection variable or not. If this value is the same as the previous record, then do not add it.  Goal is to get a unique list of Media Type values to display for end user later.</description>
+        <name>Check_if_current_Media_Type_value_is_a_new_one</name>
+        <label>Check if current Media Type value is a new one</label>
+        <locationX>1546</locationX>
+        <locationY>566</locationY>
+        <defaultConnector>
+            <targetReference>Assign_to_variable</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Same_as_previous</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>varPreviousEntry</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Loop_through_all_Media_Channel_Records.Media_Type__c</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Loop_through_all_Media_Channel_Records</targetReference>
+            </connector>
+            <label>Same as previous</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Determine which input screen to display</description>
+        <name>Differentiator_Media_Channel_or_Affiliate</name>
+        <label>Differentiator Media Channel or Affiliate</label>
+        <locationX>776</locationX>
+        <locationY>242</locationY>
+        <defaultConnector>
+            <targetReference>Get_all_Media_Channel_Records</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Media Channel</defaultConnectorLabel>
+        <rules>
+            <name>PickedDifferentiator</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>ChoiceDifferentiator</leftValueReference>
+                <operator>WasSelected</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Input_New_Differentiator</targetReference>
+            </connector>
+            <label>Differentiator</label>
+        </rules>
+        <rules>
+            <name>Affiliate</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>choiceAffiliate</leftValueReference>
+                <operator>WasSelected</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Input_new_Affiliate</targetReference>
+            </connector>
+            <label>Affiliate</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Determine if a record already exists with that name</description>
+        <name>Existing_Affiliate</name>
+        <label>Existing Affiliate?</label>
+        <locationX>710</locationX>
+        <locationY>566</locationY>
+        <defaultConnector>
+            <targetReference>Create_New_Affiliate</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Affiliate_Record_found</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_existing_Affiliate_Records</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <isGoTo>true</isGoTo>
+                <targetReference>FaultMsg</targetReference>
+            </connector>
+            <label>Affiliate Record found</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Determine if a record already exists with that name</description>
+        <name>Existing_Differentiator</name>
+        <label>Existing Differentiator?</label>
+        <locationX>182</locationX>
+        <locationY>566</locationY>
+        <defaultConnector>
+            <targetReference>Create_New_Differentiator</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Record_found</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_existing_Differentiator_Records</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>FaultMsg</targetReference>
+            </connector>
+            <label>Record found</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Determine if a record already exists with that name</description>
+        <name>Existing_Media_Channel</name>
+        <label>Existing Media Channel?</label>
+        <locationX>1370</locationX>
+        <locationY>1166</locationY>
+        <defaultConnector>
+            <targetReference>Create_New_Media_Channel</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Media_Channel_Found</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_existing_Media_Channel_Records</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <isGoTo>true</isGoTo>
+                <targetReference>FaultMsg</targetReference>
+            </connector>
+            <label>Media Channel Found</label>
+        </rules>
+    </decisions>
+    <description>Screenflow to allow end users in Marketing to create custom settings, in order to avoid create a Salesforce support ticket.</description>
+    <environments>Default</environments>
+    <formulas>
+        <description>Formula to determine the group for affiliate code.</description>
+        <name>forAffililateGroup</name>
+        <dataType>Number</dataType>
+        <expression>CASE(UPPER(LEFT({!Affiliate_Code},1)), 
+&quot;B&quot;,2,
+&quot;C&quot;,3,
+&quot;D&quot;,4,
+&quot;E&quot;,5,
+&quot;F&quot;,6,
+&quot;G&quot;,7,
+&quot;H&quot;,8,
+&quot;I&quot;,9,
+&quot;J&quot;,10,
+&quot;K&quot;,11,
+&quot;L&quot;,12,
+&quot;M&quot;,13,
+&quot;N&quot;,14,
+&quot;O&quot;,15,
+&quot;P&quot;,16,
+&quot;Q&quot;,17,
+&quot;R&quot;,18,
+&quot;S&quot;,19,
+&quot;T&quot;,20,
+&quot;U&quot;,21,
+&quot;V&quot;,22,
+&quot;W&quot;,23,
+&quot;X&quot;,24,
+&quot;Y&quot;,25,
+&quot;Z&quot;,26,
+1)</expression>
+        <scale>0</scale>
+    </formulas>
+    <formulas>
+        <description>Determines the group id based on the first letter of the code (A=1 etc...)</description>
+        <name>forDifferentiatorGroup</name>
+        <dataType>Number</dataType>
+        <expression>CASE(UPPER(LEFT({!Differentiator_Code},1)), 
+&quot;B&quot;,2,
+&quot;C&quot;,3,
+&quot;D&quot;,4,
+&quot;E&quot;,5,
+&quot;F&quot;,6,
+&quot;G&quot;,7,
+&quot;H&quot;,8,
+&quot;I&quot;,9,
+&quot;J&quot;,10,
+&quot;K&quot;,11,
+&quot;L&quot;,12,
+&quot;M&quot;,13,
+&quot;N&quot;,14,
+&quot;O&quot;,15,
+&quot;P&quot;,16,
+&quot;Q&quot;,17,
+&quot;R&quot;,18,
+&quot;S&quot;,19,
+&quot;T&quot;,20,
+&quot;U&quot;,21,
+&quot;V&quot;,22,
+&quot;W&quot;,23,
+&quot;X&quot;,24,
+&quot;Y&quot;,25,
+&quot;Z&quot;,26,
+1)</expression>
+        <scale>0</scale>
+    </formulas>
+    <interviewLabel>Create Differentiator Media Channel or Affiliate {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Create Differentiator Media Channel or Affiliate</label>
+    <loops>
+        <description>Loop through all of the media channel records.</description>
+        <name>Loop_through_all_Media_Channel_Records</name>
+        <label>Loop through all Media Channel Records</label>
+        <locationX>1370</locationX>
+        <locationY>458</locationY>
+        <collectionReference>Get_all_Media_Channel_Records</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Check_if_current_Media_Type_value_is_a_new_one</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Input_New_Media_Channel</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <recordCreates>
+        <description>Create a new Affiliate based on the input</description>
+        <name>Create_New_Affiliate</name>
+        <label>Create New Affiliate</label>
+        <locationX>842</locationX>
+        <locationY>674</locationY>
+        <connector>
+            <isGoTo>true</isGoTo>
+            <targetReference>Confirmation</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Affiliate_Code__c</field>
+            <value>
+                <elementReference>Affiliate_Code</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Affiliate__c</field>
+            <value>
+                <elementReference>Affiliate1</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Group__c</field>
+            <value>
+                <elementReference>forAffililateGroup</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Name</field>
+            <value>
+                <elementReference>Affiliate_Code</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Affiliate__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>Create a new Differentiator based on the input</description>
+        <name>Create_New_Differentiator</name>
+        <label>Create New Differentiator</label>
+        <locationX>314</locationX>
+        <locationY>674</locationY>
+        <connector>
+            <targetReference>Confirmation</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Differentiator_Code__c</field>
+            <value>
+                <elementReference>Differentiator_Code</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Differentiator__c</field>
+            <value>
+                <elementReference>Differentiator</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Group__c</field>
+            <value>
+                <elementReference>forDifferentiatorGroup</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Name</field>
+            <value>
+                <elementReference>Differentiator_Code</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Differentiator__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>Create a new Media Channel based on the input</description>
+        <name>Create_New_Media_Channel</name>
+        <label>Create New Media Channel</label>
+        <locationX>1502</locationX>
+        <locationY>1274</locationY>
+        <connector>
+            <isGoTo>true</isGoTo>
+            <targetReference>Confirmation</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Media_Channel_Code__c</field>
+            <value>
+                <elementReference>Media_Channel_Code</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Media_Channel__c</field>
+            <value>
+                <elementReference>Media_Channel</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Media_Type__c</field>
+            <value>
+                <elementReference>Media_Type</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Name</field>
+            <value>
+                <elementReference>Media_Channel_Code</elementReference>
+            </value>
+        </inputAssignments>
+        <object>MediaChannel__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordLookups>
+        <description>Get all the records in order to filter out non unique Media Type values later in a loop.</description>
+        <name>Get_all_Media_Channel_Records</name>
+        <label>Get all Media Channel Records</label>
+        <locationX>1370</locationX>
+        <locationY>350</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Loop_through_all_Media_Channel_Records</targetReference>
+        </connector>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>MediaChannel__c</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Media_Type__c</queriedFields>
+        <sortField>Media_Type__c</sortField>
+        <sortOrder>Asc</sortOrder>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <description>Search for an existing record, duplicates not allowed</description>
+        <name>Get_existing_Affiliate_Records</name>
+        <label>Get existing Affiliate Records</label>
+        <locationX>710</locationX>
+        <locationY>458</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Existing_Affiliate</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Affiliate_Code__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Affiliate_Code</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Affiliate__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <description>Search for an existing record, duplicates not allowed</description>
+        <name>Get_existing_Differentiator_Records</name>
+        <label>Get existing Differentiator Records</label>
+        <locationX>182</locationX>
+        <locationY>458</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Existing_Differentiator</targetReference>
+        </connector>
+        <filterLogic>or</filterLogic>
+        <filters>
+            <field>Differentiator__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Differentiator</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Differentiator_Code__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Differentiator_Code</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Differentiator__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <description>Search for an existing record, duplicates not allowed</description>
+        <name>Get_existing_Media_Channel_Records</name>
+        <label>Get existing Media Channel Records</label>
+        <locationX>1370</locationX>
+        <locationY>1058</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Existing_Media_Channel</targetReference>
+        </connector>
+        <filterLogic>or</filterLogic>
+        <filters>
+            <field>Media_Channel__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Media_Channel</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Media_Channel_Code__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Media_Channel_Code</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>MediaChannel__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <runInMode>SystemModeWithSharing</runInMode>
+    <screens>
+        <name>Choose_record_type_to_create</name>
+        <label>Choose record type to create and click Next</label>
+        <locationX>776</locationX>
+        <locationY>134</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Differentiator_Media_Channel_or_Affiliate</targetReference>
+        </connector>
+        <fields>
+            <name>choiceNewRecord</name>
+            <choiceReferences>ChoiceDifferentiator</choiceReferences>
+            <choiceReferences>ChoiceMediaChannel</choiceReferences>
+            <choiceReferences>choiceAffiliate</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Create a new record of type:</fieldText>
+            <fieldType>RadioButtons</fieldType>
+            <helpText>&lt;p&gt;Choose the new record type you would like to create. &lt;/p&gt;</helpText>
+            <inputsOnNextNavToAssocScrn>ResetValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+        </fields>
+        <nextOrFinishButtonLabel>Next</nextOrFinishButtonLabel>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <description>Display the Confirmation</description>
+        <name>Confirmation</name>
+        <label>Confirmation</label>
+        <locationX>314</locationX>
+        <locationY>782</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>CreatedHeader</name>
+            <fieldText>&lt;p&gt;&lt;strong style=&quot;font-size: 14px;&quot;&gt;Record Created:&lt;/strong&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>ConfirmationDifferentiator</name>
+            <fieldText>&lt;p&gt;&lt;strong&gt;Name: &lt;/strong&gt;{!Differentiator_Code}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Code:&lt;/strong&gt; {!Differentiator_Code}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Differentiator:&lt;/strong&gt; {!Differentiator}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Group: &lt;/strong&gt;{!forDifferentiatorGroup}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <visibilityRule>
+                <conditionLogic>and</conditionLogic>
+                <conditions>
+                    <leftValueReference>ChoiceDifferentiator</leftValueReference>
+                    <operator>WasSelected</operator>
+                    <rightValue>
+                        <booleanValue>true</booleanValue>
+                    </rightValue>
+                </conditions>
+            </visibilityRule>
+        </fields>
+        <fields>
+            <name>ConfirmationAffiliate</name>
+            <fieldText>&lt;p&gt;&lt;strong&gt;Name: &lt;/strong&gt;{!Affiliate_Code}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Code:&lt;/strong&gt; &lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;{!Affiliate_Code}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Affiliate:&lt;/strong&gt; {!Affiliate1}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Group: &lt;/strong&gt;{!forAffililateGroup}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <visibilityRule>
+                <conditionLogic>and</conditionLogic>
+                <conditions>
+                    <leftValueReference>choiceAffiliate</leftValueReference>
+                    <operator>WasSelected</operator>
+                    <rightValue>
+                        <booleanValue>true</booleanValue>
+                    </rightValue>
+                </conditions>
+            </visibilityRule>
+        </fields>
+        <fields>
+            <name>ConfirmationMediaChannel</name>
+            <fieldText>&lt;p&gt;&lt;strong&gt;Name:&lt;/strong&gt; {!Media_Channel_Code}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Code:&lt;/strong&gt; &lt;span style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;{!Media_Channel_Code}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Media Channel:&lt;/strong&gt; {!Media_Channel}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Media Type: &lt;/strong&gt;{!Media_Type}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <visibilityRule>
+                <conditionLogic>and</conditionLogic>
+                <conditions>
+                    <leftValueReference>ChoiceMediaChannel</leftValueReference>
+                    <operator>WasSelected</operator>
+                    <rightValue>
+                        <booleanValue>true</booleanValue>
+                    </rightValue>
+                </conditions>
+            </visibilityRule>
+        </fields>
+        <fields>
+            <name>FinishPrompt</name>
+            <fieldText>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;Click Finish to return to the input screen.&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <description>Displays error message if it exists</description>
+        <name>FaultMsg</name>
+        <label>FaultMessage</label>
+        <locationX>50</locationX>
+        <locationY>674</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>FaultMessage</name>
+            <fieldText>&lt;p&gt;Oops, t&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(3, 45, 96);&quot;&gt;here is already a record with the name &lt;/span&gt;&lt;strong&gt;{!Differentiator}{!Media_Channel}{!Affiliate1} &lt;/strong&gt;or code &lt;strong&gt;{!Differentiator_Code}{!Media_Channel_Code}{!Affiliate_Code}.&lt;/strong&gt; If you believe this to be an error, please reach out to the Salesforce Administrator.&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <description>Screen to Input Information</description>
+        <name>Input_new_Affiliate</name>
+        <label>Input new Affiliate</label>
+        <locationX>710</locationX>
+        <locationY>350</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <backButtonLabel>Go Back</backButtonLabel>
+        <connector>
+            <targetReference>Get_existing_Affiliate_Records</targetReference>
+        </connector>
+        <fields>
+            <name>Affiliate_Code</name>
+            <dataType>String</dataType>
+            <fieldText>Affiliate Code</fieldText>
+            <fieldType>InputField</fieldType>
+            <helpText>&lt;p&gt;Enter the short version of the name here. Required field, max 25 characters.&lt;/p&gt;</helpText>
+            <inputsOnNextNavToAssocScrn>ResetValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Affiliate1</name>
+            <dataType>String</dataType>
+            <fieldText>Affiliate</fieldText>
+            <fieldType>InputField</fieldType>
+            <helpText>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;Enter the long version of the name here. Required field, max 100 characters.&lt;/span&gt;&lt;/p&gt;</helpText>
+            <inputsOnNextNavToAssocScrn>ResetValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+        </fields>
+        <nextOrFinishButtonLabel>Submit</nextOrFinishButtonLabel>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <description>Screen to Input Information</description>
+        <name>Input_New_Differentiator</name>
+        <label>Input New Differentiator</label>
+        <locationX>182</locationX>
+        <locationY>350</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <backButtonLabel>Go Back</backButtonLabel>
+        <connector>
+            <targetReference>Get_existing_Differentiator_Records</targetReference>
+        </connector>
+        <fields>
+            <name>Differentiator_Code</name>
+            <dataType>String</dataType>
+            <fieldText>Differentiator Code</fieldText>
+            <fieldType>InputField</fieldType>
+            <helpText>&lt;p&gt;Enter the short version of the name here. Required field, max 25 characters.&lt;/p&gt;</helpText>
+            <inputsOnNextNavToAssocScrn>ResetValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Differentiator</name>
+            <dataType>String</dataType>
+            <fieldText>Differentiator</fieldText>
+            <fieldType>InputField</fieldType>
+            <helpText>&lt;p&gt;&lt;span style=&quot;color: rgb(68, 68, 68); background-color: rgb(255, 255, 255);&quot;&gt;Enter the long version of the name here. Required field, max 60 characters.&lt;/span&gt;&lt;/p&gt;</helpText>
+            <inputsOnNextNavToAssocScrn>ResetValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+        </fields>
+        <nextOrFinishButtonLabel>Submit</nextOrFinishButtonLabel>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <description>Screen to Input Information</description>
+        <name>Input_New_Media_Channel</name>
+        <label>Input New Media Channel</label>
+        <locationX>1370</locationX>
+        <locationY>950</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <backButtonLabel>Go Back</backButtonLabel>
+        <connector>
+            <targetReference>Get_existing_Media_Channel_Records</targetReference>
+        </connector>
+        <fields>
+            <name>Media_Channel_Code</name>
+            <dataType>String</dataType>
+            <fieldText>Media Channel Code</fieldText>
+            <fieldType>InputField</fieldType>
+            <helpText>&lt;p&gt;Enter the short version of the name here. Required field, max 25 characters.&lt;/p&gt;</helpText>
+            <inputsOnNextNavToAssocScrn>ResetValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Media_Channel</name>
+            <dataType>String</dataType>
+            <fieldText>Media Channel</fieldText>
+            <fieldType>InputField</fieldType>
+            <helpText>&lt;p&gt;&lt;span style=&quot;color: rgb(68, 68, 68); background-color: rgb(255, 255, 255);&quot;&gt;Enter the long version of the name here. Required field, max 40 characters.&lt;/span&gt;&lt;/p&gt;</helpText>
+            <inputsOnNextNavToAssocScrn>ResetValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>DisplayExistingMediaTypes</name>
+            <fieldText>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;Existing Media Types (comma separated): &lt;/span&gt;&lt;strong style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;{!varMediaTypeCollection}&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;Although you may enter a new value in the field below, it is recommended to check for an existing value above and copying it if it exists.&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Media_Type</name>
+            <dataType>String</dataType>
+            <fieldText>Media Type</fieldText>
+            <fieldType>InputField</fieldType>
+            <helpText>&lt;p&gt;Enter type of media (Email, Inbound, Online Advertising etc...). Max 40 characters.&lt;/p&gt;</helpText>
+            <inputsOnNextNavToAssocScrn>ResetValues</inputsOnNextNavToAssocScrn>
+            <isRequired>false</isRequired>
+        </fields>
+        <nextOrFinishButtonLabel>Submit</nextOrFinishButtonLabel>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <start>
+        <locationX>650</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Choose_record_type_to_create</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>currentItemFromSourceCollection</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>MediaChannel__c</objectType>
+    </variables>
+    <variables>
+        <description>Holds the collection of unique Media Types</description>
+        <name>varMediaTypeCollection</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Holds the previous value to determine if the next records is different</description>
+        <name>varPreviousEntry</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

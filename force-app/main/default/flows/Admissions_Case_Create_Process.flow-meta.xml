@@ -1,0 +1,1505 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>49.0</apiVersion>
+    <assignments>
+        <name>myWaitAssignment_myWait_myRule_7</name>
+        <label>myWaitAssignment_myWait_myRule_7</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>cancelWaits</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>myWait_myRule_7</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>myDecision</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>myWaitEvent_myWait_myRule_7_event_0_postWaitExecutionAssignment</name>
+        <label>myWaitEvent_myWait_myRule_7_event_0_postWaitExecutionAssignment</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>myWaitEvent_myWait_myRule_7_event_0_postActionExecutionVariable</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>myWait_myRule_7</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <processMetadataValues>
+            <name>index</name>
+            <value>
+                <numberValue>0.0</numberValue>
+            </value>
+        </processMetadataValues>
+        <name>myDecision</name>
+        <label>myDecision</label>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>myDecision3</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>default</defaultConnectorLabel>
+        <rules>
+            <name>myRule_1</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_myRule_1</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_1_pmetdec</targetReference>
+            </connector>
+            <label>is New Contact?</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <processMetadataValues>
+            <name>index</name>
+            <value>
+                <numberValue>1.0</numberValue>
+            </value>
+        </processMetadataValues>
+        <name>myDecision3</name>
+        <label>myDecision3</label>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>myDecision6</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>default</defaultConnectorLabel>
+        <rules>
+            <name>myRule_4</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_myRule_4</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_4_pmetdec</targetReference>
+            </connector>
+            <label>New Form Fill?</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <processMetadataValues>
+            <name>index</name>
+            <value>
+                <numberValue>2.0</numberValue>
+            </value>
+        </processMetadataValues>
+        <name>myDecision6</name>
+        <label>myDecision6</label>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>default</defaultConnectorLabel>
+        <rules>
+            <name>myRule_7</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_myRule_7</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_7_pmetdec</targetReference>
+            </connector>
+            <label>No Inquiry Case</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>myPostWaitDecision_myWaitEvent_myWait_myRule_7_event_0</name>
+        <label>myPostWaitDecision_myWaitEvent_myWait_myRule_7_event_0</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>myWaitEvent_myWait_myRule_7_event_0_postWaitExecutionAssignment</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>default</defaultConnectorLabel>
+        <rules>
+            <name>myPostWaitRule_myWaitEvent_myWait_myRule_7_event_0</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>myVariable_current.LastModifiedDate</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myWaitEvent_myWait_myRule_7_event_0_SA1</targetReference>
+            </connector>
+            <label>myPostWaitRule_myWaitEvent_myWait_myRule_7_event_0</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>myPreWaitDecision_myWait_myRule_7</name>
+        <label>myPreWaitDecision_myWait_myRule_7</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>myWaitAssignment_myWait_myRule_7</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>default</defaultConnectorLabel>
+        <rules>
+            <name>myPreWaitRule_myWait_myRule_7</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_myRule_7</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myDecision</targetReference>
+            </connector>
+            <label>myPreWaitRule_myWait_myRule_7</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>myRule_1_pmetdec</name>
+        <label>Previously Met Decision</label>
+        <locationX>100</locationX>
+        <locationY>100</locationY>
+        <defaultConnector>
+            <targetReference>myRule_1_A1</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Not Previously Met</defaultConnectorLabel>
+        <rules>
+            <name>myRule_1_pmetnullrule</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>myVariable_old</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_1_A1</targetReference>
+            </connector>
+            <label>Previously Met - Null</label>
+        </rules>
+        <rules>
+            <name>myRule_1_pmetrule</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_myRule_1_pmetrule</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <label>Previously Met - Prev</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>myRule_4_pmetdec</name>
+        <label>Previously Met Decision</label>
+        <locationX>400</locationX>
+        <locationY>100</locationY>
+        <defaultConnector>
+            <targetReference>myRule_4_A1</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Not Previously Met</defaultConnectorLabel>
+        <rules>
+            <name>myRule_4_pmetnullrule</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>myVariable_old</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_4_A1</targetReference>
+            </connector>
+            <label>Previously Met - Null</label>
+        </rules>
+        <rules>
+            <name>myRule_4_pmetrule</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_myRule_4_pmetrule</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <label>Previously Met - Prev</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>myRule_7_pmetdec</name>
+        <label>Previously Met Decision</label>
+        <locationX>700</locationX>
+        <locationY>100</locationY>
+        <defaultConnector>
+            <targetReference>myWait_myRule_7</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Not Previously Met</defaultConnectorLabel>
+        <rules>
+            <name>myRule_7_pmetnullrule</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>myVariable_old</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myWait_myRule_7</targetReference>
+            </connector>
+            <label>Previously Met - Null</label>
+        </rules>
+        <rules>
+            <name>myRule_7_pmetrule</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_myRule_7_pmetrule</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <label>Previously Met - Prev</label>
+        </rules>
+    </decisions>
+    <description>Inquiry Case creation. No ADN, Military. &quot;No Inquiry Case&quot; check. Inquiry Email/Phone check</description>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>&quot;New Inquiry - &quot;&amp; [Contact].FirstName &amp; &apos; &apos; &amp; [Contact].LastName </stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_2_myRule_1_A1_2799688102</name>
+        <dataType>String</dataType>
+        <expression>&quot;New Inquiry - &quot;&amp; {!myVariable_current.FirstName} &amp; &apos; &apos; &amp; {!myVariable_current.LastName}</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>&quot;New Inquiry - &quot;&amp; [Contact].FirstName &amp; &apos; &apos; &amp; [Contact].LastName </stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_5_myRule_4_A1_0601181763</name>
+        <dataType>String</dataType>
+        <expression>&quot;New Inquiry - &quot;&amp; {!myVariable_current.FirstName} &amp; &apos; &apos; &amp; {!myVariable_current.LastName}</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>AND(
+	ISNEW(), 
+	OR(
+		[Contact].RecordType.DeveloperName = &apos;Person_Account&apos;,
+		[Contact].RecordType.DeveloperName = &apos;Person_Account_s2&apos; ),
+	
+	[Contact].Owner.Inquiry_Case_User__c,
+	[Contact].No_Inquiry_Case__c = false,
+	
+	
+	TEXT([Contact].Military_Status__c ) != &apos;Veteran&apos;,
+	TEXT([Contact].Military_Status__c ) != &apos;Active Duty&apos;,
+	TEXT([Contact].Military_Status__c ) != &apos;National Guard&apos;,
+	TEXT([Contact].Military_Status__c ) != &apos;Reserve&apos;,
+	
+	ISBLANK([Contact].Acad_Corp_Part_Ref__c),
+	ISBLANK([Contact].X2nd_Acad_Corp_Part_Ref__c),	
+	
+	OR(
+		[Contact].Contact_Category__c = &apos;&apos;,
+		[Contact].Contact_Category__c = &apos;Prospective Student&apos;,
+		[Contact].Contact_Category__c = &apos;Transcript Received&apos;),
+		
+	NOT( TEXT([Contact].Level_of_Interest__c)=&apos;Associates&apos; &amp;&amp; TEXT([Contact].Area_of_Interest__c)=&apos;Nursing&apos;),
+	NOT( TEXT([Contact].Level_of_Interest__c)=&apos;&apos; &amp;&amp; TEXT([Contact].Area_of_Interest__c )=&apos;Nursing&apos;),
+	
+	TEXT([Contact].Level_of_Interest__c) !=&apos;Grad Certificate&apos;,
+	TEXT([Contact].Level_of_Interest__c) !=&apos;Masters&apos;,
+	TEXT([Contact].Level_of_Interest__c) !=&apos;Post-Masters Cert&apos;,
+	
+	OR(
+		!ISBLANK([Contact].Email),
+		!ISBLANK([Contact].SIS_Email__c),
+		!ISBLANK([Contact].MobilePhone),
+		!ISBLANK([Contact].Phone),
+		!ISBLANK([Contact].Business_Phone__c),
+		!ISBLANK([Contact].OtherPhone))
+)</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_myRule_1</name>
+        <dataType>Boolean</dataType>
+        <expression>AND(
+	ISNEW(), 
+	OR(
+		{!myVariable_current.RecordType.DeveloperName} = &apos;Person_Account&apos;,
+		{!myVariable_current.RecordType.DeveloperName} = &apos;Person_Account_s2&apos; ),
+	
+	{!myVariable_current.Owner.Inquiry_Case_User__c},
+	{!myVariable_current.No_Inquiry_Case__c} = false,
+	
+	
+	TEXT({!myVariable_current.Military_Status__c} ) != &apos;Veteran&apos;,
+	TEXT({!myVariable_current.Military_Status__c} ) != &apos;Active Duty&apos;,
+	TEXT({!myVariable_current.Military_Status__c} ) != &apos;National Guard&apos;,
+	TEXT({!myVariable_current.Military_Status__c} ) != &apos;Reserve&apos;,
+	
+	ISBLANK({!myVariable_current.Acad_Corp_Part_Ref__c}),
+	ISBLANK({!myVariable_current.X2nd_Acad_Corp_Part_Ref__c}),	
+	
+	OR(
+		{!myVariable_current.Contact_Category__c} = &apos;&apos;,
+		{!myVariable_current.Contact_Category__c} = &apos;Prospective Student&apos;,
+		{!myVariable_current.Contact_Category__c} = &apos;Transcript Received&apos;),
+		
+	NOT( TEXT({!myVariable_current.Level_of_Interest__c})=&apos;Associates&apos; &amp;&amp; TEXT({!myVariable_current.Area_of_Interest__c})=&apos;Nursing&apos;),
+	NOT( TEXT({!myVariable_current.Level_of_Interest__c})=&apos;&apos; &amp;&amp; TEXT({!myVariable_current.Area_of_Interest__c} )=&apos;Nursing&apos;),
+	
+	TEXT({!myVariable_current.Level_of_Interest__c}) !=&apos;Grad Certificate&apos;,
+	TEXT({!myVariable_current.Level_of_Interest__c}) !=&apos;Masters&apos;,
+	TEXT({!myVariable_current.Level_of_Interest__c}) !=&apos;Post-Masters Cert&apos;,
+	
+	OR(
+		!ISBLANK({!myVariable_current.Email}),
+		!ISBLANK({!myVariable_current.SIS_Email__c}),
+		!ISBLANK({!myVariable_current.MobilePhone}),
+		!ISBLANK({!myVariable_current.Phone}),
+		!ISBLANK({!myVariable_current.Business_Phone__c}),
+		!ISBLANK({!myVariable_current.OtherPhone}))
+)</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>AND(
+	ISNEW(), 
+	OR(
+		[Contact].RecordType.DeveloperName = &apos;Person_Account&apos;,
+		[Contact].RecordType.DeveloperName = &apos;Person_Account_s2&apos; ),
+	
+	[Contact].Owner.Inquiry_Case_User__c,
+	[Contact].No_Inquiry_Case__c = false,
+	
+	
+	TEXT([Contact].Military_Status__c ) != &apos;Veteran&apos;,
+	TEXT([Contact].Military_Status__c ) != &apos;Active Duty&apos;,
+	TEXT([Contact].Military_Status__c ) != &apos;National Guard&apos;,
+	TEXT([Contact].Military_Status__c ) != &apos;Reserve&apos;,
+	
+	ISBLANK([Contact].Acad_Corp_Part_Ref__c),
+	ISBLANK([Contact].X2nd_Acad_Corp_Part_Ref__c),	
+	
+	OR(
+		[Contact].Contact_Category__c = &apos;&apos;,
+		[Contact].Contact_Category__c = &apos;Prospective Student&apos;,
+		[Contact].Contact_Category__c = &apos;Transcript Received&apos;),
+		
+	NOT( TEXT([Contact].Level_of_Interest__c)=&apos;Associates&apos; &amp;&amp; TEXT([Contact].Area_of_Interest__c)=&apos;Nursing&apos;),
+	NOT( TEXT([Contact].Level_of_Interest__c)=&apos;&apos; &amp;&amp; TEXT([Contact].Area_of_Interest__c )=&apos;Nursing&apos;),
+	
+	TEXT([Contact].Level_of_Interest__c) !=&apos;Grad Certificate&apos;,
+	TEXT([Contact].Level_of_Interest__c) !=&apos;Masters&apos;,
+	TEXT([Contact].Level_of_Interest__c) !=&apos;Post-Masters Cert&apos;,
+	
+	OR(
+		!ISBLANK([Contact].Email),
+		!ISBLANK([Contact].SIS_Email__c),
+		!ISBLANK([Contact].MobilePhone),
+		!ISBLANK([Contact].Phone),
+		!ISBLANK([Contact].Business_Phone__c),
+		!ISBLANK([Contact].OtherPhone))
+)</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_myRule_1_pmetrule</name>
+        <dataType>Boolean</dataType>
+        <expression>AND(
+	ISNEW(), 
+	OR(
+		{!myVariable_old.RecordType.DeveloperName} = &apos;Person_Account&apos;,
+		{!myVariable_old.RecordType.DeveloperName} = &apos;Person_Account_s2&apos; ),
+	
+	{!myVariable_old.Owner.Inquiry_Case_User__c},
+	{!myVariable_old.No_Inquiry_Case__c} = false,
+	
+	
+	TEXT({!myVariable_old.Military_Status__c} ) != &apos;Veteran&apos;,
+	TEXT({!myVariable_old.Military_Status__c} ) != &apos;Active Duty&apos;,
+	TEXT({!myVariable_old.Military_Status__c} ) != &apos;National Guard&apos;,
+	TEXT({!myVariable_old.Military_Status__c} ) != &apos;Reserve&apos;,
+	
+	ISBLANK({!myVariable_old.Acad_Corp_Part_Ref__c}),
+	ISBLANK({!myVariable_old.X2nd_Acad_Corp_Part_Ref__c}),	
+	
+	OR(
+		{!myVariable_old.Contact_Category__c} = &apos;&apos;,
+		{!myVariable_old.Contact_Category__c} = &apos;Prospective Student&apos;,
+		{!myVariable_old.Contact_Category__c} = &apos;Transcript Received&apos;),
+		
+	NOT( TEXT({!myVariable_old.Level_of_Interest__c})=&apos;Associates&apos; &amp;&amp; TEXT({!myVariable_old.Area_of_Interest__c})=&apos;Nursing&apos;),
+	NOT( TEXT({!myVariable_old.Level_of_Interest__c})=&apos;&apos; &amp;&amp; TEXT({!myVariable_old.Area_of_Interest__c} )=&apos;Nursing&apos;),
+	
+	TEXT({!myVariable_old.Level_of_Interest__c}) !=&apos;Grad Certificate&apos;,
+	TEXT({!myVariable_old.Level_of_Interest__c}) !=&apos;Masters&apos;,
+	TEXT({!myVariable_old.Level_of_Interest__c}) !=&apos;Post-Masters Cert&apos;,
+	
+	OR(
+		!ISBLANK({!myVariable_old.Email}),
+		!ISBLANK({!myVariable_old.SIS_Email__c}),
+		!ISBLANK({!myVariable_old.MobilePhone}),
+		!ISBLANK({!myVariable_old.Phone}),
+		!ISBLANK({!myVariable_old.Business_Phone__c}),
+		!ISBLANK({!myVariable_old.OtherPhone}))
+)</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>AND(
+	ISCHANGED([Contact].InquiryCase_FormFill__c),
+	
+	OR(
+		[Contact].RecordType.DeveloperName = &apos;Person_Account&apos;,
+		[Contact].RecordType.DeveloperName = &apos;Person_Account_s2&apos; ),
+	
+	[Contact].Owner.Inquiry_Case_User__c,
+	[Contact].No_Inquiry_Case__c = false,
+		
+	
+	TEXT([Contact].Military_Status__c ) != &apos;Veteran&apos;,
+	TEXT([Contact].Military_Status__c ) != &apos;Active Duty&apos;,
+	TEXT([Contact].Military_Status__c ) != &apos;National Guard&apos;,
+	TEXT([Contact].Military_Status__c ) != &apos;Reserve&apos;,
+	
+	ISBLANK([Contact].Acad_Corp_Part_Ref__c),
+	ISBLANK([Contact].X2nd_Acad_Corp_Part_Ref__c),	
+
+	OR(
+		[Contact].Contact_Category__c = &apos;&apos;,
+		[Contact].Contact_Category__c = &apos;Prospective Student&apos;,
+		[Contact].Contact_Category__c = &apos;Transcript Received&apos;),
+		
+	OR(
+		TEXT([Contact].InquiryCase_Status__c)=&apos;&apos;, 
+		TEXT([Contact].InquiryCase_Status__c) =&apos;Closed&apos;),
+		
+	NOT( TEXT([Contact].Level_of_Interest__c)=&apos;Associates&apos; &amp;&amp; TEXT([Contact].Area_of_Interest__c)=&apos;Nursing&apos;),
+	NOT( TEXT([Contact].Level_of_Interest__c)=&apos;&apos; &amp;&amp; TEXT([Contact].Area_of_Interest__c )=&apos;Nursing&apos;),
+	
+	TEXT([Contact].Level_of_Interest__c) !=&apos;Grad Certificate&apos;,
+	TEXT([Contact].Level_of_Interest__c) !=&apos;Masters&apos;,
+	TEXT([Contact].Level_of_Interest__c) !=&apos;Post-Masters Cert&apos;,
+	
+	OR(
+		!ISBLANK([Contact].Email),
+		!ISBLANK([Contact].SIS_Email__c),
+		!ISBLANK([Contact].MobilePhone),
+		!ISBLANK([Contact].Phone),
+		!ISBLANK([Contact].Business_Phone__c),
+		!ISBLANK([Contact].OtherPhone))
+)</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_myRule_4</name>
+        <dataType>Boolean</dataType>
+        <expression>AND(
+	ISCHANGED({!myVariable_current.InquiryCase_FormFill__c}),
+	
+	OR(
+		{!myVariable_current.RecordType.DeveloperName} = &apos;Person_Account&apos;,
+		{!myVariable_current.RecordType.DeveloperName} = &apos;Person_Account_s2&apos; ),
+	
+	{!myVariable_current.Owner.Inquiry_Case_User__c},
+	{!myVariable_current.No_Inquiry_Case__c} = false,
+		
+	
+	TEXT({!myVariable_current.Military_Status__c} ) != &apos;Veteran&apos;,
+	TEXT({!myVariable_current.Military_Status__c} ) != &apos;Active Duty&apos;,
+	TEXT({!myVariable_current.Military_Status__c} ) != &apos;National Guard&apos;,
+	TEXT({!myVariable_current.Military_Status__c} ) != &apos;Reserve&apos;,
+	
+	ISBLANK({!myVariable_current.Acad_Corp_Part_Ref__c}),
+	ISBLANK({!myVariable_current.X2nd_Acad_Corp_Part_Ref__c}),	
+
+	OR(
+		{!myVariable_current.Contact_Category__c} = &apos;&apos;,
+		{!myVariable_current.Contact_Category__c} = &apos;Prospective Student&apos;,
+		{!myVariable_current.Contact_Category__c} = &apos;Transcript Received&apos;),
+		
+	OR(
+		TEXT({!myVariable_current.InquiryCase_Status__c})=&apos;&apos;, 
+		TEXT({!myVariable_current.InquiryCase_Status__c}) =&apos;Closed&apos;),
+		
+	NOT( TEXT({!myVariable_current.Level_of_Interest__c})=&apos;Associates&apos; &amp;&amp; TEXT({!myVariable_current.Area_of_Interest__c})=&apos;Nursing&apos;),
+	NOT( TEXT({!myVariable_current.Level_of_Interest__c})=&apos;&apos; &amp;&amp; TEXT({!myVariable_current.Area_of_Interest__c} )=&apos;Nursing&apos;),
+	
+	TEXT({!myVariable_current.Level_of_Interest__c}) !=&apos;Grad Certificate&apos;,
+	TEXT({!myVariable_current.Level_of_Interest__c}) !=&apos;Masters&apos;,
+	TEXT({!myVariable_current.Level_of_Interest__c}) !=&apos;Post-Masters Cert&apos;,
+	
+	OR(
+		!ISBLANK({!myVariable_current.Email}),
+		!ISBLANK({!myVariable_current.SIS_Email__c}),
+		!ISBLANK({!myVariable_current.MobilePhone}),
+		!ISBLANK({!myVariable_current.Phone}),
+		!ISBLANK({!myVariable_current.Business_Phone__c}),
+		!ISBLANK({!myVariable_current.OtherPhone}))
+)</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>AND(
+	ISCHANGED([Contact].InquiryCase_FormFill__c),
+	
+	OR(
+		[Contact].RecordType.DeveloperName = &apos;Person_Account&apos;,
+		[Contact].RecordType.DeveloperName = &apos;Person_Account_s2&apos; ),
+	
+	[Contact].Owner.Inquiry_Case_User__c,
+	[Contact].No_Inquiry_Case__c = false,
+		
+	
+	TEXT([Contact].Military_Status__c ) != &apos;Veteran&apos;,
+	TEXT([Contact].Military_Status__c ) != &apos;Active Duty&apos;,
+	TEXT([Contact].Military_Status__c ) != &apos;National Guard&apos;,
+	TEXT([Contact].Military_Status__c ) != &apos;Reserve&apos;,
+	
+	ISBLANK([Contact].Acad_Corp_Part_Ref__c),
+	ISBLANK([Contact].X2nd_Acad_Corp_Part_Ref__c),	
+
+	OR(
+		[Contact].Contact_Category__c = &apos;&apos;,
+		[Contact].Contact_Category__c = &apos;Prospective Student&apos;,
+		[Contact].Contact_Category__c = &apos;Transcript Received&apos;),
+		
+	OR(
+		TEXT([Contact].InquiryCase_Status__c)=&apos;&apos;, 
+		TEXT([Contact].InquiryCase_Status__c) =&apos;Closed&apos;),
+		
+	NOT( TEXT([Contact].Level_of_Interest__c)=&apos;Associates&apos; &amp;&amp; TEXT([Contact].Area_of_Interest__c)=&apos;Nursing&apos;),
+	NOT( TEXT([Contact].Level_of_Interest__c)=&apos;&apos; &amp;&amp; TEXT([Contact].Area_of_Interest__c )=&apos;Nursing&apos;),
+	
+	TEXT([Contact].Level_of_Interest__c) !=&apos;Grad Certificate&apos;,
+	TEXT([Contact].Level_of_Interest__c) !=&apos;Masters&apos;,
+	TEXT([Contact].Level_of_Interest__c) !=&apos;Post-Masters Cert&apos;,
+	
+	OR(
+		!ISBLANK([Contact].Email),
+		!ISBLANK([Contact].SIS_Email__c),
+		!ISBLANK([Contact].MobilePhone),
+		!ISBLANK([Contact].Phone),
+		!ISBLANK([Contact].Business_Phone__c),
+		!ISBLANK([Contact].OtherPhone))
+)</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_myRule_4_pmetrule</name>
+        <dataType>Boolean</dataType>
+        <expression>AND(
+	ISCHANGED({!myVariable_old.InquiryCase_FormFill__c}),
+	
+	OR(
+		{!myVariable_old.RecordType.DeveloperName} = &apos;Person_Account&apos;,
+		{!myVariable_old.RecordType.DeveloperName} = &apos;Person_Account_s2&apos; ),
+	
+	{!myVariable_old.Owner.Inquiry_Case_User__c},
+	{!myVariable_old.No_Inquiry_Case__c} = false,
+		
+	
+	TEXT({!myVariable_old.Military_Status__c} ) != &apos;Veteran&apos;,
+	TEXT({!myVariable_old.Military_Status__c} ) != &apos;Active Duty&apos;,
+	TEXT({!myVariable_old.Military_Status__c} ) != &apos;National Guard&apos;,
+	TEXT({!myVariable_old.Military_Status__c} ) != &apos;Reserve&apos;,
+	
+	ISBLANK({!myVariable_old.Acad_Corp_Part_Ref__c}),
+	ISBLANK({!myVariable_old.X2nd_Acad_Corp_Part_Ref__c}),	
+
+	OR(
+		{!myVariable_old.Contact_Category__c} = &apos;&apos;,
+		{!myVariable_old.Contact_Category__c} = &apos;Prospective Student&apos;,
+		{!myVariable_old.Contact_Category__c} = &apos;Transcript Received&apos;),
+		
+	OR(
+		TEXT({!myVariable_old.InquiryCase_Status__c})=&apos;&apos;, 
+		TEXT({!myVariable_old.InquiryCase_Status__c}) =&apos;Closed&apos;),
+		
+	NOT( TEXT({!myVariable_old.Level_of_Interest__c})=&apos;Associates&apos; &amp;&amp; TEXT({!myVariable_old.Area_of_Interest__c})=&apos;Nursing&apos;),
+	NOT( TEXT({!myVariable_old.Level_of_Interest__c})=&apos;&apos; &amp;&amp; TEXT({!myVariable_old.Area_of_Interest__c} )=&apos;Nursing&apos;),
+	
+	TEXT({!myVariable_old.Level_of_Interest__c}) !=&apos;Grad Certificate&apos;,
+	TEXT({!myVariable_old.Level_of_Interest__c}) !=&apos;Masters&apos;,
+	TEXT({!myVariable_old.Level_of_Interest__c}) !=&apos;Post-Masters Cert&apos;,
+	
+	OR(
+		!ISBLANK({!myVariable_old.Email}),
+		!ISBLANK({!myVariable_old.SIS_Email__c}),
+		!ISBLANK({!myVariable_old.MobilePhone}),
+		!ISBLANK({!myVariable_old.Phone}),
+		!ISBLANK({!myVariable_old.Business_Phone__c}),
+		!ISBLANK({!myVariable_old.OtherPhone}))
+)</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>[Contact].No_Inquiry_Case__c = true</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_myRule_7</name>
+        <dataType>Boolean</dataType>
+        <expression>{!myVariable_current.No_Inquiry_Case__c} = true</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>[Contact].No_Inquiry_Case__c = true</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_myRule_7_pmetrule</name>
+        <dataType>Boolean</dataType>
+        <expression>{!myVariable_old.No_Inquiry_Case__c} = true</expression>
+    </formulas>
+    <interviewLabel>Admissions_Case_Create_Process-6_InterviewLabel</interviewLabel>
+    <label>Admissions_Case_Create_Process</label>
+    <processMetadataValues>
+        <name>ObjectType</name>
+        <value>
+            <stringValue>Contact</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>ObjectVariable</name>
+        <value>
+            <elementReference>myVariable_current</elementReference>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OldObjectVariable</name>
+        <value>
+            <elementReference>myVariable_old</elementReference>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>TriggerType</name>
+        <value>
+            <stringValue>onAllChanges</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Workflow</processType>
+    <recordCreates>
+        <name>myRule_1_A1</name>
+        <label>New Inquiry Case</label>
+        <locationX>100</locationX>
+        <locationY>200</locationY>
+        <connector>
+            <targetReference>myRule_1_A2</targetReference>
+        </connector>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>ID</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Contact ID</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue>Contact</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Reference</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>ContactId</field>
+            <value>
+                <elementReference>myVariable_current.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Description</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Description</field>
+            <value>
+                <stringValue>New Inquiry Call Flow</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>ID</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Owner ID</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue>Group;User</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>ID</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>OwnerId</field>
+            <value>
+                <stringValue>00GU0000003KXvRMAW</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>ID</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Record Type ID</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue>RecordType</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>ID</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>RecordTypeId</field>
+            <value>
+                <stringValue>012U0000000t2IdIAI</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>Picklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Status</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Picklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Status</field>
+            <value>
+                <stringValue>New</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Subject</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Formula</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Subject</field>
+            <value>
+                <elementReference>formula_2_myRule_1_A1_2799688102</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordCreates>
+    <recordCreates>
+        <name>myRule_4_A1</name>
+        <label>New Inquiry Case</label>
+        <locationX>400</locationX>
+        <locationY>200</locationY>
+        <connector>
+            <targetReference>myRule_4_A2</targetReference>
+        </connector>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>ID</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Contact ID</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue>Contact</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Reference</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>ContactId</field>
+            <value>
+                <elementReference>myVariable_current.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Description</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Description</field>
+            <value>
+                <stringValue>New Inquiry Call Flow</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>ID</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Owner ID</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue>Group;User</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>ID</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>OwnerId</field>
+            <value>
+                <stringValue>00GU0000003KXvRMAW</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>ID</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Record Type ID</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue>RecordType</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>ID</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>RecordTypeId</field>
+            <value>
+                <stringValue>012U0000000t2IdIAI</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>Picklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Status</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Picklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Status</field>
+            <value>
+                <stringValue>New</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Subject</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Formula</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Subject</field>
+            <value>
+                <elementReference>formula_5_myRule_4_A1_0601181763</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordCreates>
+    <recordUpdates>
+        <processMetadataValues>
+            <name>evaluationType</name>
+            <value>
+                <stringValue>always</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>extraTypeInfo</name>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>isChildRelationship</name>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>reference</name>
+            <value>
+                <stringValue>[Contact]</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>referenceTargetField</name>
+        </processMetadataValues>
+        <name>myRule_1_A2</name>
+        <label>Update Contact.InquiryCase_Status</label>
+        <locationX>100</locationX>
+        <locationY>300</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <processMetadataValues>
+                <name>implicit</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </processMetadataValues>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>myVariable_current.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>Picklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>InquiryCase_Status</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Picklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>InquiryCase_Status__c</field>
+            <value>
+                <stringValue>New</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Contact</object>
+    </recordUpdates>
+    <recordUpdates>
+        <processMetadataValues>
+            <name>evaluationType</name>
+            <value>
+                <stringValue>always</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>extraTypeInfo</name>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>isChildRelationship</name>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>reference</name>
+            <value>
+                <stringValue>[Contact]</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>referenceTargetField</name>
+        </processMetadataValues>
+        <name>myRule_4_A2</name>
+        <label>Update Contact.InquiryCase_Status</label>
+        <locationX>400</locationX>
+        <locationY>300</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <processMetadataValues>
+                <name>implicit</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </processMetadataValues>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>myVariable_current.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>Picklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>InquiryCase_Status</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Picklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>InquiryCase_Status__c</field>
+            <value>
+                <stringValue>New</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Contact</object>
+    </recordUpdates>
+    <recordUpdates>
+        <processMetadataValues>
+            <name>evaluationType</name>
+            <value>
+                <stringValue>always</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>extraTypeInfo</name>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>isChildRelationship</name>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>reference</name>
+            <value>
+                <stringValue>[Contact]</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>referenceTargetField</name>
+        </processMetadataValues>
+        <name>myWaitEvent_myWait_myRule_7_event_0_SA1</name>
+        <label>Reset &quot;No Inquiry Case&quot;</label>
+        <locationX>700</locationX>
+        <locationY>200</locationY>
+        <connector>
+            <targetReference>myWaitEvent_myWait_myRule_7_event_0_postWaitExecutionAssignment</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <processMetadataValues>
+                <name>implicit</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </processMetadataValues>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>myVariable_current.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>Boolean</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>No Inquiry Case</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Boolean</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>No_Inquiry_Case__c</field>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </inputAssignments>
+        <object>Contact</object>
+    </recordUpdates>
+    <startElementReference>myPreWaitDecision_myWait_myRule_7</startElementReference>
+    <status>Obsolete</status>
+    <variables>
+        <name>cancelWaits</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>myVariable_current</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <objectType>Contact</objectType>
+    </variables>
+    <variables>
+        <name>myVariable_old</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Contact</objectType>
+    </variables>
+    <variables>
+        <name>myWaitEvent_myWait_myRule_7_event_0_postActionExecutionVariable</name>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <booleanValue>false</booleanValue>
+        </value>
+    </variables>
+    <waits>
+        <name>myWait_myRule_7</name>
+        <label>myWait_myRule_7</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>defaultLabel</defaultConnectorLabel>
+        <waitEvents>
+            <processMetadataValues>
+                <name>inputParameterType</name>
+                <value>
+                    <stringValue>referenced</stringValue>
+                </value>
+            </processMetadataValues>
+            <name>myWaitEvent_myWait_myRule_7_event_0</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>myWaitEvent_myWait_myRule_7_event_0_postActionExecutionVariable</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myPostWaitDecision_myWaitEvent_myWait_myRule_7_event_0</targetReference>
+            </connector>
+            <eventType>DateRefAlarmEvent</eventType>
+            <inputParameters>
+                <name>TimeTableColumnEnumOrId</name>
+                <value>
+                    <stringValue>Contact</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>EntityObjectId</name>
+                <value>
+                    <elementReference>myVariable_current.Id</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>TimeOffsetUnit</name>
+                <value>
+                    <stringValue>Hours</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>TimeOffset</name>
+                <value>
+                    <numberValue>0.0</numberValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>TimeFieldColumnEnumOrId</name>
+                <value>
+                    <stringValue>LastModifiedDate</stringValue>
+                </value>
+            </inputParameters>
+            <label>myWaitEvent_myWait_myRule_7_event_0</label>
+        </waitEvents>
+    </waits>
+</Flow>

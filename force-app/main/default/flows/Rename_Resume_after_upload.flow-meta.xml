@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <description>Send email to HR that resume is uploaded</description>
+        <name>Email_HR</name>
+        <label>Email HR</label>
+        <locationX>308</locationX>
+        <locationY>1406</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <connector>
+            <targetReference>Thank_you_for_your_upload</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <stringValue>payrollhr@excelsior.edu</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <stringValue>Resume Upload!!!</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>forEmailBody</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>emailSimple</nameSegment>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <apiVersion>56.0</apiVersion>
+    <decisions>
+        <description>This decision is used to verify if a contact was found from the above get records. People are stupid and at times don&apos;t know how to write email addresses</description>
+        <name>Check_if_Contact_was_found</name>
+        <label>Check if Contact was found?</label>
+        <locationX>396</locationX>
+        <locationY>458</locationY>
+        <defaultConnector>
+            <targetReference>Update_Content_Document_Title</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Contact_is_NULL</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Find_contact_record</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Error_Screen</targetReference>
+            </connector>
+            <label>Contact is NULL</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Do_we_have_a_new_Content_Document</name>
+        <label>Do we have a new Content Document</label>
+        <locationX>176</locationX>
+        <locationY>1298</locationY>
+        <defaultConnector>
+            <targetReference>Email_HR</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>No_New_Content_Document</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>NewContentDocuemntVar</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <isGoTo>true</isGoTo>
+                <targetReference>Fault_Message</targetReference>
+            </connector>
+            <label>No New Content Document</label>
+        </rules>
+    </decisions>
+    <description>Screen flow that prompts a faculty member to upload CV/resume. Once submitted, a thank you message is displayed and an email is sent to HR notifying them of the same. || V2 - Removed admin address from email notification after post-deployment test || V3 - adding Error screen for Contact not found || V4 - Add an error screen for when a document isn&apos;t uploaded. Updated error screen with same information.</description>
+    <environments>Default</environments>
+    <formulas>
+        <description>Email Body that include resources for contact name and updated filename</description>
+        <name>forEmailBody</name>
+        <dataType>String</dataType>
+        <expression>{!Find_contact_record.Name} &amp; &quot; uploaded a resume to Faculty Management today. &quot;&amp;
+&quot;Filename: &quot; &amp;{!forUpdatedFileName} &amp; 
+&quot;. Link: &quot; &amp;LEFT({!$Api.Partner_Server_URL_260}, FIND( &apos;/services&apos;, {!$Api.Partner_Server_URL_260}))&amp; &quot;/lightning/r/ContentDocument/&quot; &amp;RIGHT(LEFT({!ContentVersionId}, 19), 18)&amp; &quot;/view&quot;</expression>
+    </formulas>
+    <formulas>
+        <name>forUpdatedFileName</name>
+        <dataType>String</dataType>
+        <expression>&quot;RESUME_&quot;&amp;{!Find_contact_record.Name}&amp;&quot;_&quot;&amp;TEXT({!$Flow.CurrentDate})</expression>
+    </formulas>
+    <interviewLabel>Rename Resume after upload {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Rename Resume after upload</label>
+    <loops>
+        <name>Loop_Content_Document</name>
+        <label>Loop Content Document</label>
+        <locationX>176</locationX>
+        <locationY>242</locationY>
+        <collectionReference>ContentDocumentID</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Find_contact_record</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Do_we_have_a_new_Content_Document</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <recordCreates>
+        <name>Create_Content_Document_Link</name>
+        <label>Create Content Document Link</label>
+        <locationX>396</locationX>
+        <locationY>866</locationY>
+        <assignRecordIdToReference>NewContentDocuemntVar</assignRecordIdToReference>
+        <connector>
+            <targetReference>Loop_Content_Document</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Fault_Message</targetReference>
+        </faultConnector>
+        <inputAssignments>
+            <field>ContentDocumentId</field>
+            <value>
+                <elementReference>Loop_Content_Document</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>LinkedEntityId</field>
+            <value>
+                <elementReference>Find_contact_record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Visibility</field>
+            <value>
+                <stringValue>InternalUsers</stringValue>
+            </value>
+        </inputAssignments>
+        <object>ContentDocumentLink</object>
+    </recordCreates>
+    <recordLookups>
+        <description>Find the contact record based on the email address entered by faculty</description>
+        <name>Find_contact_record</name>
+        <label>Find contact record</label>
+        <locationX>396</locationX>
+        <locationY>350</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Check_if_Contact_was_found</targetReference>
+        </connector>
+        <faultConnector>
+            <isGoTo>true</isGoTo>
+            <targetReference>Fault_Message</targetReference>
+        </faultConnector>
+        <filterLogic>1 AND (2 OR 3)</filterLogic>
+        <filters>
+            <field>Email</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>varEmailAddress</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Contact_Category__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>FC</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Contact_Category__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>IF</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Contact</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_Content_Document_Title</name>
+        <label>Update Content Document Title</label>
+        <locationX>396</locationX>
+        <locationY>758</locationY>
+        <connector>
+            <targetReference>Create_Content_Document_Link</targetReference>
+        </connector>
+        <faultConnector>
+            <isGoTo>true</isGoTo>
+            <targetReference>Fault_Message</targetReference>
+        </faultConnector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Loop_Content_Document</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Title</field>
+            <value>
+                <elementReference>forUpdatedFileName</elementReference>
+            </value>
+        </inputAssignments>
+        <object>ContentDocument</object>
+    </recordUpdates>
+    <runInMode>SystemModeWithoutSharing</runInMode>
+    <screens>
+        <description>This screen is used to display an error message when a contact is not found</description>
+        <name>Error_Screen</name>
+        <label>Error Screen</label>
+        <locationX>264</locationX>
+        <locationY>566</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>false</allowFinish>
+        <allowPause>false</allowPause>
+        <backButtonLabel>Go Back</backButtonLabel>
+        <connector>
+            <targetReference>Update_Content_Document_Title</targetReference>
+        </connector>
+        <fields>
+            <name>Displaytest</name>
+            <fieldText>&lt;p&gt;Sorry, the email address you entered did not match our records. Please click &quot;&lt;strong&gt;&lt;u&gt;Go Back&lt;/u&gt;&lt;/strong&gt;&quot; and Enter the email address associated with your Faculty Management Account in the *Email Address field below. You can find the email address in the Contact Information section on this page to the below and left of this text.&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Fault_Message</name>
+        <label>Error Uploading File</label>
+        <locationX>704</locationX>
+        <locationY>974</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>FaultMessage</name>
+            <fieldText>&lt;p&gt;&lt;strong&gt;﻿Oops, there appears to be an issue in uploading your resume. Usually this is due to the email address entered not matching the address on file, or a file was not attached. Please try again and if the issue continues, please contact Salesforce &lt;/strong&gt;&lt;a href=&quot;https://excelsior--bmcservicedesk.na131.visual.force.com/apex/selfservicenew#/support/catalog/common&quot; rel=&quot;noopener noreferrer&quot; target=&quot;_blank&quot;&gt;&lt;strong&gt;help&lt;/strong&gt;&lt;/a&gt;&lt;strong&gt; and provide the below information. Thank you!&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;{!$Flow.FaultMessage}&lt;/strong&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Thank_you_for_your_upload</name>
+        <label>Thank you for your upload</label>
+        <locationX>308</locationX>
+        <locationY>1514</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>thank_you</name>
+            <fieldText>&lt;p&gt;Thank you for uploading your resume. Click &quot;Upload New File&quot; if you need to upload a new file.&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <nextOrFinishButtonLabel>Upload New File</nextOrFinishButtonLabel>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <description>Screen where Faculty Uploads a file</description>
+        <name>Upload_Screen</name>
+        <label>Upload Screen</label>
+        <locationX>176</locationX>
+        <locationY>134</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <backButtonLabel>Cancel</backButtonLabel>
+        <connector>
+            <targetReference>Loop_Content_Document</targetReference>
+        </connector>
+        <fields>
+            <name>Instructions</name>
+            <fieldText>&lt;p&gt;Instructions to Upload a new CV/Resume:&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;ol&gt;&lt;li&gt;Enter the email address associated with your Faculty Management Account in the *Email Address field below. You can find the email address in the Contact Information section on this page to the below and left of this text.&lt;/li&gt;&lt;li&gt;Click the Upload Files Button under Resume Upload.&lt;/li&gt;&lt;li&gt;When the popup box appears, choose the folder location where the file is saved and select it. Click Open to begin upload.&lt;/li&gt;&lt;li&gt;Wait for the message (1 of 1 files uploaded) to appear in the Upload Files popup. This may take up to sixty (60) seconds.&lt;/li&gt;&lt;li&gt;Click Done on the upload screen.&lt;/li&gt;&lt;li&gt;Click Submit on the lower right of this section to complete the upload.&lt;/li&gt;&lt;/ol&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Email</name>
+            <extensionName>flowruntime:email</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>required</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>label</name>
+                <value>
+                    <stringValue>Email Address</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>value</name>
+                <value>
+                    <elementReference>varEmailAddress</elementReference>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>ResetValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <outputParameters>
+                <assignToReference>varEmailAddress</assignToReference>
+                <name>value</name>
+            </outputParameters>
+        </fields>
+        <fields>
+            <name>UploadFile</name>
+            <extensionName>forceContent:fileUpload</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>label</name>
+                <value>
+                    <stringValue>Resume Upload</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>multiple</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <outputParameters>
+                <assignToReference>ContentDocumentID</assignToReference>
+                <name>contentDocIds</name>
+            </outputParameters>
+            <outputParameters>
+                <assignToReference>ContentVersionId</assignToReference>
+                <name>contentVersionIds</name>
+            </outputParameters>
+        </fields>
+        <nextOrFinishButtonLabel>Submit</nextOrFinishButtonLabel>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Upload_Screen</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <description>Collection for ContentDocument Record ID</description>
+        <name>ContentDocumentID</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>ContentVersionId</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>NewContentDocuemntVar</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>stores email address for lookup of contact record</description>
+        <name>varEmailAddress</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

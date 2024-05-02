@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>60.0</apiVersion>
+    <description>Autolaunched flow from RT-C-AS-SIS Activity Log to create a task 7 days after the SIS_Log record is created</description>
+    <environments>Default</environments>
+    <interviewLabel>Subflow - Create {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Subflow - Create MISS2_8WK Task</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Pause_for_seven_days</targetReference>
+        </connector>
+    </start>
+    <status>Draft</status>
+    <waits>
+        <description>Task to be created 7 days after the trigger date</description>
+        <name>Pause_for_seven_days</name>
+        <elementSubtype>WaitDuration</elementSubtype>
+        <label>Pause for seven days</label>
+        <locationX>176</locationX>
+        <locationY>134</locationY>
+        <defaultConnectorLabel>Default Path</defaultConnectorLabel>
+        <waitEvents>
+            <conditionLogic>and</conditionLogic>
+            <label>el_0</label>
+            <offset>1</offset>
+            <offsetUnit>Hours</offsetUnit>
+        </waitEvents>
+    </waits>
+</Flow>

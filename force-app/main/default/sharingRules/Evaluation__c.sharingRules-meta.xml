@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>Share_Starfish</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Share Starfish</label>
+        <sharedTo>
+            <group>Starfish_Access</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Evaluation_Type__c</field>
+            <operation>equals</operation>
+            <value>Mid Point Feedback,Flag</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+</SharingRules>

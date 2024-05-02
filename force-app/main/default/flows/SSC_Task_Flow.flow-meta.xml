@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Fault</name>
+        <label>Fault</label>
+        <locationX>578</locationX>
+        <locationY>242</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>tFaultEmailBody</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <stringValue>Flow **SSC_Task** Error</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <stringValue>SalesforceAdmin@excelsior.edu</stringValue>
+            </value>
+        </inputParameters>
+        <nameSegment>emailSimple</nameSegment>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <apiVersion>49.0</apiVersion>
+    <constants>
+        <name>cTaskStatus</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Not Started</stringValue>
+        </value>
+    </constants>
+    <decisions>
+        <description>Determine if an FAS task was created and create a Trimester Review task if so.</description>
+        <name>FAS_Task_Created</name>
+        <label>FAS Task Created?</label>
+        <locationX>182</locationX>
+        <locationY>350</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>FAS_Task</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>vTaskName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>DP.FAS</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>New_Trimester_Review_Task</targetReference>
+            </connector>
+            <label>FAS Task</label>
+        </rules>
+    </decisions>
+    <description>SSC auto tasks triggered by record change or SIS Activity Log Code. 8/25/23 Added in Pause element to send a 2nd FAS task 15 weeks after first one.</description>
+    <environments>Default</environments>
+    <formulas>
+        <description>Due date of the 2nd FAS task</description>
+        <name>f2ndFASDate</name>
+        <dataType>Date</dataType>
+        <expression>{!$Flow.CurrentDate} +{!vDueDate} + 105</expression>
+    </formulas>
+    <formulas>
+        <name>fDueDate</name>
+        <dataType>Date</dataType>
+        <expression>{!$Flow.CurrentDate} +{!vDueDate}</expression>
+    </formulas>
+    <interviewLabel>SSC_Task_Flow {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>SSC_Task_Flow</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <name>New_Task</name>
+        <label>New Task</label>
+        <locationX>182</locationX>
+        <locationY>242</locationY>
+        <connector>
+            <targetReference>FAS_Task_Created</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>ActivityDate</field>
+            <value>
+                <elementReference>fDueDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Description</field>
+            <value>
+                <elementReference>vTaskComments</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>vOwnerID</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Priority</field>
+            <value>
+                <elementReference>vPriority</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <elementReference>cTaskStatus</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <elementReference>vTaskSubject</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>WhatId</field>
+            <value>
+                <elementReference>vWhatId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>WhoId</field>
+            <value>
+                <elementReference>vContactID</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+    </recordCreates>
+    <recordCreates>
+        <description>Create the Trimester Review Task</description>
+        <name>New_Trimester_Review_Task</name>
+        <label>New Trimester Review Task</label>
+        <locationX>50</locationX>
+        <locationY>458</locationY>
+        <inputAssignments>
+            <field>ActivityDate</field>
+            <value>
+                <elementReference>f2ndFASDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Description</field>
+            <value>
+                <stringValue>Conduct Trimester Review</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>vOwnerID</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Priority</field>
+            <value>
+                <elementReference>vPriority</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <elementReference>cTaskStatus</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <stringValue>Trimester Review</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>WhoId</field>
+            <value>
+                <elementReference>vContactID</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+    </recordCreates>
+    <recordLookups>
+        <name>Find_Task_Detail</name>
+        <label>Find Task Detail</label>
+        <locationX>182</locationX>
+        <locationY>134</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>New_Task</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Fault</targetReference>
+        </faultConnector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Label</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>vTaskName</elementReference>
+            </value>
+        </filters>
+        <object>SSC_Auto_Task__mdt</object>
+        <outputAssignments>
+            <assignToReference>vTaskComments</assignToReference>
+            <field>Comments__c</field>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>vDueDate</assignToReference>
+            <field>Due_Date__c</field>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>vPriority</assignToReference>
+            <field>Priority__c</field>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>vTaskSubject</assignToReference>
+            <field>Subject__c</field>
+        </outputAssignments>
+    </recordLookups>
+    <start>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Find_Task_Detail</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <textTemplates>
+        <name>tFaultEmailBody</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>** SSC_Task_Flow **
+
+****** Current Variable Values ******
+
+Contact ID:             {!vContactID}
+Contact Owner:      {!vOwnerID}
+Related Record Id: {!vWhatId}
+Task Name:            {!vTaskName}
+
+Current Time:       {!$Flow.CurrentDateTime}
+Fault Message:    {!$Flow.FaultMessage}</text>
+    </textTemplates>
+    <variables>
+        <name>vContactID</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>vDueDate</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>0</scale>
+    </variables>
+    <variables>
+        <name>vOwnerID</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>vPriority</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>vTaskComments</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>vTaskName</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>vTaskSubject</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>vWhatId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

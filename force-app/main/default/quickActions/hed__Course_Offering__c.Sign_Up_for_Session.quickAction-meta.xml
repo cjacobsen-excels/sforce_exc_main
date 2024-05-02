@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldOverrides>
+        <field>Created_from_Course_Offering__c</field>
+        <formula>True</formula>
+    </fieldOverrides>
+    <fieldOverrides>
+        <field>hed__Contact__c</field>
+        <formula>$User.ContactId</formula>
+    </fieldOverrides>
+    <fieldOverrides>
+        <field>hed__Status__c</field>
+        <literalValue>Pending</literalValue>
+    </fieldOverrides>
+    <label>Sign Up for Session</label>
+    <optionsCreateFeedItem>true</optionsCreateFeedItem>
+    <quickActionLayout>
+        <layoutSectionStyle>TwoColumnsLeftToRight</layoutSectionStyle>
+        <quickActionLayoutColumns>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>hed__Contact__c</field>
+                <uiBehavior>Edit</uiBehavior>
+            </quickActionLayoutItems>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>Role__c</field>
+                <uiBehavior>Edit</uiBehavior>
+            </quickActionLayoutItems>
+        </quickActionLayoutColumns>
+        <quickActionLayoutColumns>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>hed__Course_Offering__c</field>
+                <uiBehavior>Edit</uiBehavior>
+            </quickActionLayoutItems>
+        </quickActionLayoutColumns>
+    </quickActionLayout>
+    <targetObject>hed__Course_Enrollment__c</targetObject>
+    <targetParentField>hed__Course_Offering__c</targetParentField>
+    <targetRecordType>hed__Course_Enrollment__c.Faculty</targetRecordType>
+    <type>Create</type>
+</QuickAction>

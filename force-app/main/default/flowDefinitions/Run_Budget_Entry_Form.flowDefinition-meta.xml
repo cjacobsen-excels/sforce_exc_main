@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionNumber>30</activeVersionNumber>
+    <description>Source creation form. Leads into budget creation once Source details have been entered.</description>
+    <masterLabel>Source Entry Form</masterLabel>
+</FlowDefinition>

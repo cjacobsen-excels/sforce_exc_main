@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>59.0</apiVersion>
+    <constants>
+        <description>Student Best Status is Enrolled - Active</description>
+        <name>Enrolled_Active</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Enrolled-Active</stringValue>
+        </value>
+    </constants>
+    <customErrors>
+        <description>Advisor is not assigned</description>
+        <name>Error_Advisor_Not_Assigned</name>
+        <label>Error Advisor Not Assigned</label>
+        <locationX>50</locationX>
+        <locationY>539</locationY>
+        <customErrorMessages>
+            <errorMessage>Task can not be created unless an Advisor is assigned. Update the Advisor and try again.</errorMessage>
+            <isFieldError>false</isFieldError>
+        </customErrorMessages>
+    </customErrors>
+    <customErrors>
+        <name>Error_Message</name>
+        <label>Error Message</label>
+        <locationX>1370</locationX>
+        <locationY>431</locationY>
+        <customErrorMessages>
+            <errorMessage>Opps! There seems to be an error, please create a Rememedyforce Ticket and include the following details in the ticket. Thank you!
+
+Error Message: {!$Flow.FaultMessage}
+Record Id: {{!$Record.Id}}</errorMessage>
+            <isFieldError>false</isFieldError>
+        </customErrorMessages>
+    </customErrors>
+    <decisions>
+        <name>Choose_Best_Status</name>
+        <label>Choose Best Status</label>
+        <locationX>842</locationX>
+        <locationY>539</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Best_Status_Enrolled_Active</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>vBestStatus</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Enrolled_Active</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Decision_3</targetReference>
+            </connector>
+            <label>Best Status = Enrolled-Active</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Decision_3</name>
+        <label>Decision 3</label>
+        <locationX>578</locationX>
+        <locationY>647</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Task_is_Trimester_Review</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Subject</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <stringValue>Trimester Review</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Trimester_Review_Task_Creation</targetReference>
+            </connector>
+            <label>Task is Trimester Review</label>
+        </rules>
+        <rules>
+            <name>Task_is_Provisional_BSN</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Subject</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <stringValue>Provisional BSN</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Provisional_BSN_Task_Creation</targetReference>
+            </connector>
+            <label>Task is Provisional BSN</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Is the Advisor not assigned to this user</description>
+        <name>Is_Advisor_Null</name>
+        <label>Is Advisor Null?</label>
+        <locationX>446</locationX>
+        <locationY>431</locationY>
+        <defaultConnector>
+            <targetReference>Choose_Best_Status</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Advisor is assigned</defaultConnectorLabel>
+        <rules>
+            <name>Advisor_is_Null</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>vBestAcademicAdvisor</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Error_Advisor_Not_Assigned</targetReference>
+            </connector>
+            <label>Advisor is Null</label>
+        </rules>
+    </decisions>
+    <description>Renew Advising Tasks Trimester Review OR Provisional BSN. When Trimestser Review Task is closed, create a new Trimestser Review Task with a due date 105 days, for students with the Best Status Enrolled-Active and assign it to the Best Academic Advisor. For Provisional BSN, renew the task if the Best Status is Enrolled-Active, Degree Code = BLPN and assign it to the Best Academic Advisor.</description>
+    <environments>Default</environments>
+    <interviewLabel>RT-U-AS Advising Renew Tasks {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>RT-U-AS Advising - Renew Tasks</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_Contact_Info</name>
+        <label>Get Contact Info</label>
+        <locationX>446</locationX>
+        <locationY>323</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Is_Advisor_Null</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Error_Message</targetReference>
+        </faultConnector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.WhoId</elementReference>
+            </value>
+        </filters>
+        <object>Contact</object>
+        <outputAssignments>
+            <assignToReference>vBestAcademicAdvisor</assignToReference>
+            <field>Best_Academic_Advisor__c</field>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>vBestStatus</assignToReference>
+            <field>Best_Status__c</field>
+        </outputAssignments>
+    </recordLookups>
+    <start>
+        <locationX>320</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Contact_Info</targetReference>
+        </connector>
+        <filterLogic>1 AND 2 AND (3 OR 4)</filterLogic>
+        <filters>
+            <field>Status</field>
+            <operator>IsChanged</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Status</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Completed</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Subject</field>
+            <operator>Contains</operator>
+            <value>
+                <stringValue>Trimester Review</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Subject</field>
+            <operator>Contains</operator>
+            <value>
+                <stringValue>Provisional BSN</stringValue>
+            </value>
+        </filters>
+        <object>Task</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <subflows>
+        <description>Create the Provisional BSN Task</description>
+        <name>Provisional_BSN_Task_Creation</name>
+        <label>Provisional BSN Task Creation</label>
+        <locationX>578</locationX>
+        <locationY>755</locationY>
+        <flowName>SSC_Task_Flow</flowName>
+        <inputAssignments>
+            <name>vContactID</name>
+            <value>
+                <elementReference>$Record.WhoId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>vOwnerID</name>
+            <value>
+                <elementReference>vBestAcademicAdvisor</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>vTaskName</name>
+            <value>
+                <stringValue>Advising.ProvBSNRenew</stringValue>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <subflows>
+        <description>Creating the next Trimester Review Task</description>
+        <name>Trimester_Review_Task_Creation</name>
+        <label>Trimester Review Task Creation</label>
+        <locationX>314</locationX>
+        <locationY>755</locationY>
+        <flowName>SSC_Task_Flow</flowName>
+        <inputAssignments>
+            <name>vContactID</name>
+            <value>
+                <elementReference>$Record.WhoId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>vOwnerID</name>
+            <value>
+                <elementReference>vBestAcademicAdvisor</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>vTaskName</name>
+            <value>
+                <stringValue>Advising.TrimesterReview</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>vWhatId</name>
+            <value>
+                <elementReference>$Record.WhatId</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <variables>
+        <name>vBestAcademicAdvisor</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>vBestStatus</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

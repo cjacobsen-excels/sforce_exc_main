@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <decisions>
+        <description>Determine if this a licensure attribute update or a general attribute</description>
+        <name>Is_this_a_Licensure_Update_or_Attribute</name>
+        <label>Is this a Licensure Update or Attribute</label>
+        <locationX>182</locationX>
+        <locationY>323</locationY>
+        <defaultConnector>
+            <targetReference>Get_Credential_Metadata</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Clinical Credential</defaultConnectorLabel>
+        <rules>
+            <name>Licensure</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.hed__Attribute_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Licensure</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Nursing_Credential</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_SON_Metadata</targetReference>
+            </connector>
+            <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+            <label>Licensure</label>
+        </rules>
+    </decisions>
+    <description>Creates tasks when nursing credentials are submitted as attribute records. Replaces Process Builder &quot;Attribute Process&quot;</description>
+    <environments>Default</environments>
+    <formulas>
+        <description>Holds the due date of today + metadata value</description>
+        <name>fDueDate</name>
+        <dataType>Date</dataType>
+        <expression>TODAY() + {!vQuantity}</expression>
+    </formulas>
+    <interviewLabel>RT-CU-AS Attribute Process {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>RT-CU-AS Attribute Process</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <description>Create a task with values based on above decision</description>
+        <name>Create_Task</name>
+        <label>Create Task</label>
+        <locationX>182</locationX>
+        <locationY>623</locationY>
+        <inputAssignments>
+            <field>ActivityDate</field>
+            <value>
+                <elementReference>fDueDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Description</field>
+            <value>
+                <elementReference>vDescription</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>IsReminderSet</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>vAssignedTo</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Priority</field>
+            <value>
+                <stringValue>Normal</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Not Started</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <elementReference>vSubject</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>WhatId</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>WhoId</field>
+            <value>
+                <elementReference>$Record.hed__Contact__c</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+    </recordCreates>
+    <recordLookups>
+        <description>Get the custom metadata for the Clinical Credential Task</description>
+        <name>Get_Credential_Metadata</name>
+        <label>Get Credential Metadata</label>
+        <locationX>314</locationX>
+        <locationY>431</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Create_Task</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>DeveloperName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Clinical_Credential_Task</stringValue>
+            </value>
+        </filters>
+        <object>Faculty_Management__mdt</object>
+        <outputAssignments>
+            <assignToReference>vDescription</assignToReference>
+            <field>Description_Text_Area__c</field>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>vAssignedTo</assignToReference>
+            <field>ID__c</field>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>vSubject</assignToReference>
+            <field>Name_Subject__c</field>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>vQuantity</assignToReference>
+            <field>Quantity__c</field>
+        </outputAssignments>
+    </recordLookups>
+    <recordLookups>
+        <description>Get the custom metadata for the SON Licensure Task</description>
+        <name>Get_SON_Metadata</name>
+        <label>Get SON Metadata</label>
+        <locationX>50</locationX>
+        <locationY>431</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Create_Task</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>DeveloperName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>SON_Licensure_Task</stringValue>
+            </value>
+        </filters>
+        <object>Faculty_Management__mdt</object>
+        <outputAssignments>
+            <assignToReference>vDescription</assignToReference>
+            <field>Description_Text_Area__c</field>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>vAssignedTo</assignToReference>
+            <field>ID__c</field>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>vSubject</assignToReference>
+            <field>Name_Subject__c</field>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>vQuantity</assignToReference>
+            <field>Quantity__c</field>
+        </outputAssignments>
+    </recordLookups>
+    <start>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Is_this_a_Licensure_Update_or_Attribute</targetReference>
+        </connector>
+        <filterFormula>AND(
+{!$Profile.Name} = &apos;Faculty&apos;,
+
+OR(
+ISNEW(),
+ISCHANGED({!$Record.Name}),
+ISCHANGED({!$Record.Credential_Number__c}),
+ISCHANGED({!$Record.hed__Start_Date__c}),
+ISCHANGED({!$Record.hed__End_Date__c} )
+),
+
+OR(
+{!$Record.RecordType.DeveloperName} = &apos;Clinical_Credential&apos;,
+{!$Record.RecordType.DeveloperName} = &apos;Nursing_Credential&apos;
+)
+
+)</filterFormula>
+        <object>hed__Attribute__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <variables>
+        <description>Hold Assigned to ID</description>
+        <name>vAssignedTo</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Holds Description field for task</description>
+        <name>vDescription</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Store the number of days</description>
+        <name>vQuantity</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>0</scale>
+        <value>
+            <numberValue>0.0</numberValue>
+        </value>
+    </variables>
+    <variables>
+        <description>Holds Task Subject</description>
+        <name>vSubject</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

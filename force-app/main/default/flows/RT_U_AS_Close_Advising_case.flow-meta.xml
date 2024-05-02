@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>59.0</apiVersion>
+    <decisions>
+        <name>Break_down_closing_decision_based_on_Status</name>
+        <label>Break down closing decision based on Status</label>
+        <locationX>710</locationX>
+        <locationY>276</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Service_Suspended</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Student_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Service Suspended</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Advising_Case_Number__r.Status</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Closed</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Close_Advising_Case</targetReference>
+            </connector>
+            <label>Service Suspended</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Break_down_closing_decision_based_on_Status1</name>
+        <label>Break down closing decision based on Status</label>
+        <locationX>1238</locationX>
+        <locationY>276</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>NOT_Service_Suspended</name>
+            <conditionLogic>(1 OR 2 OR 3 OR 4 OR 5 OR 6) AND 7</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Student_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Withdrawn Accounting</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Student_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Withdrawn FACTS</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Student_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Withdrawn No SSAF Student type</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Student_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Withdrawn Nurs Fail</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Student_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Withdrawn Payment Plan Failure</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Student_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Suspended</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Advising_Case_Number__r.Status</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Closed</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Close_Advising_Case1</targetReference>
+            </connector>
+            <label>NOT Service Suspended</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>There are a list of student status that qualify for an adivisng case to be closed immediately instead of waiting</description>
+        <name>Can_we_close_this_immediately</name>
+        <label>Can we close this immediately</label>
+        <locationX>182</locationX>
+        <locationY>276</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Yes</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>ImmediateClose_StudentStatus</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Advising_Case_Number__r.Status</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Closed</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Close_Advising_Case2</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <description>Close Advising Cases Depending on the Student Status</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>ImmediateClose_StudentStatus</name>
+        <dataType>Boolean</dataType>
+        <expression>IF(
+    CASE(
+        TEXT({!$Record.Student_Status__c}), 
+        &quot;Graduate&quot;, 1, 
+        &quot;ADM Withdrawn Correction&quot;, 1, 
+        &quot;ADM Withdrawn Transfer&quot;, 1, 
+        &quot;Withdrawn Correction&quot;, 1, 
+        &quot;Withdrawn Transfer&quot;, 1, 
+        &quot;Certificate Complete&quot;, 1, 
+        &quot;Certificate Withdrawn&quot;, 1, 
+        &quot;Commit to Enroll Expired&quot;, 1, 
+        &quot;Enrollment Declined&quot;, 1, 
+        &quot;Withdrawn Academic Probation&quot;, 1, 
+        &quot;Withdrawn AW grade limit&quot;, 1, 
+        &quot;Withdrawn Bad Ck&quot;, 1, 
+        &quot;Withdrawn Bursar Request&quot;, 1, 
+        &quot;Withdrawn Commit to Enroll&quot;, 1, 
+        &quot;Withdrawn Credit Accumulation&quot;, 1, 
+        &quot;Withdrawn Deceased&quot;, 1, 
+        &quot;Withdrawn Dismissed&quot;, 1, 
+        &quot;Withdrawn Enrollment&quot;, 1, 
+        &quot;Withdrawn Inappropriate Degree&quot;, 1, 
+        &quot;Withdrawn Limit Reached&quot;, 1, 
+        &quot;Withdrawn Package Pricing&quot;, 1, 
+        &quot;Withdrawn Studnt Req&quot;, 1, 
+        &quot;Withdrawn time limit&quot;, 1, 
+        &quot;Withdrawn-Concurrent Nursing Enrollment&quot;, 1, 
+        &quot;Withdrawn-Degree Revoked&quot;, 1, 
+        0
+    ) &gt; 0, 
+    TRUE, 
+    FALSE
+)</expression>
+    </formulas>
+    <interviewLabel>RT-U-AS Close Advising case {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>RT-U-AS Close Advising case</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Close_Advising_Case</name>
+        <label>Close Advising Case</label>
+        <locationX>578</locationX>
+        <locationY>384</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Advising_Case_Number__c</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Resolution_Code__c</field>
+            <value>
+                <elementReference>$Record.Student_Status__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Closed</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Close_Advising_Case1</name>
+        <label>Close Advising Case</label>
+        <locationX>1106</locationX>
+        <locationY>384</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Advising_Case_Number__c</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Resolution_Code__c</field>
+            <value>
+                <elementReference>$Record.Student_Status__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Closed</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Close_Advising_Case2</name>
+        <label>Close Advising Case</label>
+        <locationX>50</locationX>
+        <locationY>384</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Advising_Case_Number__c</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Resolution_Code__c</field>
+            <value>
+                <elementReference>$Record.Student_Status__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Closed</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordUpdates>
+    <start>
+        <locationX>584</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Can_we_close_this_immediately</targetReference>
+        </connector>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterFormula>AND(
+    CASE(
+        TEXT({!$Record.Student_Status__c}),
+        &quot;Graduate&quot;, 1,
+        &quot;ADM Withdrawn Correction&quot;, 1,
+        &quot;ADM Withdrawn Transfer&quot;, 1,
+        &quot;Withdrawn Correction&quot;, 1,
+        &quot;Withdrawn Transfer&quot;, 1,
+        &quot;Certificate Complete&quot;, 1,
+        &quot;Certificate Withdrawn&quot;, 1,
+        &quot;Commit to Enroll Expired&quot;, 1,
+        &quot;Enrollment Declined&quot;, 1,
+        &quot;Withdrawn Academic Probation&quot;, 1,
+        &quot;Withdrawn AW grade limit&quot;, 1,
+        &quot;Withdrawn Bad Ck&quot;, 1,
+        &quot;Withdrawn Bursar Request&quot;, 1,
+        &quot;Withdrawn Commit to Enroll&quot;, 1,
+        &quot;Withdrawn Credit Accumulation&quot;, 1,
+        &quot;Withdrawn Deceased&quot;, 1,
+        &quot;Withdrawn Dismissed&quot;, 1,
+        &quot;Withdrawn Enrollment&quot;, 1,
+        &quot;Withdrawn Inappropriate Degree&quot;, 1,
+        &quot;Withdrawn Limit Reached&quot;, 1,
+        &quot;Withdrawn Package Pricing&quot;, 1,
+        &quot;Withdrawn Studnt Req&quot;, 1,
+        &quot;Withdrawn time limit&quot;, 1,
+        &quot;Withdrawn-Concurrent Nursing Enrollment&quot;, 1,
+        &quot;Withdrawn-Degree Revoked&quot;, 1,
+        &quot;Service Suspended&quot;, 1,
+        &quot;Withdrawn Accounting&quot;, 1,
+        &quot;Withdrawn FACTS&quot;, 1,
+        &quot;Withdrawn No SSAF Student type&quot;, 1,
+        &quot;Withdrawn Nurs Fail&quot;, 1,
+        &quot;Withdrawn Payment Plan Failure&quot;, 1,
+        &quot;Suspended&quot;, 1,
+        0
+    ) = 1,
+    NOT(ISBLANK({!$Record.Advising_Case_Number__c}))
+)</filterFormula>
+        <object>Degree_Program__c</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <scheduledPaths>
+            <name>X31_Days</name>
+            <connector>
+                <targetReference>Break_down_closing_decision_based_on_Status</targetReference>
+            </connector>
+            <label>31 Days</label>
+            <offsetNumber>31</offsetNumber>
+            <offsetUnit>Days</offsetUnit>
+            <timeSource>RecordTriggerEvent</timeSource>
+        </scheduledPaths>
+        <scheduledPaths>
+            <name>X91_Days</name>
+            <connector>
+                <targetReference>Break_down_closing_decision_based_on_Status1</targetReference>
+            </connector>
+            <label>91 Days</label>
+            <maxBatchSize>1</maxBatchSize>
+            <offsetNumber>91</offsetNumber>
+            <offsetUnit>Days</offsetUnit>
+            <timeSource>RecordTriggerEvent</timeSource>
+        </scheduledPaths>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Draft</status>
+</Flow>

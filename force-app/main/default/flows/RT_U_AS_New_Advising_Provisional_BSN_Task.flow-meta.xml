@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>60.0</apiVersion>
+    <customErrors>
+        <description>Error extending from the Get Contact Info</description>
+        <name>ContactInfoError</name>
+        <label>ContactInfoError</label>
+        <locationX>578</locationX>
+        <locationY>431</locationY>
+        <customErrorMessages>
+            <errorMessage>Opps! There seems to be an error, please create a Rememedyforce Ticket and include the following details in the ticket. Thank you!
+
+Error Message: {!$Flow.FaultMessage}
+Record Id: {{!$Record.Id}}</errorMessage>
+            <isFieldError>false</isFieldError>
+        </customErrorMessages>
+    </customErrors>
+    <customErrors>
+        <name>Error_No_Advisor</name>
+        <label>Error No Advisor</label>
+        <locationX>314</locationX>
+        <locationY>539</locationY>
+        <customErrorMessages>
+            <errorMessage>Oops! An Advisor has not been assigned. Please update the Advisor field on the contact record and try again.</errorMessage>
+            <isFieldError>false</isFieldError>
+        </customErrorMessages>
+    </customErrors>
+    <decisions>
+        <description>Check to see if the Advisor is not assigned</description>
+        <name>Check_for_Advisor</name>
+        <label>Check for Advisor</label>
+        <locationX>182</locationX>
+        <locationY>431</locationY>
+        <defaultConnector>
+            <targetReference>Error_No_Advisor</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No Advisor</defaultConnectorLabel>
+        <rules>
+            <name>Yes</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>vBestAcademicAdvisor</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>CreateProvisionalBSNTask</targetReference>
+            </connector>
+            <label>Yes Advisor</label>
+        </rules>
+    </decisions>
+    <description>When an ALPN case is closed, the Advising Team needs a new Provisional BSN Task created with a due date of 30 days.</description>
+    <environments>Default</environments>
+    <interviewLabel>RT-U-AS New Advising Provisional BSN Task {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>RT-U-AS Advising New Provisional BSN Task</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_Contact_Info</name>
+        <label>Get Contact Info</label>
+        <locationX>182</locationX>
+        <locationY>323</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Check_for_Advisor</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>ContactInfoError</targetReference>
+        </faultConnector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Contact.Id</elementReference>
+            </value>
+        </filters>
+        <object>Contact</object>
+        <outputAssignments>
+            <assignToReference>vBestAcademicAdvisor</assignToReference>
+            <field>Best_Academic_Advisor__c</field>
+        </outputAssignments>
+    </recordLookups>
+    <start>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Contact_Info</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Subject</field>
+            <operator>Contains</operator>
+            <value>
+                <stringValue>ALPN</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Status</field>
+            <operator>IsChanged</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Status</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Closed</stringValue>
+            </value>
+        </filters>
+        <object>Case</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <subflows>
+        <description>Create a new task Provisional BSN</description>
+        <name>CreateProvisionalBSNTask</name>
+        <label>CreateProvisionalBSNTask</label>
+        <locationX>50</locationX>
+        <locationY>539</locationY>
+        <flowName>SSC_Task_Flow</flowName>
+        <inputAssignments>
+            <name>vContactID</name>
+            <value>
+                <elementReference>$Record.Contact.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>vOwnerID</name>
+            <value>
+                <elementReference>vBestAcademicAdvisor</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>vTaskName</name>
+            <value>
+                <stringValue>Advising.ProvBSNNew</stringValue>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <variables>
+        <name>vBestAcademicAdvisor</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

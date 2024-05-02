@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Role xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseAccessLevel>Edit</caseAccessLevel>
+    <contactAccessLevel>Edit</contactAccessLevel>
+    <description>Academic Advisor - Military</description>
+    <mayForecastManagerShare>false</mayForecastManagerShare>
+    <name>Academic Advisor - Military</name>
+    <opportunityAccessLevel>Edit</opportunityAccessLevel>
+    <parentRole>Center_for_Military_Veteran_Education</parentRole>
+</Role>

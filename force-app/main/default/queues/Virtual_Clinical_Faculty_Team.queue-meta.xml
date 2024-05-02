@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>true</doesSendEmailToMembers>
+    <email>son-courses@excelsior.edu</email>
+    <name>Virtual Clinical Faculty Team</name>
+    <queueMembers>
+        <users>
+            <user>perv4656@excelsior.edu.fm</user>
+            <user>cdechance@excelsior.edu</user>
+            <user>jhummer@excelsior.edu</user>
+            <user>jsherman@excelsior.edu</user>
+            <user>kspire@excelsior.edu</user>
+            <user>kackerman@excelsior.edu</user>
+            <user>nhelstowski@excelsior.edu</user>
+            <user>smisher@excelsior.edu</user>
+            <user>sstewart@excelsior.edu</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>BMCServiceDesk__Incident__c</sobjectType>
+    </queueSobject>
+</Queue>

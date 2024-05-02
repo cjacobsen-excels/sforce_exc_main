@@ -1,0 +1,8 @@
+.THIS {
+  max-height: 222px;
+  overflow-y: auto;
+}
+
+.THIS .slds-dropdown__item.hover {
+  background-color: var(--lwc-colorBackgroundRowHover, rgb(243, 242, 242));
+}

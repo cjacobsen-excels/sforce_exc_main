@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Fault</name>
+        <label>Fault</label>
+        <locationX>154</locationX>
+        <locationY>328</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>ttFaultEmailBody</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <stringValue>Flow **SMS** Error</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <stringValue>SalesforceAdmin@excelsior.edu</stringValue>
+            </value>
+        </inputParameters>
+        <nameSegment>emailSimple</nameSegment>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <actionCalls>
+        <name>Notify_Owner</name>
+        <label>Notify Owner</label>
+        <locationX>477</locationX>
+        <locationY>477</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>ttAlert_Message</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <elementReference>ttAlert_Subject</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <elementReference>vEmail_Owner</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderAddress</name>
+            <value>
+                <elementReference>cEmailSender</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>emailSimple</nameSegment>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <apiVersion>49.0</apiVersion>
+    <constants>
+        <name>cEmailSender</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>noreply@excelsior.edu</stringValue>
+        </value>
+    </constants>
+    <decisions>
+        <name>Owner_Type</name>
+        <label>Owner Type</label>
+        <locationX>474</locationX>
+        <locationY>196</locationY>
+        <defaultConnector>
+            <targetReference>Fault</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Unknown</defaultConnectorLabel>
+        <rules>
+            <name>Counselor</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>vOwnerType</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Counselor</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Find_Counselor_Email</targetReference>
+            </connector>
+            <label>Counselor</label>
+        </rules>
+        <rules>
+            <name>Advisor</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>vOwnerType</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Advisor</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Find_Advisor_Email</targetReference>
+            </connector>
+            <label>Advisor</label>
+        </rules>
+    </decisions>
+    <description>Notify Counselor or Advisor Owner for Incoming SMS</description>
+    <interviewLabel>SMS_Flow {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>SMS_Flow</label>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Find_Advisor_Email</name>
+        <label>Find Advisor Email</label>
+        <locationX>676</locationX>
+        <locationY>302</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Notify_Owner</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Fault</targetReference>
+        </faultConnector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>vOwnerID_Advisor</elementReference>
+            </value>
+        </filters>
+        <object>User</object>
+        <outputAssignments>
+            <assignToReference>vEmail_Owner</assignToReference>
+            <field>Email</field>
+        </outputAssignments>
+    </recordLookups>
+    <recordLookups>
+        <name>Find_Counselor_Email</name>
+        <label>Find Counselor Email</label>
+        <locationX>475</locationX>
+        <locationY>368</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Notify_Owner</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Fault</targetReference>
+        </faultConnector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>vOwnerID_Counselor</elementReference>
+            </value>
+        </filters>
+        <object>User</object>
+        <outputAssignments>
+            <assignToReference>vEmail_Owner</assignToReference>
+            <field>Email</field>
+        </outputAssignments>
+    </recordLookups>
+    <recordLookups>
+        <name>Find_Owners</name>
+        <label>Find Owners</label>
+        <locationX>473</locationX>
+        <locationY>81</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Owner_Type</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Fault</targetReference>
+        </faultConnector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>vContactID</elementReference>
+            </value>
+        </filters>
+        <object>Contact</object>
+        <outputAssignments>
+            <assignToReference>vOwnerID_Advisor</assignToReference>
+            <field>Best_Academic_Advisor__c</field>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>vContactName</assignToReference>
+            <field>Name</field>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>vOwnerID_Counselor</assignToReference>
+            <field>OwnerId</field>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>vStudentID</assignToReference>
+            <field>SIS_Text__c</field>
+        </outputAssignments>
+    </recordLookups>
+    <startElementReference>Find_Owners</startElementReference>
+    <status>Active</status>
+    <textTemplates>
+        <name>ttAlert_Message</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>*** NEW INCOMING SMS NOTIFICATION *** 
+
+Name: {!vContactName}
+SIS ID: {!vStudentID}
+
+Mobile Phone: {!vMobileNumber}
+Date Time: {!$Flow.CurrentDateTime}
+
+Message: {!vIncomingMessage}
+
+Click here to view: https://excelsior.my.salesforce.com/{!vInMessageID}</text>
+    </textTemplates>
+    <textTemplates>
+        <description>Email alert Subject</description>
+        <name>ttAlert_Subject</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>New Incoming SMS Message from {!vStudentID} {!vContactName}</text>
+    </textTemplates>
+    <textTemplates>
+        <name>ttFaultEmailBody</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>** SMS_Flow **
+
+****** Current Variable Values ******
+
+Incoming SMS ID: {!vInMessageID}
+Sender ID:              {!vSenderID}
+
+Contact ID:             {!vContactID}
+
+Current Time:       {!$Flow.CurrentDateTime}
+Fault Message:    {!$Flow.FaultMessage}</text>
+    </textTemplates>
+    <variables>
+        <description>Incoming SMS Contact Id</description>
+        <name>vContactID</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>vContactName</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Counselor or Advisor&apos;s email address</description>
+        <name>vEmail_Owner</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>vIncomingMessage</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Incoming SMS record Id</description>
+        <name>vInMessageID</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Incoming SMS Mobile Number</description>
+        <name>vMobileNumber</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Contact&apos;s Best Advisor User Id</description>
+        <name>vOwnerID_Advisor</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Contact&apos;s Admissions Counselor User Id</description>
+        <name>vOwnerID_Counselor</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Counselor or Advisor</description>
+        <name>vOwnerType</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Incoming SMS Sender Id</description>
+        <name>vSenderID</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Contact SIS Id</description>
+        <name>vStudentID</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Give user permission to delete affiliation records they do not own that have been created erroneously.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Delete Affiliations</label>
+    <license>Salesforce</license>
+    <objectPermissions>
+        <allowCreate>false</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>hed__Affiliation__c</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <recordTypeVisibilities>
+        <recordType>hed__Affiliation__c.Student_Partner_Affiliation</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+</PermissionSet>

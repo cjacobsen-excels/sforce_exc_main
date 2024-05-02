@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Academic Advising</fullName>
+        <default>false</default>
+        <label>Academic Advising</label>
+    </customValue>
+    <customValue>
+        <fullName>Accessibility Services/Title IX</fullName>
+        <default>false</default>
+        <label>Accessibility Services/Title IX</label>
+    </customValue>
+    <customValue>
+        <fullName>Adelante! Program</fullName>
+        <default>false</default>
+        <label>Adelante! Program</label>
+    </customValue>
+    <customValue>
+        <fullName>Admissions</fullName>
+        <default>false</default>
+        <label>Admissions</label>
+    </customValue>
+    <customValue>
+        <fullName>Career Readiness Center</fullName>
+        <default>false</default>
+        <label>Career Readiness Center</label>
+    </customValue>
+    <customValue>
+        <fullName>Concierge Team</fullName>
+        <default>false</default>
+        <label>Concierge Team</label>
+    </customValue>
+    <customValue>
+        <fullName>Registrar (includes TAC and Records)</fullName>
+        <default>false</default>
+        <label>Registrar (includes TAC and Records)</label>
+    </customValue>
+    <customValue>
+        <fullName>School of Graduate Studies</fullName>
+        <default>false</default>
+        <label>School of Graduate Studies</label>
+    </customValue>
+    <customValue>
+        <fullName>School of Nursing</fullName>
+        <default>false</default>
+        <label>School of Nursing</label>
+    </customValue>
+    <customValue>
+        <fullName>School of Undergraduate Studies</fullName>
+        <default>false</default>
+        <label>School of Undergraduate Studies</label>
+    </customValue>
+    <customValue>
+        <fullName>Student Financial Services and Registration Office</fullName>
+        <default>false</default>
+        <label>Student Financial Services and Registration Office</label>
+    </customValue>
+    <customValue>
+        <fullName>Student Help Desk</fullName>
+        <default>false</default>
+        <label>Student Help Desk</label>
+    </customValue>
+    <customValue>
+        <fullName>Other</fullName>
+        <default>false</default>
+        <label>Other</label>
+    </customValue>
+    <masterLabel>Excelsior College Department</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

@@ -1,0 +1,25 @@
+<aura:component controller="MRK_InterfaceController" access="global">
+    <aura:attribute name="mrkApi" type="object" />
+    <aura:handler name="init" value="{!this}" action="{!c.getRecord}"/>
+
+    <div class="slds-grid slds-wrap slds-gutters">
+        <div class="slds-col slds-size_1-of-2">
+            <lightning:input name="input1" label="Marketo Notification Template" value="{!v.mrkApi.Marketo_Notification_Template__c}"/>
+        </div>
+        <div class="slds-col slds-size_1-of-2">
+            <lightning:input name="input2" label="Notifications On" value="{!v.mrkApi.Notifications_On__c}"/>
+        </div>
+        <div class="slds-col slds-size_1-of-2">
+            <lightning:input name="input3" label="Number Of Retries" value="{!v.mrkApi.Number_Of_Retries__c}"/>
+        </div>
+        <div class="slds-col slds-size_1-of-2">
+            <lightning:input name="input4" label="Start Date" value="{!v.mrkApi.Start_Date__c}"/>
+        </div>
+        <div class="slds-col slds-size_1-of-2">
+            <lightning:input name="input5" label="When to Clear Logs" value="{!v.mrkApi.When_to_Clear_Logs__c}"/>
+        </div>
+        <div class="slds-col slds-size_1-of-2">
+            <lightning:input name="input6" label="Who Should be notified?" value="{!v.mrkApi.Who_Should_be_notified__c}"/>
+        </div>
+    </div>
+</aura:component>

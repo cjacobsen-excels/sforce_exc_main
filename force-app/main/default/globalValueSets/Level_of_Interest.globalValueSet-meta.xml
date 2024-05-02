@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Associates</fullName>
+        <default>false</default>
+        <label>Associates</label>
+    </customValue>
+    <customValue>
+        <fullName>Bachelors</fullName>
+        <default>false</default>
+        <label>Bachelors</label>
+    </customValue>
+    <customValue>
+        <fullName>Graduate Certificate</fullName>
+        <default>false</default>
+        <label>Graduate Certificate</label>
+    </customValue>
+    <customValue>
+        <fullName>Masters</fullName>
+        <default>false</default>
+        <label>Masters</label>
+    </customValue>
+    <masterLabel>Level of Interest</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

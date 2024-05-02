@@ -1,0 +1,41 @@
+.THIS small {
+  display: block;
+  color: rgba(0, 0, 0, 0.54);
+  margin-bottom: 7px;
+}
+
+.THIS .flex {
+  display: flex;
+  align-items: center;
+}
+
+.THIS .qualifications {
+  border-bottom: 1px solid #dddbda;
+}
+
+
+.THIS .slds-footer {
+  background: #F3F2F2;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  margin-top: -2px;
+  padding: 12px;
+}
+
+.THIS .flex input[type=checkbox] {
+  width: 16px;
+  height: 16px;
+}
+
+.THIS .slds-checkbox_faux {
+  margin-right: 5px!important;
+}
+
+.THIS .relative {
+  position: relative;
+}
+
+.THIS .saving-state .slds-progress-bar {
+  margin: -16px -32px 8px;
+  width: calc(100% + 64px);
+}

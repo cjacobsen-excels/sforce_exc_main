@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionNumber>1</activeVersionNumber>
+    <description>When Tech Support or Phones is selected as the request type on tickets entered through the Self Service portal this flow places them into the correct queue</description>
+    <masterLabel>NN - Update Queue from SS Request Type</masterLabel>
+</FlowDefinition>

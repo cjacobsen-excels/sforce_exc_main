@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>AAS Administrative/Management Studies</fullName>
+        <default>false</default>
+        <label>AAS Administrative/Management Studies</label>
+    </customValue>
+    <customValue>
+        <fullName>AAS Nursing</fullName>
+        <default>false</default>
+        <label>AAS Nursing</label>
+    </customValue>
+    <customValue>
+        <fullName>AAS Technical Studies, Computer Technologies</fullName>
+        <default>false</default>
+        <label>AAS Technical Studies, Computer Technologies</label>
+    </customValue>
+    <customValue>
+        <fullName>AAS Technical Studies, Electromechanical Technologies</fullName>
+        <default>false</default>
+        <label>AAS Technical Studies, Electromechanical Technologies</label>
+    </customValue>
+    <customValue>
+        <fullName>AAS Technical Studies,  Electronic/Instrumentation Technologies</fullName>
+        <default>false</default>
+        <label>AAS Technical Studies,  Electronic/Instrumentation Technologies</label>
+    </customValue>
+    <customValue>
+        <fullName>AAS Technical Studies, Nuclear Technologies/Power Plant Technologies</fullName>
+        <default>false</default>
+        <label>AAS Technical Studies, Nuclear Technologies/Power Plant Technologies</label>
+    </customValue>
+    <customValue>
+        <fullName>AS Criminal Justice</fullName>
+        <default>false</default>
+        <label>AS Criminal Justice</label>
+    </customValue>
+    <customValue>
+        <fullName>AS Health Sciences</fullName>
+        <default>false</default>
+        <label>AS Health Sciences</label>
+    </customValue>
+    <customValue>
+        <fullName>AS Liberal Arts</fullName>
+        <default>false</default>
+        <label>AS Liberal Arts</label>
+    </customValue>
+    <customValue>
+        <fullName>AS Nursing</fullName>
+        <default>false</default>
+        <label>AS Nursing</label>
+    </customValue>
+    <customValue>
+        <fullName>AAS Technical Studies, Electronic/Instrumentation Technologies</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>AAS Technical Studies, Electronic/Instrumentation Technologies</label>
+    </customValue>
+    <masterLabel>Associates Degree</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

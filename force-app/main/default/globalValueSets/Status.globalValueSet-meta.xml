@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Non-Matriculated(NM)</fullName>
+        <default>false</default>
+        <label>Non-Matriculated(NM)</label>
+    </customValue>
+    <customValue>
+        <fullName>Working</fullName>
+        <default>false</default>
+        <label>Working</label>
+    </customValue>
+    <customValue>
+        <fullName>Closed</fullName>
+        <default>false</default>
+        <label>Closed</label>
+    </customValue>
+    <customValue>
+        <fullName>Application Started</fullName>
+        <default>false</default>
+        <label>Application Started</label>
+    </customValue>
+    <customValue>
+        <fullName>Application Submitted</fullName>
+        <default>false</default>
+        <label>Application Submitted</label>
+    </customValue>
+    <customValue>
+        <fullName>Application Ready</fullName>
+        <default>false</default>
+        <label>Application Ready</label>
+    </customValue>
+    <customValue>
+        <fullName>Admit with Conditions</fullName>
+        <default>false</default>
+        <label>Admit with Conditions</label>
+    </customValue>
+    <customValue>
+        <fullName>Deny</fullName>
+        <default>false</default>
+        <label>Deny</label>
+    </customValue>
+    <customValue>
+        <fullName>Deferred Offer</fullName>
+        <default>false</default>
+        <label>Deferred Offer</label>
+    </customValue>
+    <customValue>
+        <fullName>Application Expired</fullName>
+        <default>false</default>
+        <label>Application Expired</label>
+    </customValue>
+    <customValue>
+        <fullName>Admission Expired</fullName>
+        <default>false</default>
+        <label>Admission Expired</label>
+    </customValue>
+    <customValue>
+        <fullName>Withdrawn Application</fullName>
+        <default>false</default>
+        <label>Withdrawn Application</label>
+    </customValue>
+    <customValue>
+        <fullName>Withdrawn Transfer</fullName>
+        <default>false</default>
+        <label>Withdrawn Transfer</label>
+    </customValue>
+    <customValue>
+        <fullName>In Review</fullName>
+        <default>false</default>
+        <label>In Review</label>
+    </customValue>
+    <customValue>
+        <fullName>On Hold</fullName>
+        <default>false</default>
+        <label>On Hold</label>
+    </customValue>
+    <customValue>
+        <fullName>Evaluation Completed</fullName>
+        <default>false</default>
+        <label>Evaluation Completed</label>
+    </customValue>
+    <customValue>
+        <fullName>Declined</fullName>
+        <default>false</default>
+        <label>Declined</label>
+    </customValue>
+    <customValue>
+        <fullName>Enrolled Active</fullName>
+        <default>false</default>
+        <label>Enrolled Active</label>
+    </customValue>
+    <customValue>
+        <fullName>Update In Progress</fullName>
+        <default>false</default>
+        <label>Update In Progress</label>
+    </customValue>
+    <customValue>
+        <fullName>Update Complete</fullName>
+        <default>false</default>
+        <label>Update Complete</label>
+    </customValue>
+    <masterLabel>Status</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

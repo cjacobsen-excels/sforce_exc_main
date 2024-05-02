@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>54.0</apiVersion>
+    <description>Creates 2-3 Educational History records where the application is for one of three nursing programs || V3 Added condition to create when status is changed to submitted and records haven&apos;t already been created || V4 Set created flag = true when flow completes || V5 - Changed from async to run immediately || v5- Adds LPN Education to this flow (95838) ||V6 LPN Education form discontinued per IN00102593</description>
+    <environments>Default</environments>
+    <interviewLabel>Create EH Records for Nursing Applicants {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Create EH Records for Nursing Applicants</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <description>Create EH record for Health Care Verification</description>
+        <name>Create_Health_Care_Verification</name>
+        <label>Create Health Care Verification</label>
+        <locationX>176</locationX>
+        <locationY>323</locationY>
+        <connector>
+            <targetReference>Create_TEAS</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Applicant__c</field>
+            <value>
+                <elementReference>$Record.hed__Applicant__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Transcript_Status__c</field>
+            <value>
+                <stringValue>Not Yet Received</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>traa_Application__c</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>traa_Institution_Name__c</field>
+            <value>
+                <stringValue>Health Care Verification</stringValue>
+            </value>
+        </inputAssignments>
+        <object>traa_Educational_History__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>Create EH record for TEAS</description>
+        <name>Create_TEAS</name>
+        <label>Create TEAS</label>
+        <locationX>176</locationX>
+        <locationY>431</locationY>
+        <connector>
+            <targetReference>Update_EH_Created_flag</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Applicant__c</field>
+            <value>
+                <elementReference>$Record.hed__Applicant__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Transcript_Status__c</field>
+            <value>
+                <stringValue>Not Yet Received</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>traa_Application__c</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>traa_Institution_Name__c</field>
+            <value>
+                <stringValue>TEAS</stringValue>
+            </value>
+        </inputAssignments>
+        <object>traa_Educational_History__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordUpdates>
+        <description>Updates the Nursing_EH_Records_Created__c field = TRUE to prevent this record from entering the flow again if the status change to/from Submitted</description>
+        <name>Update_EH_Created_flag</name>
+        <label>Update EH Created flag</label>
+        <locationX>176</locationX>
+        <locationY>539</locationY>
+        <inputAssignments>
+            <field>Nursing_EH_Records_Created__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Create_Health_Care_Verification</targetReference>
+        </connector>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterLogic>(1 OR 2 OR 3) AND 4 AND 5</filterLogic>
+        <filters>
+            <field>Program_Name__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>AS Nursing</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Program_Name__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>AAS Nursing</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Program_Name__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>LPN to BS in Nursing</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Nursing_EH_Records_Created__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>hed__Application_Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Submitted</stringValue>
+            </value>
+        </filters>
+        <object>hed__Application__c</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

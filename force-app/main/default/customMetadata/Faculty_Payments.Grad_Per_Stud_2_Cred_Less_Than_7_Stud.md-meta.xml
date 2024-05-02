@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Grad Per Stud 2 Cred Less Than 7 Stud</label>
+    <protected>false</protected>
+    <values>
+        <field>Additional_Pay__c</field>
+        <value xsi:type="xsd:double">0.0</value>
+    </values>
+    <values>
+        <field>Course_Type__c</field>
+        <value xsi:type="xsd:string">General</value>
+    </values>
+    <values>
+        <field>Credits__c</field>
+        <value xsi:type="xsd:string">2</value>
+    </values>
+    <values>
+        <field>Faculty_Type__c</field>
+        <value xsi:type="xsd:string">Standard</value>
+    </values>
+    <values>
+        <field>Fee_Type__c</field>
+        <value xsi:type="xsd:string">Per</value>
+    </values>
+    <values>
+        <field>Flat_Fee__c</field>
+        <value xsi:type="xsd:double">300.0</value>
+    </values>
+    <values>
+        <field>Level__c</field>
+        <value xsi:type="xsd:string">Graduate</value>
+    </values>
+    <values>
+        <field>Lower_Range_Enrollment__c</field>
+        <value xsi:type="xsd:double">1.0</value>
+    </values>
+    <values>
+        <field>Upper_Range_Enrollment__c</field>
+        <value xsi:type="xsd:double">6.0</value>
+    </values>
+</CustomMetadata>

@@ -1,0 +1,108 @@
+.THIS .stateful.nodata .empty-state,
+.THIS.stateful.nodata .empty-state,
+.THIS .stateful:not(.loaded):not(.saving) .loading-state,
+.THIS.stateful:not(.loaded):not(.saving) .loading-state,
+.THIS .stateful.loaded:not(.nodata) .content,
+.THIS.stateful.loaded:not(.nodata) .content,
+.THIS .stateful.saving .content,
+.THIS.stateful.saving .content,
+.THIS .stateful.saving .saving-state,
+.THIS.stateful.saving .saving-state {
+  display: block;
+}
+
+.THIS .stateful .content,
+.THIS .stateful .empty-state,
+.THIS .stateful .loading-state,
+.THIS .stateful .saving-state,
+.THIS.stateful .content,
+.THIS.stateful .empty-state,
+.THIS.stateful .loading-state,
+.THIS.stateful .saving-state,
+.THIS .hidden {
+  display: none;
+}
+
+.THIS .loading-state,
+.THIS .empty-state {
+  position: relative;
+  min-height: 12rem;
+  text-align: center;
+}
+
+.THIS .empty-state {
+  padding-top: 68px;
+}
+
+.THIS .empty-state h2 {
+  font-size: 16px;
+}
+
+.THIS .empty-state h4 {
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.THIS .flex {
+  display: flex;
+}
+
+.THIS .flex-grow {
+  flex-grow: 1;
+}
+
+.THIS .flex-shrink {
+  flex-shrink: 1;
+}
+
+
+/* Progress bar animation */
+
+.THIS .slds-progress-bar.indeterminate {
+  overflow: hidden;
+  height: .5rem;
+}
+
+.THIS .slds-progress-bar.indeterminate .line {
+  position: absolute;
+  opacity: 0.4;
+  background: var(--lwc-progressBarColorBackgroundFill, rgb(94, 180, 255));
+  width: 150%;
+  height: .5rem;
+}
+
+.THIS .slds-progress-bar.indeterminate .subline {
+  position: absolute;
+  background: var(--lwc-progressBarColorBackgroundFill, rgb(94, 180, 255));
+  height: .5rem;
+}
+
+.THIS .slds-progress-bar.indeterminate .inc {
+  animation: increase 2s infinite;
+}
+
+.THIS .slds-progress-bar.indeterminate .dec {
+  animation: decrease 2s 0.5s infinite;
+}
+
+@keyframes increase {
+  from {
+    left: -5%;
+    width: 5%;
+  }
+  to {
+    left: 130%;
+    width: 100%;
+  }
+}
+
+@keyframes decrease {
+  from {
+    left: -80%;
+    width: 80%;
+  }
+  to {
+    left: 110%;
+    width: 10%;
+  }
+}

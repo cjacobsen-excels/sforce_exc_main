@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>59.0</apiVersion>
+    <description>When conditions on degree programs are met, we need to create an advising case 
+Flow triggers when -- 
+1. The program must be either an Undergraduate (UG), Graduate Level (GL), or Certificate (CT) program.
+2. The student&apos;s status must be either &apos;Enrolled-Active&apos; or &apos;Open&apos;.
+3. There should be no Advising Case Number assigned to the student yet.
+4. The student must have an Academic Advisor assigned.
+
+
+All these conditions must be met for the criteria to be true.</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>CaseSubjectFormula</name>
+        <dataType>String</dataType>
+        <expression>&quot;Advising - &quot; &amp; 
+{!$Record.Student_Name__r.FirstName} &amp; &quot; &quot; &amp; 
+{!$Record.Student_Name__r.LastName} &amp; &quot; - &quot; &amp; 
+{!$Record.Degree_Code__c}</expression>
+    </formulas>
+    <interviewLabel>RT-CU-AS Create new Advising Case {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>RT-CU-AS Create new Advising Case</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Call_Subflow</targetReference>
+        </connector>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterFormula>AND(
+    OR(
+        {!$Record.Service_Program_Code__c} = &apos;UG&apos;,
+        {!$Record.Service_Program_Code__c} = &apos;GL&apos;,
+        {!$Record.Service_Program_Code__c} = &apos;CT&apos;
+    ),
+    OR(
+        TEXT({!$Record.Student_Status__c}) = &apos;Enrolled-Active&apos;,
+        TEXT({!$Record.Student_Status__c}) = &apos;Open&apos;
+    ),
+    ISBLANK({!$Record.Advising_Case_Number__c}),
+    !ISBLANK({!$Record.Academic_Advisor__c})
+)</filterFormula>
+        <object>Degree_Program__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Draft</status>
+    <subflows>
+        <name>Call_Subflow</name>
+        <label>Call Subflow</label>
+        <locationX>176</locationX>
+        <locationY>323</locationY>
+        <flowName>SSC_Case_Flow</flowName>
+        <inputAssignments>
+            <name>vCaseSubject</name>
+            <value>
+                <elementReference>CaseSubjectFormula</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>vContactID</name>
+            <value>
+                <elementReference>$Record.Student_Name__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>vNewCaseType</name>
+            <value>
+                <stringValue>Advising</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>vOwnerID</name>
+            <value>
+                <elementReference>$Record.Academic_Advisor__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>vWhatId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+</Flow>

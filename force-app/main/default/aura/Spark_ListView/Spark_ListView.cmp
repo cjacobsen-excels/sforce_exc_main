@@ -1,0 +1,34 @@
+<aura:component access="global" extends="c:Spark_BaseComponent" extensible="true" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes" controller="SO_API">
+  <aura:attribute name="schemaName" type="String" />
+  <aura:attribute name="config" type="Object" />
+  <aura:attribute name="customConfig" type="String" />
+  <aura:attribute name="data" type="Object" />
+  <aura:attribute name="isExtended" type="Boolean" default="false" />
+  <aura:handler name="init" value="{!this}" action="{!c.listViewInit}" />
+  <aura:handler name="hookEvent" event="c:SO_HookEvent" action="{!c.onHookEvent}" />
+  <section>
+    <c:Spark_Header aura:id="header" />
+
+    <aura:if isTrue="{!v.body.length == 0}">
+      <div id="content" class="content slds-table slds-table_bordered">
+        <div class="header row">
+          <aura:iteration items="{!v.config.columns}" var="column">
+            <div class="{! (column.sortable ? 'slds-is-sortable ' : '') + 'slds-line-height_reset cell' }">
+              {!column.label}
+            </div>
+          </aura:iteration>
+        </div>
+        <div class="data">
+          <aura:iteration items="{!v.data}" var="rows">
+            <div class="row">
+              <aura:iteration items="{!rows}" var="cell">
+                <span class="cell slds-truncate" title="{!cell}">{!cell}</span>
+              </aura:iteration>
+            </div>
+          </aura:iteration>
+        </div>
+      </div>
+    </aura:if>
+    {!v.body}
+  </section>
+</aura:component>

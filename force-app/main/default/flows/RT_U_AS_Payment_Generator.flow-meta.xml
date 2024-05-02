@@ -1,0 +1,1414 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>56.0</apiVersion>
+    <assignments>
+        <description>The assignment is used to add multiple payment records for the course</description>
+        <name>Add_Payment_Records_to_Collection_Variable</name>
+        <label>Add Payment Records to Collection Variable</label>
+        <locationX>1106</locationX>
+        <locationY>2909</locationY>
+        <assignmentItems>
+            <assignToReference>Payment4CreateUpdate_Single.Course_Offering__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Payment4CreateUpdate_Single.Payment_Date__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>PaydayCalculation</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Payment4CreateUpdate_Single.Payment_Amount__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>BiWeeklyPaymentGLOBAL</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Payment4CreateUpdate_Single.Pay_To__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.hed__Faculty__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Payment2CreateCollection</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>Payment4CreateUpdate_Single</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Counter_Add</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Total Payment adjusted with the difference in the amount</description>
+        <name>Adjusted_Compensation_Values</name>
+        <label>Adjusted Compensation Values</label>
+        <locationX>2162</locationX>
+        <locationY>4265</locationY>
+        <assignmentItems>
+            <assignToReference>Payment4CreateUpdate_Single.Payment_Amount__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>BiWeeklyPaymentUPDATED_DIffrencial</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_SINGLE_Payment_Record</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Previous_Compensation_Test_Values</name>
+        <label>Assign Previous Compensation Test Values</label>
+        <locationX>1414</locationX>
+        <locationY>2069</locationY>
+        <assignmentItems>
+            <assignToReference>PreviousCompensation</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.Compensation__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Fee_Type_Decision</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>The assignment will take the Looped payment records and then add all the payment values that will be used in further calculations</description>
+        <name>Assign_Total_Compensation_Values</name>
+        <label>Assign Total Compensation Values</label>
+        <locationX>2382</locationX>
+        <locationY>3965</locationY>
+        <assignmentItems>
+            <assignToReference>TotalCompensation_fromPayment</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>Loop_Payments_again_to_calculate_total_compensation.Earnings__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Loop_Payments_again_to_calculate_total_compensation</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>The value will always be overridden, but this is just to capture the RecordID of the payment that has to be modified so we don&apos;t need to loop again. The Get Payment Records AGAIN has sort from Ascending on the Payment date, so the last row to flow from this loop will be the last payment record.</description>
+        <name>Capture_Record_ID_in_Variable</name>
+        <label>Capture Record ID in Variable</label>
+        <locationX>2382</locationX>
+        <locationY>3857</locationY>
+        <assignmentItems>
+            <assignToReference>Payment4CreateUpdate_Single.Id</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Loop_Payments_again_to_calculate_total_compensation.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Assign_Total_Compensation_Values</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Add 1 value to counter</description>
+        <name>Counter1</name>
+        <label>Counter ++</label>
+        <locationX>2294</locationX>
+        <locationY>3125</locationY>
+        <assignmentItems>
+            <assignToReference>Counter</assignToReference>
+            <operator>AssignCount</operator>
+            <value>
+                <elementReference>Get_Payment_Records</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Loop_Get_Payments</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Add 1 value to counter</description>
+        <name>Counter_Add</name>
+        <label>Counter ++</label>
+        <locationX>1106</locationX>
+        <locationY>3017</locationY>
+        <assignmentItems>
+            <assignToReference>Counter</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <numberValue>1.0</numberValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <isGoTo>true</isGoTo>
+            <targetReference>Check_Counter_Number_of_payments</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>use this assignment to update values that should be added when Compensation and Payments are created for the first time</description>
+        <name>Course_offering_update_values</name>
+        <label>Course offering update values</label>
+        <locationX>1370</locationX>
+        <locationY>2693</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.First_Payment_Calculated__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Number_of_Students_Registered_on_Day_4__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.Number_of_Students_Registered__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Bi_weekly_payments_start__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>CalculatepaymentDate_Second</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Check_Counter_Number_of_payments</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>use this assignment to update values that should be added when Compensation and Payments are created for the first time</description>
+        <name>Course_offering_update_values1</name>
+        <label>Course offering update values</label>
+        <locationX>572</locationX>
+        <locationY>1127</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.First_Payment_Calculated__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Number_of_Students_Registered_on_Day_4__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.Number_of_Students_Registered__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <isGoTo>true</isGoTo>
+            <targetReference>Check_Counter_Number_of_payments</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>use this assignment to update values that should be added when Compensation and Payments are created for the first time</description>
+        <name>Course_offering_update_values111</name>
+        <label>Course offering update values</label>
+        <locationX>2096</locationX>
+        <locationY>2693</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Second_Payment_calculated__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Number_of_Students_Registered_on_Day_16__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.Number_of_Students_Registered__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Validate_if_Number_of_students_was_0_on_the_first_payment_calculation</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>use this assignment to update values that should be added when Compensation and Payments are created for the first time</description>
+        <name>Course_offering_update_values1111</name>
+        <label>Course offering update values</label>
+        <locationX>578</locationX>
+        <locationY>2069</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Number_of_Students_Registered_on_Day_16__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.Number_of_Students_Registered__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Second_Payment_calculated__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Global_Course_offering_Update_Values</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>use this assignment to update values that should be added when Compensation and Payments are created for the first time</description>
+        <name>Course_offering_update_values111111</name>
+        <label>Course offering update values</label>
+        <locationX>842</locationX>
+        <locationY>2585</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Number_of_Students_Registered_on_Day_16__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.Number_of_Students_Registered__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Second_Payment_calculated__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Global_Course_offering_Update_Values</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>use this assignment to update values that should be added when Compensation and Payments are created for the first time</description>
+        <name>Course_offering_update_values12</name>
+        <label>Course offering update values</label>
+        <locationX>314</locationX>
+        <locationY>1745</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Second_Payment_calculated__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Number_of_Students_Registered_on_Day_16__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <numberValue>0.0</numberValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Global_Course_offering_Update_Values</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>use this assignment to update values that should be added when Compensation and Payments are created for the first time</description>
+        <name>Course_offering_update_values123</name>
+        <label>Course offering update values</label>
+        <locationX>836</locationX>
+        <locationY>911</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Second_Payment_calculated__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Number_of_Students_Registered_on_Day_16__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.Number_of_Students_Registered__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <isGoTo>true</isGoTo>
+            <targetReference>Global_Course_offering_Update_Values</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>use this assignment to update values that should be added when Compensation and Payments are created for the first time</description>
+        <name>Course_offering_update_values_0</name>
+        <label>Course offering update values</label>
+        <locationX>50</locationX>
+        <locationY>1745</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.First_Payment_Calculated__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Number_of_Students_Registered_on_Day_4__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <numberValue>0.0</numberValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Compensation__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <numberValue>0.0</numberValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Bi_weekly_payments_start__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>CalculatepaymentDate_Second</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Global_Course_offering_Update_Values</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>use this assignment to update values that should be added when Compensation and Payments flow runs any time</description>
+        <name>Global_Course_offering_Update_Values</name>
+        <label>Global Course offering Update Values</label>
+        <locationX>968</locationX>
+        <locationY>5069</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Trigger_Payment_Calculation__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Course_Offering</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Set&apos;s Values that have to be updated to the Course offering</description>
+        <name>Set_Compensation_Values1</name>
+        <label>Set Compensation Values</label>
+        <locationX>1414</locationX>
+        <locationY>2285</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Compensation__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>RTCourseOffering_PerPaymentCalculation</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Has_the_compensation_changed</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Set Values that have to be updated to the Course Offering</description>
+        <name>Set_Compensation_Values2</name>
+        <label>Set Compensation Values</label>
+        <locationX>572</locationX>
+        <locationY>911</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Compensation__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Payment_Metadata1.Flat_Fee__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_ONLY_Compensation_Values</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Set&apos;s Values that have to be updated to the Course offering</description>
+        <name>SetCompensationValues</name>
+        <label>Set Compensation Values</label>
+        <locationX>1150</locationX>
+        <locationY>2285</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Compensation__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>RTCourseOffering_FlatPaymentCalculation</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Has_the_compensation_changed</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Update_Payment_values</name>
+        <label>Update Payment values</label>
+        <locationX>2382</locationX>
+        <locationY>3341</locationY>
+        <assignmentItems>
+            <assignToReference>Payment4CreateUpdate_Single.Id</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Loop_Get_Payments.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Payment4CreateUpdate_Single.Payment_Amount__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>BiWeeklyPaymentUPDATED</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Payments4UpdateCollection</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>Payment4CreateUpdate_Single</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Loop_Get_Payments</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <name>Check_Counter_Number_of_payments</name>
+        <label>Check Counter &lt; Number of payments</label>
+        <locationX>1370</locationX>
+        <locationY>2801</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Counter_is_less</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Counter</leftValueReference>
+                <operator>LessThan</operator>
+                <rightValue>
+                    <elementReference>$Record.Number_of_Bi_Weekly_Payments__c</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Add_Payment_Records_to_Collection_Variable</targetReference>
+            </connector>
+            <label>Counter is less</label>
+        </rules>
+        <rules>
+            <name>Counter_is_Equal</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Counter</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.Number_of_Bi_Weekly_Payments__c</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_payment_records</targetReference>
+            </connector>
+            <label>Counter is Equal</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>The decision to validate if there are no enrollments for the course offering. on Day 4 or 16</description>
+        <name>Check_for_0_Enrollments_on_Day_4_16</name>
+        <label>Check for 0 Enrollments on Day 4 &amp; 16</label>
+        <locationX>968</locationX>
+        <locationY>1637</locationY>
+        <defaultConnector>
+            <targetReference>Get_Payment_Metadata</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Enrollment_0_on_4</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.First_Payment_Calculated__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Number_of_Students_Registered_on_Day_4__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Number_of_Students_Registered__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <numberValue>0.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Course_offering_update_values_0</targetReference>
+            </connector>
+            <label>Enrollment = 0 on 4</label>
+        </rules>
+        <rules>
+            <name>Enrollment_0_on_15</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.First_Payment_Calculated__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Second_Payment_calculated__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Number_of_Students_Registered__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <numberValue>0.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Course_offering_update_values12</targetReference>
+            </connector>
+            <label>Enrollment = 0 on 15</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Check_if_Payment_Records_were_found</name>
+        <label>Check if Payment Records were found</label>
+        <locationX>1887</locationX>
+        <locationY>1853</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Payment_Metadata_Found</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Payment_Metadata</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Validate_if_number_of_Students_actually_increased_on_2nd_payment_calculation</targetReference>
+            </connector>
+            <label>Payment Metadata Found</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Check_if_Payment_Records_were_found1</name>
+        <label>Check if Payment Records were found</label>
+        <locationX>902</locationX>
+        <locationY>695</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Payment_Metadata_Found1</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Payment_Metadata1</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Check_if_the_first_payment_is_already_generated</targetReference>
+            </connector>
+            <label>Payment Metadata Found</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>For the Clinical Lead instructor, only 1 payment record is needed and is a flat fee.</description>
+        <name>Check_if_the_first_payment_is_already_generated</name>
+        <label>Check if the first payment is already generated</label>
+        <locationX>704</locationX>
+        <locationY>803</locationY>
+        <defaultConnector>
+            <targetReference>Course_offering_update_values123</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>No1</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.First_Payment_Calculated__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Compensation_Values2</targetReference>
+            </connector>
+            <label>No</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Compare the total compensation amount from the variable calculated above with the total compensation on the offering</description>
+        <name>Compare_Payments_with_compensation</name>
+        <label>Compare Payments with compensation</label>
+        <locationX>2294</locationX>
+        <locationY>4157</locationY>
+        <defaultConnector>
+            <targetReference>Global_Course_offering_Update_Values</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Difference_Noted</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>TotalCompensation_fromPayment</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.Compensation__c</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Adjusted_Compensation_Values</targetReference>
+            </connector>
+            <label>Difference Noted</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Branches out the &quot;Per&quot; and the &quot;Flat&quot; Payment Options</description>
+        <name>Fee_Type_Decision</name>
+        <label>Fee Type Decision?</label>
+        <locationX>1414</locationX>
+        <locationY>2177</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Flat</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Payment_Metadata.Fee_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Flat</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SetCompensationValues</targetReference>
+            </connector>
+            <label>Flat</label>
+        </rules>
+        <rules>
+            <name>Per</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Payment_Metadata.Fee_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Per</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Compensation_Values1</targetReference>
+            </connector>
+            <label>Per</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>This decision is to make sure that we go to the payment generation and updates only when there is a difference in the compensation amount.</description>
+        <name>Has_the_compensation_changed</name>
+        <label>Has the compensation changed?</label>
+        <locationX>1414</locationX>
+        <locationY>2477</locationY>
+        <defaultConnector>
+            <targetReference>of_Is_first_payment_created</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>New_Value_Old_value</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>PreviousCompensation</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.Compensation__c</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.First_Payment_Calculated__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Course_offering_update_values111111</targetReference>
+            </connector>
+            <label>No</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Clinical instructor lead offerings are only paid a flat amount and does not change</description>
+        <name>Is_this_Clinical_Instructor_Lead_Offering</name>
+        <label>Is this Clinical Instructor Lead Offering ?</label>
+        <locationX>1133</locationX>
+        <locationY>479</locationY>
+        <defaultConnector>
+            <targetReference>Check_for_0_Enrollments_on_Day_4_16</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Yes</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Course_Offering_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Clinical Instructor Lead</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Payment_Metadata1</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>This decision is to check if the payment records were generated the first time or not. The field used in this decision is updated by a flow Payment_Calculation_Date. If it is the first payment generation the value will be false.</description>
+        <name>of_Is_first_payment_created</name>
+        <label>Is first payment created?</label>
+        <locationX>1986</locationX>
+        <locationY>2585</locationY>
+        <defaultConnector>
+            <targetReference>Global_Course_offering_Update_Values</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>First_Payment_Generation</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.First_Payment_Calculated__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Course_offering_update_values</targetReference>
+            </connector>
+            <label>First Payment Generation</label>
+        </rules>
+        <rules>
+            <name>Second_Payment_Generation</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.First_Payment_Calculated__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Course_offering_update_values111</targetReference>
+            </connector>
+            <label>Second Payment Generation</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Using this decision to Brant out different Record Types for Payment Calculation</description>
+        <name>Record_Type_Branching</name>
+        <label>Record Type Branching</label>
+        <locationX>968</locationX>
+        <locationY>371</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>RT_Course_Offering</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.RecordType.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Course Offering</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Check_for_0_Enrollments_on_Day_4_16</targetReference>
+            </connector>
+            <label>RT = Course Offering</label>
+        </rules>
+        <rules>
+            <name>RT_Hybrid_Clinical</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.RecordType.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Hybrid Clinical</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Is_this_Clinical_Instructor_Lead_Offering</targetReference>
+            </connector>
+            <label>RT = Hybrid Clinical</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>The second payment needs to be only generated when the number of students went up!</description>
+        <name>Validate_if_number_of_Students_actually_increased_on_2nd_payment_calculation</name>
+        <label>Validate if number of Students actually increased on 2nd payment calculation</label>
+        <locationX>996</locationX>
+        <locationY>1961</locationY>
+        <defaultConnector>
+            <targetReference>Assign_Previous_Compensation_Test_Values</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Second_Payment_Generation_No_Action_Needed</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.First_Payment_Calculated__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Number_of_Students_Registered_on_Day_4__c</leftValueReference>
+                <operator>GreaterThanOrEqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.Number_of_Students_Registered__c</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Course_offering_update_values1111</targetReference>
+            </connector>
+            <label>Second Payment Generation &amp; No Action Needed</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Using this decision to decide between creating new payment records or updating existing ones. If the number of students was 0 on day 4 there should have been no payment calculations generated.</description>
+        <name>Validate_if_Number_of_students_was_0_on_the_first_payment_calculation</name>
+        <label>Validate if Number of students was 0 on the first payment calculation</label>
+        <locationX>2096</locationX>
+        <locationY>2801</locationY>
+        <defaultConnector>
+            <targetReference>Get_Term_Start_Date</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Number_of_students_registered_on_day_4_0</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Number_of_Students_Registered_on_Day_4__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <numberValue>0.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <isGoTo>true</isGoTo>
+                <targetReference>Check_Counter_Number_of_payments</targetReference>
+            </connector>
+            <label>Day 4 = 0</label>
+        </rules>
+    </decisions>
+    <description>Added methods to remove the 0.01 discrepancy</description>
+    <environments>Default</environments>
+    <formulas>
+        <description>Bi-Weekly Compensation Amount for all course Types.</description>
+        <name>BiWeeklyPaymentGLOBAL</name>
+        <dataType>Currency</dataType>
+        <expression>({!$Record.Compensation__c}/{!$Record.Number_of_Bi_Weekly_Payments__c})</expression>
+        <scale>2</scale>
+    </formulas>
+    <formulas>
+        <description>The formula will calculate the new biweekly payment if the enrollment has gone up</description>
+        <name>BiWeeklyPaymentUPDATED</name>
+        <dataType>Currency</dataType>
+        <expression>(({!$Record.Compensation__c} - {!PreviousCompensation})/{!Counter}) + {!$Record.Bi_Weekly_Compensation__c}</expression>
+        <scale>2</scale>
+    </formulas>
+    <formulas>
+        <description>ONLY used in updating the differential amount on a SINGLE payment</description>
+        <name>BiWeeklyPaymentUPDATED_DIffrencial</name>
+        <dataType>Number</dataType>
+        <expression>{!BiWeeklyPaymentUPDATED}+{!DiffrencialAmount}</expression>
+        <scale>2</scale>
+    </formulas>
+    <formulas>
+        <description>This formula should calculate the payment Date +15 days from the term start date if the number of students increased</description>
+        <name>CalculatepaymentDate_Second</name>
+        <dataType>Date</dataType>
+        <expression>{!$Record.hed__Start_Date__c} + 15</expression>
+    </formulas>
+    <formulas>
+        <description>transforms course level into Graduate or Undergraduate. Used to get the Faculty Metadata</description>
+        <name>CourseLevelTransformationGLOBAL</name>
+        <dataType>String</dataType>
+        <expression>IF( TEXT({!$Record.hed__Course__r.Level__c}) = &quot;Graduate&quot; ,&quot;Graduate&quot;, &quot;Undergrad&quot;)</expression>
+    </formulas>
+    <formulas>
+        <description>The amount difference from Compeantsation from CO and sum of all payment records</description>
+        <name>DiffrencialAmount</name>
+        <dataType>Number</dataType>
+        <expression>{!$Record.Compensation__c}-{!TotalCompensation_fromPayment}</expression>
+        <scale>2</scale>
+    </formulas>
+    <formulas>
+        <name>PaydayCalculation</name>
+        <dataType>Date</dataType>
+        <expression>{!$Record.Payday_Calculation__c} + ({!Counter}*14)</expression>
+    </formulas>
+    <formulas>
+        <description>This variable is used to get payments with payment date &gt; today +5. This is done because the first payment report will already be given to HR and is in process.</description>
+        <name>PaymentOffsetDays</name>
+        <dataType>Date</dataType>
+        <expression>{!Term_StartDate} + 21</expression>
+    </formulas>
+    <formulas>
+        <description>Transforms the course type to calculate either General or enhanced pay. ONLY to be used when using Record Type = Course offering</description>
+        <name>RTCourseOffering_CourseTypeTransformation</name>
+        <dataType>String</dataType>
+        <expression>IF(TEXT({!$Record.Course_Offering_Type__c}) = &quot;Enhanced Pay&quot;, &quot;Enhanced Pay&quot;,&quot;General&quot;)</expression>
+    </formulas>
+    <formulas>
+        <description>Payment Calculation ONLY for Course Offering record type with a &quot;Flat&quot; Fee type</description>
+        <name>RTCourseOffering_FlatPaymentCalculation</name>
+        <dataType>Currency</dataType>
+        <expression>({!Get_Payment_Metadata.Flat_Fee__c} + {!Get_Payment_Metadata.Additional_Pay__c})</expression>
+        <scale>2</scale>
+    </formulas>
+    <formulas>
+        <description>Payment Calculation ONLY for Course Offering record type with a &quot;Per&quot; Fee type</description>
+        <name>RTCourseOffering_PerPaymentCalculation</name>
+        <dataType>Currency</dataType>
+        <expression>({!Get_Payment_Metadata.Flat_Fee__c} * {!$Record.Number_of_Students_Registered__c})+{!Get_Payment_Metadata.Additional_Pay__c}</expression>
+        <scale>2</scale>
+    </formulas>
+    <interviewLabel>RT-U-AS-Payment Generator {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>RT-U-AS-Payment Generator</label>
+    <loops>
+        <description>This loop is to assign values to the updated Payment compensation</description>
+        <name>Loop_Get_Payments</name>
+        <label>Loop Get Payments</label>
+        <locationX>2294</locationX>
+        <locationY>3233</locationY>
+        <collectionReference>Get_Payment_Records</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Update_Payment_values</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Update_Payments</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <loops>
+        <description>Looping the payments again to verify no financial amount is missed</description>
+        <name>Loop_Payments_again_to_calculate_total_compensation</name>
+        <label>Loop Payments again to calculate total compensation</label>
+        <locationX>2294</locationX>
+        <locationY>3749</locationY>
+        <collectionReference>Get_Payment_Records_AGAIN</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Capture_Record_ID_in_Variable</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Compare_Payments_with_compensation</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <name>Create_payment_records</name>
+        <label>Create payment records</label>
+        <locationX>1370</locationX>
+        <locationY>2909</locationY>
+        <connector>
+            <targetReference>Global_Course_offering_Update_Values</targetReference>
+        </connector>
+        <inputReference>Payment2CreateCollection</inputReference>
+    </recordCreates>
+    <recordLookups>
+        <name>Get_Payment_Metadata</name>
+        <label>Get Payment Metadata</label>
+        <locationX>1887</locationX>
+        <locationY>1745</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Check_if_Payment_Records_were_found</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Credits__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Credits_for_CMDT_Reference__c</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Faculty_Type__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.hed__Faculty__r.Faculty_Level__c</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Level__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>CourseLevelTransformationGLOBAL</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Lower_Range_Enrollment__c</field>
+            <operator>LessThanOrEqualTo</operator>
+            <value>
+                <elementReference>$Record.Number_of_Students_Registered__c</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Upper_Range_Enrollment__c</field>
+            <operator>GreaterThanOrEqualTo</operator>
+            <value>
+                <elementReference>$Record.Number_of_Students_Registered__c</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Course_Type__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>RTCourseOffering_CourseTypeTransformation</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Faculty_Payments__mdt</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Payment_Metadata1</name>
+        <label>Get Payment Metadata</label>
+        <locationX>902</locationX>
+        <locationY>587</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Check_if_Payment_Records_were_found1</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Credits__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Credits_for_CMDT_Reference__c</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Faculty_Type__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.hed__Faculty__r.Faculty_Level__c</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Level__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>CourseLevelTransformationGLOBAL</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Lower_Range_Enrollment__c</field>
+            <operator>LessThanOrEqualTo</operator>
+            <value>
+                <elementReference>$Record.Number_of_Students_Registered__c</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Upper_Range_Enrollment__c</field>
+            <operator>GreaterThanOrEqualTo</operator>
+            <value>
+                <elementReference>$Record.Number_of_Students_Registered__c</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Course_Type__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Course_Offering_Type__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Faculty_Payments__mdt</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <description>Gets Payment records that are not equal to Completed</description>
+        <name>Get_Payment_Records</name>
+        <label>Get Payment Records</label>
+        <locationX>2294</locationX>
+        <locationY>3017</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Counter1</targetReference>
+        </connector>
+        <filterLogic>1 AND 2 AND 3 AND 4</filterLogic>
+        <filters>
+            <field>Course_Offering__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Payment_Status__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Completed</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Payment_Status__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Cancelled</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Payment_Date__c</field>
+            <operator>GreaterThan</operator>
+            <value>
+                <elementReference>PaymentOffsetDays</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>Payment__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <description>We get payment records again to verify if the total amount paid = total compensation</description>
+        <name>Get_Payment_Records_AGAIN</name>
+        <label>Get Payment Records AGAIN</label>
+        <locationX>2294</locationX>
+        <locationY>3641</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Loop_Payments_again_to_calculate_total_compensation</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Course_Offering__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>Payment__c</object>
+        <sortField>Payment_Date__c</sortField>
+        <sortOrder>Asc</sortOrder>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <description>Need to use this get records to save the start date of the record</description>
+        <name>Get_Term_Start_Date</name>
+        <label>Get Term Start Date</label>
+        <locationX>2294</locationX>
+        <locationY>2909</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Payment_Records</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.hed__Term__c</elementReference>
+            </value>
+        </filters>
+        <object>hed__Term__c</object>
+        <outputAssignments>
+            <assignToReference>Term_StartDate</assignToReference>
+            <field>hed__Start_Date__c</field>
+        </outputAssignments>
+    </recordLookups>
+    <recordUpdates>
+        <description>RecordVar for updating Triggering record</description>
+        <name>Update_Course_Offering</name>
+        <label>Update Course Offering</label>
+        <locationX>968</locationX>
+        <locationY>5177</locationY>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <description>We need to update the Compensation values before the Payment Records are generated so an approval process isn&apos;t triggered</description>
+        <name>Update_ONLY_Compensation_Values</name>
+        <label>Update ONLY Compensation Values</label>
+        <locationX>572</locationX>
+        <locationY>1019</locationY>
+        <connector>
+            <targetReference>Course_offering_update_values1</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Compensation__c</field>
+            <value>
+                <elementReference>$Record.Compensation__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Payments</name>
+        <label>Update Payments</label>
+        <locationX>2294</locationX>
+        <locationY>3533</locationY>
+        <connector>
+            <targetReference>Get_Payment_Records_AGAIN</targetReference>
+        </connector>
+        <inputReference>Payments4UpdateCollection</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_SINGLE_Payment_Record</name>
+        <label>Update SINGLE Payment Record</label>
+        <locationX>2162</locationX>
+        <locationY>4373</locationY>
+        <connector>
+            <targetReference>Global_Course_offering_Update_Values</targetReference>
+        </connector>
+        <inputReference>Payment4CreateUpdate_Single</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>842</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Record_Type_Branching</targetReference>
+        </connector>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Trigger_Payment_Calculation__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Active</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Faculty_Load_Type__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>On Load</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>hed__Faculty__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>0034O00002mW89pQAC</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Second_Payment_calculated__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <object>hed__Course_Offering__c</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <scheduledPaths>
+            <name>Dummy_Schedule_Path</name>
+            <connector>
+                <targetReference>Record_Type_Branching</targetReference>
+            </connector>
+            <label>Dummy Schedule Path</label>
+            <maxBatchSize>2</maxBatchSize>
+            <offsetNumber>1</offsetNumber>
+            <offsetUnit>Minutes</offsetUnit>
+            <timeSource>RecordTriggerEvent</timeSource>
+        </scheduledPaths>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Draft</status>
+    <variables>
+        <description>Counter for the Number of payments to be created</description>
+        <name>Counter</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>0</scale>
+        <value>
+            <numberValue>0.0</numberValue>
+        </value>
+    </variables>
+    <variables>
+        <description>Record Collection used to add values to Single Update</description>
+        <name>Payment2CreateCollection</name>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Payment__c</objectType>
+    </variables>
+    <variables>
+        <description>Record Variable to hold SINGLE payment records to be created</description>
+        <name>Payment4CreateUpdate_Single</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Payment__c</objectType>
+    </variables>
+    <variables>
+        <description>Collection used to Update Payment Records</description>
+        <name>Payments4UpdateCollection</name>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Payment__c</objectType>
+    </variables>
+    <variables>
+        <name>PreviousCompensation</name>
+        <dataType>Currency</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>2</scale>
+    </variables>
+    <variables>
+        <description>Term Start date to be stored in a variable</description>
+        <name>Term_StartDate</name>
+        <dataType>Date</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>Test</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>The variable holds total compensation from all payment records. This is ONLY used in verifying if the total pay amount = compensation</description>
+        <name>TotalCompensation_fromPayment</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>2</scale>
+    </variables>
+</Flow>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Check Opportunity Manager Approval checkbox
+**To be Deleted**</description>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Opportunity.Manager_Approval__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>z.TBD_OA_Opportunity_ManagerApproval</label>
+    <license>Salesforce</license>
+</PermissionSet>

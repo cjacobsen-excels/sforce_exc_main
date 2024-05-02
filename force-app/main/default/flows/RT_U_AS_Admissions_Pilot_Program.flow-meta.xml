@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>60.0</apiVersion>
+    <customErrors>
+        <description>No task existed for this element.</description>
+        <name>No_Task</name>
+        <label>No Task</label>
+        <locationX>1018</locationX>
+        <locationY>647</locationY>
+        <connector>
+            <isGoTo>true</isGoTo>
+            <targetReference>Remove_Pilot_Group_Value</targetReference>
+        </connector>
+        <customErrorMessages>
+            <errorMessage>The flow could not find a task on the opportunity.</errorMessage>
+            <isFieldError>false</isFieldError>
+        </customErrorMessages>
+    </customErrors>
+    <decisions>
+        <description>Identify if record is even or odd.</description>
+        <name>Decision_Records_is_Even_or_Odd</name>
+        <label>Decision Records is Even or Odd Number</label>
+        <locationX>182</locationX>
+        <locationY>647</locationY>
+        <defaultConnector>
+            <targetReference>Odd_equals_B</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>New Count is Odd</defaultConnectorLabel>
+        <rules>
+            <name>New_Count_is_an_even_number</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>vIdentifyEvenorOdd</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>EVEN</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Even_equals_A</targetReference>
+            </connector>
+            <label>New Count is Even</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>If pilot group is B, delete the task that was created.</description>
+        <name>Determine_Pilot_Group</name>
+        <label>Determine Pilot Group</label>
+        <locationX>666</locationX>
+        <locationY>431</locationY>
+        <defaultConnector>
+            <targetReference>Delete_Related_Task</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Pilot Group B</defaultConnectorLabel>
+        <rules>
+            <name>Pilot_Group_A</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Transcript_Pilot_Group__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>A</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Remove_Pilot_Group_Value</targetReference>
+            </connector>
+            <label>Pilot Group A</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Check to see if the Eligible box is checked or unchecked</description>
+        <name>Is_the_Eligible_box_checked</name>
+        <label>Is the Eligible box checked</label>
+        <locationX>424</locationX>
+        <locationY>323</locationY>
+        <defaultConnector>
+            <targetReference>Determine_Pilot_Group</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Eligible box unchecked</defaultConnectorLabel>
+        <rules>
+            <name>Eligible_box_checked</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Transcript_Pilot_Eligible__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Last_Saved_Count</targetReference>
+            </connector>
+            <label>Eligible box checked</label>
+        </rules>
+    </decisions>
+    <description>The Admissions team is testing whether it&apos;s quicker for students or staff to request transcripts. Splitting the applications into 2 groups, A and B. Group B will have a task assigned to the application&apos;s opportunity.</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>vIdentifyEvenorOdd</name>
+        <dataType>String</dataType>
+        <expression>IF(MOD({!vNewCount}, 2) = 0, &apos;EVEN&apos; , &apos;ODD&apos;)</expression>
+    </formulas>
+    <formulas>
+        <name>vNewCount</name>
+        <dataType>Number</dataType>
+        <expression>{!vLastSavedCount}+1</expression>
+        <scale>0</scale>
+    </formulas>
+    <interviewLabel>RT-U-AS Admissions Pilot Program {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>RT-U-AS Admissions Pilot Program</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordDeletes>
+        <description>Delete the task that was created when Group B was assigned.</description>
+        <name>Delete_Related_Task</name>
+        <label>Delete Related Task</label>
+        <locationX>754</locationX>
+        <locationY>539</locationY>
+        <connector>
+            <targetReference>Remove_Pilot_Group_Value</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>No_Task</targetReference>
+        </faultConnector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Subject</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Transcript Request Pilot</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>WhoId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.hed__Applicant__r.Id</elementReference>
+            </value>
+        </filters>
+        <object>Task</object>
+    </recordDeletes>
+    <recordLookups>
+        <description>Look at Account = Excelsior University. and get the last saved value</description>
+        <name>Get_Last_Saved_Count</name>
+        <label>Get Last Saved Count</label>
+        <locationX>182</locationX>
+        <locationY>431</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Update_Count_Plus_1</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>0014O00002FrsSEQAZ</stringValue>
+            </value>
+        </filters>
+        <object>Account</object>
+        <outputAssignments>
+            <assignToReference>vLastSavedCount</assignToReference>
+            <field>Admissons_Pilot_Program_Counter__c</field>
+        </outputAssignments>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Opportunity_ID</name>
+        <label>Get Opportunity ID</label>
+        <locationX>314</locationX>
+        <locationY>863</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Task_for_Group_B</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>traa_Primary_Application__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </filters>
+        <object>Opportunity</object>
+        <outputAssignments>
+            <assignToReference>vOpportunityID</assignToReference>
+            <field>Id</field>
+        </outputAssignments>
+    </recordLookups>
+    <recordUpdates>
+        <name>Even_equals_A</name>
+        <label>Even equals A</label>
+        <locationX>50</locationX>
+        <locationY>755</locationY>
+        <inputAssignments>
+            <field>Transcript_Pilot_Group__c</field>
+            <value>
+                <stringValue>A</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Odd_equals_B</name>
+        <label>Odd equals B</label>
+        <locationX>314</locationX>
+        <locationY>755</locationY>
+        <connector>
+            <targetReference>Get_Opportunity_ID</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Transcript_Pilot_Group__c</field>
+            <value>
+                <stringValue>B</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Delete the value in the field Pilot Group</description>
+        <name>Remove_Pilot_Group_Value</name>
+        <label>Remove Pilot Group Value</label>
+        <locationX>666</locationX>
+        <locationY>929</locationY>
+        <inputAssignments>
+            <field>Transcript_Pilot_Group__c</field>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Update the Admissions Pilot Counter on Account = Excelsior University. by adding &quot;1&quot;</description>
+        <name>Update_Count_Plus_1</name>
+        <label>Update Count Plus 1</label>
+        <locationX>182</locationX>
+        <locationY>539</locationY>
+        <connector>
+            <targetReference>Decision_Records_is_Even_or_Odd</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>0014O00002FrsSEQAZ</stringValue>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Admissons_Pilot_Program_Counter__c</field>
+            <value>
+                <elementReference>vNewCount</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Account</object>
+    </recordUpdates>
+    <start>
+        <locationX>298</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Is_the_Eligible_box_checked</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Transcript_Pilot_Eligible__c</field>
+            <operator>IsChanged</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <object>hed__Application__c</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <subflows>
+        <description>Task created when the group is B</description>
+        <name>Task_for_Group_B</name>
+        <label>Task for Group B</label>
+        <locationX>314</locationX>
+        <locationY>971</locationY>
+        <flowName>SSC_Task_Flow</flowName>
+        <inputAssignments>
+            <name>vContactID</name>
+            <value>
+                <elementReference>$Record.hed__Applicant__r.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>vOwnerID</name>
+            <value>
+                <stringValue>005U0000002QBLcIAO</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>vTaskName</name>
+            <value>
+                <stringValue>ADM.TranscriptPilot</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>vWhatId</name>
+            <value>
+                <elementReference>vOpportunityID</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <variables>
+        <name>vLastSavedCount</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>0</scale>
+    </variables>
+    <variables>
+        <name>vOpportunityID</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

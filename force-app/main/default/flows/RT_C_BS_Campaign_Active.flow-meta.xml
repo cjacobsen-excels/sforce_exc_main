@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>59.0</apiVersion>
+    <assignments>
+        <description>mark the Active checkbox on Campaigns as true, so they will integrate to Marketo.</description>
+        <name>Update_Active_Status</name>
+        <label>Update Active Status</label>
+        <locationX>176</locationX>
+        <locationY>287</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.IsActive</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <description>Automatically mark the Active checkbox on Campaigns as true, so they will integrate to Marketo.</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>Name</name>
+        <dataType>String</dataType>
+        <expression>{!$Record.Parent.Campaign_Code__c} &amp; &quot;_&quot; &amp; 
+{!$Record.Affiliate_Code__c} &amp; &quot;_&quot; &amp; 
+{!$Record.Media_Channel_Code__c} &amp; &quot;_&quot; &amp; 
+{!$Record.Differentiator_Code__c} &amp; &quot;_&quot; &amp; 
+TEXT({!$Record.Start_FYQ__c})</expression>
+    </formulas>
+    <interviewLabel>RT-C-BS- Campaign Active {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>RT-C-BS- Campaign Active</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Update_Active_Status</targetReference>
+        </connector>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterFormula>AND(
+  {!$Record.RecordType.Name} = &apos;Campaign&apos;
+)</filterFormula>
+        <object>Campaign</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

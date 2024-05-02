@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <name>Graduate</name>
+    <queueMembers>
+        <users>
+            <user>lswartwood@excelsior.edu</user>
+            <user>rhancox@excelsior.edu</user>
+            <user>sburke@excelsior.edu</user>
+            <user>tgarland@excelsior.edu</user>
+            <user>zpickens@excelsior.edu</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>BMCServiceDesk__Incident__c</sobjectType>
+    </queueSobject>
+</Queue>

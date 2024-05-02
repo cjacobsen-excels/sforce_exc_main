@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>59.0</apiVersion>
+    <assignments>
+        <name>Set_Variable_to_production</name>
+        <label>Set Variable to production</label>
+        <locationX>50</locationX>
+        <locationY>350</locationY>
+        <assignmentItems>
+            <assignToReference>OrgType</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Production</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <name>Set_Variable_to_sandbox</name>
+        <label>Set Variable to sandbox</label>
+        <locationX>314</locationX>
+        <locationY>350</locationY>
+        <assignmentItems>
+            <assignToReference>OrgType</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Sandbox</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <decisions>
+        <description>Indicates whether the current organization is a sandbox (true) or production(false) instance, Available in API version 31.0 or later.</description>
+        <name>What_type_of_an_Org_is_this</name>
+        <label>What Type of an Org is this?</label>
+        <locationX>182</locationX>
+        <locationY>242</locationY>
+        <defaultConnector>
+            <targetReference>Set_Variable_to_sandbox</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Sandbox</defaultConnectorLabel>
+        <rules>
+            <name>Production</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Organization_Record.IsSandbox</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Variable_to_production</targetReference>
+            </connector>
+            <label>Production</label>
+        </rules>
+    </decisions>
+    <description>It returns a variable ({!OrgType} will tell us if this flow running in production or sandbox ?</description>
+    <environments>Default</environments>
+    <interviewLabel>(Sub) Is this running in Production {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>(Sub) Is this running in Production</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <description>It will return the configuration for that Salesforce Org. The field we use is &apos;IsSandbox&apos;- Indicates whether the current organization
+Is a sandbox true) or production (false instance. Available in API version 31.0 or later. Check this Documentation on the Organization Object: https://developer.salesforce.com/docs/atlas.en-
+us.object_reference.meta/object_reference/sforce_api_objects_organization.htm</description>
+        <name>Get_Organization_Record</name>
+        <label>Get Organization Record</label>
+        <locationX>182</locationX>
+        <locationY>134</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>What_type_of_an_Org_is_this</targetReference>
+        </connector>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Organization</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Organization_Record</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>OrgType</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+</Flow>

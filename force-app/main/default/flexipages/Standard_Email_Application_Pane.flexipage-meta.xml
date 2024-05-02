@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentName>lightningInbox:logItemButtonContainer</componentName>
+                <identifier>lightningInbox_logItemButtonContainer</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentName>clients:emailTemplatesActionContainerFlex</componentName>
+                <identifier>clients_emailTemplatesActionContainerFlex</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>headerValue</name>
+                </componentInstanceProperties>
+                <componentName>clients:peopleCardContainerFlex</componentName>
+                <identifier>clients_peopleCardContainerFlex</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>entityApiName</name>
+                    <value>Case</value>
+                </componentInstanceProperties>
+                <componentName>clients:relatedRecordsPageFlex</componentName>
+                <identifier>clients_relatedRecordsPageFlex</identifier>
+            </componentInstance>
+        </itemInstances>
+        <mode>Replace</mode>
+        <name>main</name>
+        <type>Region</type>
+    </flexiPageRegions>
+    <masterLabel>Standard Email Application Pane</masterLabel>
+    <parentFlexiPage>clients__default_app_L</parentFlexiPage>
+    <template>
+        <name>clients:defaultMailAppTemplate</name>
+    </template>
+    <type>MailAppAppPage</type>
+</FlexiPage>

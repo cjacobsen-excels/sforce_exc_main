@@ -1,0 +1,37 @@
+<!--
+ - Created by mnahar on 23/06/21.
+ -->
+
+<aura:component controller="EducationHistoryController" description="EducationHistory"
+                implements="flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes">
+
+    <!-- attributes -->
+    <aura:attribute name="data" type="Object"/>
+    <aura:attribute name="columns" type="List"/>
+    <aura:attribute name="showData" type="Boolean" default="false"/>
+    <aura:attribute name="isLoading" type="Boolean" default="true"/>
+
+    <!-- handlers-->
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+
+    <!-- body-->
+    <lightning:card iconName="standard:record" title="My Transcripts">
+        <div style="height: 300px" class="slds-is-relative">
+            <lightning:spinner variant="brand" class="{!v.isLoading ? '' : 'slds-hide'}"/>
+            <aura:if isTrue="{!v.showData}">
+
+                <lightning:datatable
+                        keyField="id"
+                        data="{!v.data}"
+                        columns="{!v.columns}"
+                        hideCheckboxColumn="true"/>
+
+                <aura:set attribute="else">
+                    <div class="slds-align_absolute-center">
+                        No Transcripts found
+                    </div>
+                </aura:set>
+            </aura:if>
+        </div>
+    </lightning:card>
+</aura:component>

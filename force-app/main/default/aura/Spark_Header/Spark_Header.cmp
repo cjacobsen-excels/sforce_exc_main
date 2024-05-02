@@ -1,0 +1,44 @@
+<aura:component access="global" extends="c:Spark_ExtensionHook">
+  <aura:handler name="init" value="{!this}" action="{!c.onInit}" />
+  <aura:registerEvent name="hookEvent" type="c:SO_HookEvent" />
+
+  <aura:if isTrue="{!v.schemaData.header != undefined}">
+    <div class="spark-header slds-grid">
+      <div class="slds-col">
+        <aura:if isTrue="{!v.schemaData.header.icon != undefined}">
+          <div class="header-icon">
+            <lightning:icon size="{!v.schemaData.header.iconSize ?  v.schemaData.header.iconSize : 'small'}" iconName="{!v.schemaData.header.icon}"></lightning:icon>
+          </div>
+        </aura:if>
+        <div class="header-text">
+          <aura:if isTrue="{!v.schemaData.header.subtitle != undefined}">
+            <div class="subtitle">{!v.schemaData.header.subtitle}</div>
+          </aura:if>
+          <div class="title">{!v.schemaData.header.title}</div>
+        </div>
+      </div>
+      <div class="slds-col slds-text-align_right">
+        <div class="slds-grid slds-grid_reverse">
+          <aura:if isTrue="{!v.schemaData.header.actions != undefined &amp;&amp; v.schemaData.header.actions.length > 0}">
+            <aura:iteration items="{!v.schemaData.header.actions}" var="action" indexVar="i">
+              <div data-i="{!i}" onclick="{!c.onActionClick}" class="{! (action.active ? 'slds-is-pressed ' : '' ) + 'slds-m-left_small slds-button slds-button_neutral slds-button_dual-stateful' }">
+                <aura:if isTrue="{! action.icon != undefined }">
+                  <lightning:icon size="x-small" iconName="{! action.icon }" />
+                </aura:if>
+                <aura:if isTrue="{! action.label != undefined }">
+                  {!action.label}
+                </aura:if>
+              </div>
+            </aura:iteration>
+          </aura:if>
+          <aura:if isTrue="{!v.schemaData.header.search != undefined &amp;&amp; v.schemaData.header.search}">
+            <div class="slds-col search-box">
+              <lightning:icon size="x-small" iconName="utility:search" class="search-icon"></lightning:icon>
+              <input id="{! globalId + '_search'}" placeholder="Search this list..." type="text" autocomplete="off" onkeyup="{!c.onSearch}" />
+            </div>
+          </aura:if>
+        </div>
+      </div>
+    </div>
+  </aura:if>
+</aura:component>

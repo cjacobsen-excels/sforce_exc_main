@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Create Folders for Lightning Email Templates.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>LEX Email Template Folder</label>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>CreateLtngTempFolder</name>
+    </userPermissions>
+</PermissionSet>

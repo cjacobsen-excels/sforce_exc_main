@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <name>Web Applications</name>
+    <queueMembers>
+        <users>
+            <user>anugeet.kaur@excelsior.edu</user>
+            <user>dbeckett@excelsior.edu</user>
+            <user>hpilco@excelsior.edu</user>
+            <user>jgross@excelsior.edu</user>
+            <user>luigi.paolino@excelsior.edu</user>
+            <user>mekala.saiyeshwanth@excelsior.edu</user>
+            <user>michelle.south@excelsior.edu</user>
+            <user>suresh.guntuboyina@excelsior.edu</user>
+            <user>suyasha.kesharwani@excelsior.edu</user>
+            <user>thalari.devendra@excelsior.edu</user>
+            <user>vtrumbull@excelsior.edu</user>
+            <user>yogabindiya.soupramanian@excelsior.edu</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>BMCServiceDesk__Broadcasts__c</sobjectType>
+    </queueSobject>
+    <queueSobject>
+        <sobjectType>BMCServiceDesk__Change_Request__c</sobjectType>
+    </queueSobject>
+    <queueSobject>
+        <sobjectType>BMCServiceDesk__Incident__c</sobjectType>
+    </queueSobject>
+    <queueSobject>
+        <sobjectType>BMCServiceDesk__Problem__c</sobjectType>
+    </queueSobject>
+    <queueSobject>
+        <sobjectType>BMCServiceDesk__Task__c</sobjectType>
+    </queueSobject>
+</Queue>

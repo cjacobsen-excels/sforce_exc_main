@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>OpportunityAffiliationEnrolledActive</label>
+    <protected>false</protected>
+    <values>
+        <field>traa_Check_Special_Condition__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>traa_Override_source_condition__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>traa_Source_Field__c</field>
+        <value xsi:type="xsd:string">Opportunity_Status__c</value>
+    </values>
+    <values>
+        <field>traa_Source_Record_Type__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>traa_Source_SObject_Type__c</field>
+        <value xsi:type="xsd:string">Opportunity</value>
+    </values>
+    <values>
+        <field>traa_Source_Value__c</field>
+        <value xsi:type="xsd:string">Enrolled Active</value>
+    </values>
+    <values>
+        <field>traa_Target_Field__c</field>
+        <value xsi:type="xsd:string">hed__Status__c</value>
+    </values>
+    <values>
+        <field>traa_Target_Record_Type__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>traa_Target_Reference__c</field>
+        <value xsi:type="xsd:string">traa_Primary_Affiliation__r.Id</value>
+    </values>
+    <values>
+        <field>traa_Target_Value__c</field>
+        <value xsi:type="xsd:string">Enrolled Active</value>
+    </values>
+</CustomMetadata>

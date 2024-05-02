@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <name>Application Task Queue</name>
+    <queueMembers>
+        <users>
+            <user>ande3068@excelsior.edu.fm</user>
+            <user>cdemers@excelsior.edu</user>
+            <user>eduncan@excelsior.edu</user>
+            <user>etracy@excelsior.edu</user>
+            <user>gdingman@excelsior.edu</user>
+            <user>ghillebrandt@excelsior.edu</user>
+            <user>jprimus@excelsior.edu</user>
+            <user>jmeyer@excelsior.edu</user>
+            <user>jpabon@excelsior.edu</user>
+            <user>lcady@excelsior.edu</user>
+            <user>orule@excelsior.edu</user>
+            <user>rengelhardt@excelsior.edu</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Task</sobjectType>
+    </queueSobject>
+</Queue>

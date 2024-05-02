@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>59.0</apiVersion>
+    <assignments>
+        <description>If the value changes the prior value gets saved in another field</description>
+        <name>Update_Campaign_Cost_Fields_to_Capture_Historic_Data</name>
+        <label>Update Campaign Cost Fields to Capture Historic Data</label>
+        <locationX>176</locationX>
+        <locationY>287</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.BudgetedCost</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.Budgeted_Cost_to_Date__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.ActualCost</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.Actual_Cost_to_Date__c</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <description>Update the standard Budgeted Cost and Actual Cost fields on Sources when their related Budget/Actuals records are udpated.</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>Name</name>
+        <dataType>String</dataType>
+        <expression>{!$Record.Parent.Campaign_Code__c} &amp; &quot;_&quot; &amp; 
+{!$Record.Affiliate_Code__c} &amp; &quot;_&quot; &amp; 
+{!$Record.Media_Channel_Code__c} &amp; &quot;_&quot; &amp; 
+{!$Record.Differentiator_Code__c} &amp; &quot;_&quot; &amp; 
+TEXT({!$Record.Start_FYQ__c})</expression>
+    </formulas>
+    <interviewLabel>RT-CU-BS- Campaign Update Budget and Cost Fields {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>RT-CU-BS- Campaign Update Budget and Cost Fields</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Update_Campaign_Cost_Fields_to_Capture_Historic_Data</targetReference>
+        </connector>
+        <filterFormula>AND(
+  {!$Record.RecordType.Name} = &apos;Source&apos;,
+  OR(
+    ISCHANGED({!$Record.Budgeted_Cost_to_Date__c}),
+    ISCHANGED({!$Record.Actual_Cost_to_Date__c})
+  )
+)</filterFormula>
+        <object>Campaign</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

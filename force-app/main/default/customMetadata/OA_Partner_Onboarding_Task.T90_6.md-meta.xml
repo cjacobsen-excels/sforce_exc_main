@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>T90.6</label>
+    <protected>false</protected>
+    <values>
+        <field>Assigned_To_Id__c</field>
+        <value xsi:type="xsd:string">005U0000002dApIIAU</value>
+    </values>
+    <values>
+        <field>Assigned_To__c</field>
+        <value xsi:type="xsd:string">Courtney Brinkman</value>
+    </values>
+    <values>
+        <field>Comments__c</field>
+        <value xsi:type="xsd:string">1.Create partner page: Name:ORG PopCode: SF Account ID:  2.Inform Marketing Manager to approve page.  3.Create IT ticket for redirect for new partner page. Ex:Create redirect excelsior.edu/x to link to partner page excelsior.edu/partner/x.</value>
+    </values>
+    <values>
+        <field>Due_Date__c</field>
+        <value xsi:type="xsd:string">1 Day after T90.5 is completed</value>
+    </values>
+    <values>
+        <field>Skip_for_CEP__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Subject__c</field>
+        <value xsi:type="xsd:string">POP.Create Partner Web Page</value>
+    </values>
+    <values>
+        <field>Type__c</field>
+        <value xsi:type="xsd:string">Other</value>
+    </values>
+</CustomMetadata>

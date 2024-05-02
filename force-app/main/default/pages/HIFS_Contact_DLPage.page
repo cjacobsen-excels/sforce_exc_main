@@ -1,0 +1,1 @@
+<apex:page standardController="Contact" showHeader="false"><hfs:HIFS_PageComponent canvasAppDeveloperName="OIFSCanvasApp" ></hfs:HIFS_PageComponent></apex:page>

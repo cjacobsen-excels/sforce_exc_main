@@ -1,0 +1,70 @@
+<template>
+  <template if:true={errorMessage}>
+    <p>Please contact your administar to access this feature.</p>
+  </template>
+  <template if:true={isNonADATeam.data}>
+    <template if:true={spinnerOn}>
+      <lightning-spinner alternative-text="Loading"></lightning-spinner>
+    </template>
+
+    <div
+      class="slds-box slds-p-around_none slds-m-top_x-small slds-m-bottom_medium slds-m-horizontal_none"
+      style="cursor: pointer; font-size: 0.89rem"
+    >
+      <lightning-layout>
+        <lightning-layout-item flexibility="auto">
+          <div
+            class="slds-p-around_medium slds-text-align_center slds-theme_shade"
+            onclick={newTask}
+            data-source="task"
+          >
+            New Task
+          </div>
+        </lightning-layout-item>
+        <lightning-layout-item flexibility="auto">
+          <div
+            class="slds-p-around_medium slds-text-align_center slds-theme_shade"
+            onclick={newCall}
+            data-source="call"
+          >
+            Log a Call
+          </div>
+        </lightning-layout-item>
+        <lightning-layout-item flexibility="auto">
+          <div
+            class="slds-p-around_medium slds-text-align_center slds-theme_shade"
+            onclick={newEvent}
+            data-source="event"
+          >
+            <p>New Event</p>
+          </div>
+        </lightning-layout-item>
+        <lightning-layout-item flexibility="auto">
+          <div
+            class="slds-p-around_medium slds-text-align_center slds-theme_shade"
+            onclick={newEmail}
+            data-source="email"
+          >
+            <p>Email</p>
+          </div>
+        </lightning-layout-item>
+      </lightning-layout>
+    </div>
+    <ul class="slds-timeline">
+      <template for:each={taskList} for:item="task">
+        <li key={task}>
+          <c-activity-component task-detail={task}></c-activity-component>
+        </li>
+      </template>
+    </ul>
+    <template if:true={showViewMore}>
+      <div class="slds-clearfix">
+        <lightning-button
+          label="View More"
+          class="slds-align_absolute-center"
+          onclick={fetchMoreRecords}
+        ></lightning-button>
+      </div>
+    </template>
+  </template>
+</template>

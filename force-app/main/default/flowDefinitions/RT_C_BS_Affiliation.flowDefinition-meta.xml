@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionNumber>3</activeVersionNumber>
+    <description>Record Trigger Flow to ONLY run on record create with fast field updates. 
+
+IN00086169
+
+Deactivated per:IN00092152</description>
+    <masterLabel>RT-C-BS-Affiliation</masterLabel>
+</FlowDefinition>

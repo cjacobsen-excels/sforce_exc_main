@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>MBA</fullName>
+        <default>false</default>
+        <label>MBA</label>
+    </customValue>
+    <customValue>
+        <fullName>MBA Cannabis Control</fullName>
+        <default>false</default>
+        <label>MBA Cannabis Control</label>
+    </customValue>
+    <customValue>
+        <fullName>MBA General Accounting</fullName>
+        <default>false</default>
+        <label>MBA General Accounting</label>
+    </customValue>
+    <customValue>
+        <fullName>MBA Health Care Management</fullName>
+        <default>false</default>
+        <label>MBA Health Care Management</label>
+    </customValue>
+    <customValue>
+        <fullName>MBA Human Resource Management</fullName>
+        <default>false</default>
+        <label>MBA Human Resource Management</label>
+    </customValue>
+    <customValue>
+        <fullName>MBA Leadership</fullName>
+        <default>false</default>
+        <label>MBA Leadership</label>
+    </customValue>
+    <customValue>
+        <fullName>MPA</fullName>
+        <default>false</default>
+        <label>MPA</label>
+    </customValue>
+    <customValue>
+        <fullName>MPA Cannabis Control</fullName>
+        <default>false</default>
+        <label>MPA Cannabis Control</label>
+    </customValue>
+    <customValue>
+        <fullName>MS Criminal Justice</fullName>
+        <default>false</default>
+        <label>MS Criminal Justice</label>
+    </customValue>
+    <customValue>
+        <fullName>MS Criminal Justice Cannabis Control</fullName>
+        <default>false</default>
+        <label>MS Criminal Justice Cannabis Control</label>
+    </customValue>
+    <customValue>
+        <fullName>MS Criminal Justice Homeland Security and Emergency Management</fullName>
+        <default>false</default>
+        <label>MS Criminal Justice Homeland Security and Emergency Management</label>
+    </customValue>
+    <customValue>
+        <fullName>MS Cybersecurity General Track</fullName>
+        <default>false</default>
+        <label>MS Cybersecurity General Track</label>
+    </customValue>
+    <customValue>
+        <fullName>MS Cybersecurity Information Assurance</fullName>
+        <default>false</default>
+        <label>MS Cybersecurity Information Assurance</label>
+    </customValue>
+    <customValue>
+        <fullName>MS Health Care Administration</fullName>
+        <default>false</default>
+        <label>MS Health Care Administration</label>
+    </customValue>
+    <customValue>
+        <fullName>MS Health Sciences Cannabis Control</fullName>
+        <default>false</default>
+        <label>MS Health Sciences Cannabis Control</label>
+    </customValue>
+    <customValue>
+        <fullName>MS Health Sciences General Track</fullName>
+        <default>false</default>
+        <label>MS Health Sciences General Track</label>
+    </customValue>
+    <customValue>
+        <fullName>MS Health Sciences Public Health</fullName>
+        <default>false</default>
+        <label>MS Health Sciences Public Health</label>
+    </customValue>
+    <customValue>
+        <fullName>MS Human Resource Management, emphasis Diversity and Technology</fullName>
+        <default>false</default>
+        <label>MS Human Resource Management, emphasis Diversity and Technology</label>
+    </customValue>
+    <customValue>
+        <fullName>MS Management General Business Management</fullName>
+        <default>false</default>
+        <label>MS Management General Business Management</label>
+    </customValue>
+    <customValue>
+        <fullName>MS Management Human Resource Management</fullName>
+        <default>false</default>
+        <label>MS Management Human Resource Management</label>
+    </customValue>
+    <customValue>
+        <fullName>MS Management Organizational Leadership</fullName>
+        <default>false</default>
+        <label>MS Management Organizational Leadership</label>
+    </customValue>
+    <customValue>
+        <fullName>MS Nursing Education</fullName>
+        <default>false</default>
+        <label>MS Nursing Education</label>
+    </customValue>
+    <customValue>
+        <fullName>MS Nursing Informatics</fullName>
+        <default>false</default>
+        <label>MS Nursing Informatics</label>
+    </customValue>
+    <customValue>
+        <fullName>MS Nursing Leadership and Administration of Health Care Systems</fullName>
+        <default>false</default>
+        <label>MS Nursing Leadership and Administration of Health Care Systems</label>
+    </customValue>
+    <customValue>
+        <fullName>MS Organizational Leadership, emphasis Technology and Data Analytics</fullName>
+        <default>false</default>
+        <label>MS Organizational Leadership, emphasis Technology and Data Analytics</label>
+    </customValue>
+    <customValue>
+        <fullName>RN-MS Nursing Education</fullName>
+        <default>false</default>
+        <label>RN-MS Nursing Education</label>
+    </customValue>
+    <customValue>
+        <fullName>RN-MS Nursing Informatics</fullName>
+        <default>false</default>
+        <label>RN-MS Nursing Informatics</label>
+    </customValue>
+    <customValue>
+        <fullName>RN-MS Nursing Leadership and Administration of Health Care Systems</fullName>
+        <default>false</default>
+        <label>RN-MS Nursing Leadership and Administration of Health Care Systems</label>
+    </customValue>
+    <masterLabel>Masters Degree</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

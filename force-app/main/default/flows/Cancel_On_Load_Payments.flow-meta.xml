@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>57.0</apiVersion>
+    <assignments>
+        <description>Add the current payment record in the loop to the record collection variable</description>
+        <name>Add_Payment_to_Payments2Update</name>
+        <label>Add Payment to Payments2Update</label>
+        <locationX>264</locationX>
+        <locationY>695</locationY>
+        <assignmentItems>
+            <assignToReference>Payments2Update</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>Loop_through_all_payment_records</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Loop_through_all_payment_records</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Update the payment status = Cancelled</description>
+        <name>Set_Payment_Status</name>
+        <label>Set Payment Status</label>
+        <locationX>264</locationX>
+        <locationY>575</locationY>
+        <assignmentItems>
+            <assignToReference>Loop_through_all_payment_records.Payment_Status__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Cancelled</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Add_Payment_to_Payments2Update</targetReference>
+        </connector>
+    </assignments>
+    <description>Cancels any scheduled payment records if the faculty load type is changed to On Load</description>
+    <environments>Default</environments>
+    <interviewLabel>Cancel On Load Payments {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Cancel On Load Payments</label>
+    <loops>
+        <description>Create a loop to change the status = cancelled</description>
+        <name>Loop_through_all_payment_records</name>
+        <label>Loop through all payment records</label>
+        <locationX>176</locationX>
+        <locationY>455</locationY>
+        <collectionReference>Get_Payment_Records</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Set_Payment_Status</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Update_Payments</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <description>Get payment records to mark as cancelled where pay to = primary faculty, status = scheduled, course offering = course offering</description>
+        <name>Get_Payment_Records</name>
+        <label>Get Payment Records</label>
+        <locationX>176</locationX>
+        <locationY>335</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Loop_through_all_payment_records</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Course_Offering__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Payment_Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Scheduled</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Pay_To__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.hed__Faculty__r.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>Payment__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_Payments</name>
+        <label>Update Payments</label>
+        <locationX>176</locationX>
+        <locationY>911</locationY>
+        <inputReference>Payments2Update</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Payment_Records</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Faculty_Load_Type__c</field>
+            <operator>IsChanged</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Faculty_Load_Type__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>On Load</stringValue>
+            </value>
+        </filters>
+        <object>hed__Course_Offering__c</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <variables>
+        <description>Stores payment records that need to be updated.</description>
+        <name>Payments2Update</name>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Payment__c</objectType>
+    </variables>
+</Flow>

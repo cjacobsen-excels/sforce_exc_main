@@ -1,0 +1,92 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction"
+
+
+                access="global"
+
+
+                controller="CustomActCtrl">
+
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+
+    <aura:attribute name="lstActivity" type="list" />
+
+
+    <ul class="slds-timeline">        
+
+        <li>
+            <div class="slds-timeline__item_expandable slds-timeline__item_task slds-is-open">
+              <span class="slds-assistive-text">task</span>
+              <div class="slds-media">
+                <div class="slds-media__figure">
+                  <button class="slds-button slds-button_icon" title="Toggle details for Review proposals for EBC deck with larger team and have marketing review this" aria-controls="task-item-expanded-73" aria-expanded="true">
+                    <lightning:icon class="slds-hide" aura:id="emaildetail" iconName="utility:dash" size="x-small" alternativeText="Indicates dash"/>
+
+                    <span class="slds-assistive-text">Toggle details for Review proposals for EBC deck with larger team and have marketing review this</span>
+                  </button>
+                  
+                </div>
+                <div class="slds-media__body">
+                  <div class="slds-grid slds-grid_align-spread slds-timeline__trigger">
+                    <div class="slds-grid slds-grid_vertical-align-center slds-truncate_container_75 slds-no-space">
+                      <div class="slds-checkbox">
+                        <input type="checkbox" name="options" id="checkbox-unique-id-19" value="checkbox-unique-id-19" />
+                        <label class="slds-checkbox__label" for="checkbox-unique-id-19">
+                          <span class="slds-checkbox_faux"></span>
+                          <span class="slds-form-element__label slds-assistive-text">Mark Review proposals for EBC deck with larger team and have marketing review this complete</span>
+                        </label>
+                      </div>
+                      <h3 class="slds-truncate" title="Review proposals for EBC deck with larger team and have marketing review this">
+                        <a href="#">
+                          <strong>Review proposals for EBC deck with larger team and have marketing review this</strong>
+                        </a>
+                      </h3>
+                      <div class="slds-no-flex">
+                        <span class="slds-icon_container slds-icon-utility-rotate" title="Recurring Task">
+                           
+                          <span class="slds-assistive-text">Recurring Task</span>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="slds-timeline__actions slds-timeline__actions_inline">
+                      <p class="slds-timeline__date">9:00am | 3/20/17</p>
+                      <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-button_icon-x-small" aria-haspopup="true" title="More Options for this item">
+                        
+                        <span class="slds-assistive-text">More Options for this item</span>
+                      </button>
+                    </div>
+                  </div>
+                  <p class="slds-m-horizontal_xx-small">
+                    <a href="#">You</a> created a task with <a href="#">Charlie Gomez</a>
+                  </p>
+                  <article class="slds-box slds-timeline__item_details slds-theme_shade slds-m-top_x-small slds-m-horizontal_xx-small slds-p-around_medium" id="task-item-expanded-73">
+                    <ul class="slds-list_horizontal slds-wrap">
+                      <li class="slds-grid slds-grid_vertical slds-size_1-of-2 slds-p-bottom_small">
+                        <span class="slds-text-title slds-p-bottom_x-small">Name</span>
+                        <span class="slds-text-body_medium slds-truncate" title="Charlie Gomez">
+                          <a href="#">Charlie Gomez</a>
+                        </span>
+                      </li>
+                      <li class="slds-grid slds-grid_vertical slds-size_1-of-2 slds-p-bottom_small">
+                        <span class="slds-text-title slds-p-bottom_x-small">Related To</span>
+                        <span class="slds-text-body_medium slds-truncate" title="Tesla Cloudhub + Anypoint Connectors">
+                          <a href="#">Tesla Cloudhub + Anypoint Connectors</a>
+                        </span>
+                      </li>
+                    </ul>
+                    <div>
+                      <span class="slds-text-title">Description</span>
+                      <p class="slds-p-top_x-small">Need to finalize proposals and brand details before the meeting</p>
+                    </div>
+                  </article>
+                </div>
+              </div>
+            </div>
+          </li>
+
+
+    </ul>
+
+
+</aura:component>

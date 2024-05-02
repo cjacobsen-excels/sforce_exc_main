@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <name>Clinical Instruction Payment Approval</name>
+    <queueMembers>
+        <users>
+            <user>jsherman@excelsior.edu</user>
+            <user>excelsior@sparkorange.net</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Payment__c</sobjectType>
+    </queueSobject>
+</Queue>

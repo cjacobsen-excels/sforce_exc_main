@@ -1,0 +1,57 @@
+<aura:component access="global" extends="c:Spark_ListView" extensible="true" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes" controller="SO_API">
+  <aura:attribute name="schemaName" type="String" />
+  <aura:attribute name="editMode" type="Boolean" default="false" />
+  <aura:attribute name="changes" type="Boolean" default="false" />
+  <aura:attribute name="checked" type="List" />
+  <aura:attribute name="oldChecked" type="List" />
+  <aura:attribute name="junctionData" type="Object" />
+  <aura:attribute name="schemaDataCopy" type="Object" />
+  <aura:attribute name="joinCount" type="Integer" default="0" />
+  <aura:handler name="init" value="{!this}" action="{!c.onJunctionBuilderInit}" />
+  <div id="content" class="content slds-table slds-table_bordered">
+    <div class="header row">
+      <aura:if isTrue="{!v.editMode}">
+        <div class="cell checkbox"></div>
+      </aura:if>
+      <aura:iteration items="{!v.config.columns}" var="column" indexVar="i">
+        <aura:if isTrue="{!i>0}">
+          <div class="{! (column.sortable ? 'slds-is-sortable ' : '') + 'slds-line-height_reset cell' }">
+            {!column.label}
+          </div>
+        </aura:if>
+      </aura:iteration>
+    </div>
+    <div class="data">
+      <aura:iteration items="{!v.data}" var="rows">
+        <aura:if isTrue="{!v.editMode || rows[0][0]}">
+          <div class="row">
+            <aura:iteration items="{!rows}" var="cell" indexVar="i">
+              <aura:if isTrue="{! i > 0 }">
+                <span class="cell slds-truncate" title="{!cell}">{!cell}</span>
+                <aura:set attribute="else">
+                  <aura:if isTrue="{!v.editMode}">
+                    <span class="cell checkbox">
+                      <input type="checkbox" onchange="{!c.onCheckboxToggle}" data-id="{!cell[1]}" checked="{! cell[0] }" />
+                    </span>
+                  </aura:if>
+                </aura:set>
+              </aura:if>
+            </aura:iteration>
+          </div>
+        </aura:if>
+      </aura:iteration>
+    </div>
+  </div>
+  <aura:if isTrue="{!empty(v.data) || (empty(v.checked) &amp;&amp; !v.editMode)}">
+    <div style="background: white; text-align: center; font-size: 21px; color: rgba(0,0,0,0.54);">
+      No records found
+    </div>
+  </aura:if>
+  <aura:if isTrue="{!v.editMode}">
+    <div class="slds-footer slds-text-align_right">
+      <button onclick="{!c.cancelEdit}" type="button" class="slds-button slds-button_neutral">Cancel</button>
+      <button onclick="{!c.saveChanges}" type="button" class="slds-button slds-button_brand" disabled="{!!v.changes}">Save</button>
+    </div>
+  </aura:if>
+
+</aura:component>

@@ -1,0 +1,1193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>59.0</apiVersion>
+    <constants>
+        <description>Holds Admissions senderid</description>
+        <name>conAdmissionsNumber</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>15186501348</stringValue>
+        </value>
+    </constants>
+    <constants>
+        <description>Holds advising senderID</description>
+        <name>conAdvisingNumber</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>15185203220</stringValue>
+        </value>
+    </constants>
+    <constants>
+        <description>Holds DND message</description>
+        <name>conDND</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>DND</stringValue>
+        </value>
+    </constants>
+    <constants>
+        <description>holds help text message</description>
+        <name>conHELP</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>HELP</stringValue>
+        </value>
+    </constants>
+    <constants>
+        <description>holds text value to evaluate nursing</description>
+        <name>conNursing</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Nursing</stringValue>
+        </value>
+    </constants>
+    <constants>
+        <description>Holds STOP text to evaluate in incoming message</description>
+        <name>conSTOP</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>STOP</stringValue>
+        </value>
+    </constants>
+    <decisions>
+        <description>Determines if incoming message is to the admissions number in a new thread and the incoming person is known to the university.</description>
+        <name>Admissions_NewMessage_Known_Contact</name>
+        <label>Admissions NewMessage &amp; Known Contact</label>
+        <locationX>1353</locationX>
+        <locationY>755</locationY>
+        <defaultConnector>
+            <targetReference>Advising_NewMessage_Known_Contact</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>FALSE_Admissions NewMessage &amp; Known Contact</defaultConnectorLabel>
+        <rules>
+            <name>TRUE_Admissions_NewMessage_Known_Contact</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.smagicinteract__SenderId__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>conAdmissionsNumber</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.smagicinteract__Contact__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.smagicinteract__Contact__r.Contact_Owner_not_Active_Counselor__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>AutoReply_New_ADM</targetReference>
+            </connector>
+            <label>TRUE_Admissions NewMessage &amp; Known Contact</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Check if the incoming message requests stopping of messages from the admissions phone number</description>
+        <name>Admissions_OptOut</name>
+        <label>Admissions OptOut</label>
+        <locationX>312</locationX>
+        <locationY>323</locationY>
+        <defaultConnector>
+            <targetReference>Advising_OptOut</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>FALSE_Admissions OptOut</defaultConnectorLabel>
+        <rules>
+            <name>TRUE_Admissions_OptOut</name>
+            <conditionLogic>1 and 2 and (3 or 4)</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.smagicinteract__SenderId__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>conAdmissionsNumber</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.smagicinteract__Contact__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.smagicinteract__SMSText__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>conDND</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.smagicinteract__SMSText__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>conSTOP</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>AutoReply_DND_ADM</targetReference>
+            </connector>
+            <label>TRUE_Admissions OptOut</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Determines if this incoming message is from an unknown person interested in nursing.</description>
+        <name>Admissions_Unknown_Nursing</name>
+        <label>Admissions Unknown - Nursing</label>
+        <locationX>2030</locationX>
+        <locationY>1079</locationY>
+        <defaultConnector>
+            <targetReference>TRUE_Admissions_Unknown_nonNursing1</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>FALSE_Admissions Unknown - Nursing</defaultConnectorLabel>
+        <rules>
+            <name>TRUE_Admissions_Unknown_Nursing</name>
+            <conditionLogic>1 AND 2 AND (3 OR (4 AND 5))</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.smagicinteract__SenderId__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>conAdmissionsNumber</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>forAreaOfInterest</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <elementReference>conNursing</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.smagicinteract__Contact__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.smagicinteract__Contact__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.smagicinteract__Contact__r.Contact_Owner_not_Active_Counselor__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Task_to_Marketo_Nursing</targetReference>
+            </connector>
+            <label>TRUE_Admissions Unknown - Nursing</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Determines if incoming message is to the advising number in a new thread and the incoming person is known to the university.</description>
+        <name>Advising_NewMessage_Known_Contact</name>
+        <label>Advising NewMessage &amp; Known Contact</label>
+        <locationX>1601</locationX>
+        <locationY>863</locationY>
+        <defaultConnector>
+            <targetReference>Advising_NewMessage_Unknown_Contact</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>FALSE_Advising NewMessage &amp; Known Contact</defaultConnectorLabel>
+        <rules>
+            <name>TRUE_Advising_NewMessage_Known_Contact</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.smagicinteract__SenderId__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>conAdvisingNumber</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.smagicinteract__Contact__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.smagicinteract__Contact__r.Best_Academic_Advisor__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Notify_Advisor</targetReference>
+            </connector>
+            <label>TRUE_Advising NewMessage &amp; Known Contact</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Determines if incoming message is to the advising number in a new thread and the incoming person is NOT known to the university.</description>
+        <name>Advising_NewMessage_Unknown_Contact</name>
+        <label>Advising NewMessage &amp; Unknown Contact</label>
+        <locationX>1832</locationX>
+        <locationY>971</locationY>
+        <defaultConnector>
+            <targetReference>Admissions_Unknown_Nursing</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>FALSE_Advising NewMessage &amp; Unknown Contact</defaultConnectorLabel>
+        <rules>
+            <name>TRUE_Advising_NewMessage_Unknown_Contact</name>
+            <conditionLogic>1 AND (2 OR (3 AND 4))</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.smagicinteract__SenderId__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>conAdvisingNumber</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.smagicinteract__Contact__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.smagicinteract__Contact__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.smagicinteract__Contact__r.Best_Academic_Advisor__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Task_to_Marketo</targetReference>
+            </connector>
+            <label>TRUE_Advising NewMessage &amp; Unknown Contact</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Check if the incoming message requests stopping of messages from the advising phone number</description>
+        <name>Advising_OptOut</name>
+        <label>Advising OptOut</label>
+        <locationX>575</locationX>
+        <locationY>431</locationY>
+        <defaultConnector>
+            <targetReference>HELP_Message_Advising</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>FALSE_Advising OptOut</defaultConnectorLabel>
+        <rules>
+            <name>TRUE_Advising_OptOut</name>
+            <conditionLogic>1 AND 2 AND (3 OR 4)</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.smagicinteract__SenderId__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>conAdvisingNumber</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.smagicinteract__Contact__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.smagicinteract__SMSText__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>conDND</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.smagicinteract__SMSText__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>conSTOP</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>AutoReply_DND_ADV</targetReference>
+            </connector>
+            <label>TRUE_Advising OptOut</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Message received asking for help. Added to be compliant with 10DLC.</description>
+        <name>HELP_Message_Admissions</name>
+        <label>HELP Message Admissions</label>
+        <locationX>1097</locationX>
+        <locationY>647</locationY>
+        <defaultConnector>
+            <targetReference>Admissions_NewMessage_Known_Contact</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>FALSE Help Message Admissions</defaultConnectorLabel>
+        <rules>
+            <name>TRUE_Help_Message_Admissions</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.smagicinteract__SenderId__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>conAdmissionsNumber</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.smagicinteract__SMSText__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>conHELP</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>AutoReply_Help_Admissions</targetReference>
+            </connector>
+            <label>TRUE Help Message Admissions</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Message received asking for help. Added to be compliant with 10DLC.</description>
+        <name>HELP_Message_Advising</name>
+        <label>HELP Message Advising</label>
+        <locationX>837</locationX>
+        <locationY>539</locationY>
+        <defaultConnector>
+            <targetReference>HELP_Message_Admissions</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>FALSE Help Message Advising</defaultConnectorLabel>
+        <rules>
+            <name>TRUE_Help_Message_Advising</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.smagicinteract__SenderId__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>conAdvisingNumber</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.smagicinteract__SMSText__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>conHELP</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>AutoReply_Help_Advising</targetReference>
+            </connector>
+            <label>TRUE Help Message Advising</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Determines if this incoming message is from an unknown person not interested in nursing.</description>
+        <name>TRUE_Admissions_Unknown_nonNursing1</name>
+        <label>TRUE_Admissions Unknown - nonNursing</label>
+        <locationX>2030</locationX>
+        <locationY>1487</locationY>
+        <defaultConnectorLabel>FALSE_Admissions Unknown - Nursing</defaultConnectorLabel>
+        <rules>
+            <name>TRUE_Admissions_Unknown_nonNursing</name>
+            <conditionLogic>1 AND NOT 2 AND (3 OR (4 AND 5))</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.smagicinteract__SenderId__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>conAdmissionsNumber</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>forAreaOfInterest</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <elementReference>conNursing</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.smagicinteract__Contact__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.smagicinteract__Contact__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.smagicinteract__Contact__r.Contact_Owner_not_Active_Counselor__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Task_to_Marketo_Non_Nursing</targetReference>
+            </connector>
+            <label>TRUE_Admissions Unknown - nonNursing</label>
+        </rules>
+    </decisions>
+    <description>Migrated from the SMS_Incoming SMS_Process process. Sets do not contact fields based on incoming SMS messages.</description>
+    <environments>Default</environments>
+    <formulas>
+        <description>Determines if a new SMS is received to the admissions number for a known contact.</description>
+        <name>forAdmissionsKnown</name>
+        <dataType>Boolean</dataType>
+        <expression>AND(
+	TEXT({!$Record.smagicinteract__Direction__c} ) =&apos;IN&apos;,
+	{!$Record.smagicinteract__SenderId__c} =&apos;15186501348&apos;,
+
+	UPPER({!$Record.smagicinteract__SMSText__c}) !=&apos;DND&apos;,
+	UPPER({!$Record.smagicinteract__SMSText__c}) !=&apos;STOP&apos;,
+
+	!ISBLANK({!$Record.smagicinteract__Contact__c}),
+	!{!$Record.smagicinteract__Contact__c.Contact_Owner_not_Active_Counselor__c}
+)</expression>
+    </formulas>
+    <formulas>
+        <description>Determine if the incoming message is for admissions and to stop incoming messages</description>
+        <name>forAdmissionsStop</name>
+        <dataType>Boolean</dataType>
+        <expression>AND(
+	TEXT({!$Record.smagicinteract__Direction__c} ) =&apos;IN&apos;,
+	{!$Record.smagicinteract__SenderId__c} =&apos;15186501348&apos;,
+	OR(
+		UPPER({!$Record.smagicinteract__SMSText__c}) =&apos;DND&apos;,
+		UPPER({!$Record.smagicinteract__SMSText__c}) =&apos;STOP&apos;
+	),	
+	!ISBLANK({!$Record.smagicinteract__Contact__c}) 
+)</expression>
+    </formulas>
+    <formulas>
+        <description>Determines if an incoming message is for admissions from a person without a counselor whose area of interest is not nursing.</description>
+        <name>forAdmissionsUnknownNonNursing</name>
+        <dataType>Boolean</dataType>
+        <expression>AND(
+	TEXT({!$Record.smagicinteract__Direction__c} ) =&apos;IN&apos;,
+	{!$Record.smagicinteract__SenderId__c} =&apos;15186501348&apos;,
+
+	UPPER({!$Record.smagicinteract__SMSText__c}) !=&apos;DND&apos;,
+	UPPER({!$Record.smagicinteract__SMSText__c}) !=&apos;STOP&apos;,
+
+	OR(
+		ISBLANK({!$Record.smagicinteract__Contact__c}),
+		AND(
+			!ISBLANK({!$Record.smagicinteract__Contact__c}),
+			{!$Record.smagicinteract__Contact__c.Contact_Owner_not_Active_Counselor__c} )
+	),
+	!CONTAINS(TEXT({!$Record.smagicinteract__Contact__r.Area_of_Interest__c}) , &apos;Nursing&apos;)
+)</expression>
+    </formulas>
+    <formulas>
+        <description>Determines if the incoming message is for admissions unknown contact with area of interest like Nursing.</description>
+        <name>forAdmissionsUnknownNursing</name>
+        <dataType>Boolean</dataType>
+        <expression>AND(
+	TEXT({!$Record.smagicinteract__Direction__c} ) =&apos;IN&apos;,
+	{!$Record.smagicinteract__SenderId__c} =&apos;15186501348&apos;,
+
+	UPPER({!$Record.smagicinteract__SMSText__c}) !=&apos;DND&apos;,
+	UPPER({!$Record.smagicinteract__SMSText__c}) !=&apos;STOP&apos;,
+
+	OR(
+		ISBLANK({!$Record.smagicinteract__Contact__c}),
+		AND(
+			!ISBLANK({!$Record.smagicinteract__Contact__c}),
+			{!$Record.smagicinteract__Contact__c.Contact_Owner_not_Active_Counselor__c} )
+	),
+	CONTAINS(TEXT({!$Record.smagicinteract__Contact__r.Area_of_Interest__c}) , &apos;Nursing&apos;)
+)</expression>
+    </formulas>
+    <formulas>
+        <description>Determines if a new SMS is received to the advising number for a known contact.</description>
+        <name>forAdvisingKnown</name>
+        <dataType>Boolean</dataType>
+        <expression>AND(
+	TEXT({!$Record.smagicinteract__Direction__c} ) =&apos;IN&apos;,
+	{!$Record.smagicinteract__SenderId__c} =&apos;15185203220&apos;,
+
+	UPPER({!$Record.smagicinteract__SMSText__c}) !=&apos;DND&apos;,
+	UPPER({!$Record.smagicinteract__SMSText__c}) !=&apos;STOP&apos;,
+
+	!ISBLANK({!$Record.smagicinteract__Contact__c}),
+	!ISBLANK({!$Record.smagicinteract__Contact__c.Best_Academic_Advisor__c})
+)</expression>
+    </formulas>
+    <formulas>
+        <description>Determines if an incoming message is to request do not contact for advising SMS</description>
+        <name>forAdvisingStop</name>
+        <dataType>Boolean</dataType>
+        <expression>AND(
+	TEXT({!$Record.smagicinteract__Direction__c} ) =&apos;IN&apos;,
+	{!$Record.smagicinteract__SenderId__c} =&apos;15185203220&apos;,
+	OR(
+		UPPER({!$Record.smagicinteract__SMSText__c}) =&apos;DND&apos;,
+		UPPER({!$Record.smagicinteract__SMSText__c}) =&apos;STOP&apos;
+	),	
+	!ISBLANK({!$Record.smagicinteract__Contact__c}) 
+)</expression>
+    </formulas>
+    <formulas>
+        <description>Determines if the incoming message is to the Advising number in a new thread and the contact does not have an advisor.</description>
+        <name>forAdvisingUnknown</name>
+        <dataType>Boolean</dataType>
+        <expression>AND(
+	TEXT({!$Record.smagicinteract__Direction__c} ) =&apos;IN&apos;,
+	{!$Record.smagicinteract__SenderId__c} =&apos;15185203220&apos;,
+
+	UPPER({!$Record.smagicinteract__SMSText__c}) !=&apos;DND&apos;,
+	UPPER({!$Record.smagicinteract__SMSText__c}) !=&apos;STOP&apos;,
+	
+	OR(
+		ISBLANK({!$Record.smagicinteract__Contact__c}),
+		AND(
+			!ISBLANK({!$Record.smagicinteract__Contact__c}),
+			ISBLANK({!$Record.smagicinteract__Contact__c.Best_Academic_Advisor__c}) )
+	)
+)</expression>
+    </formulas>
+    <formulas>
+        <description>Formats the picklist value of area of interest into text so it can be evaluated in the flow</description>
+        <name>forAreaOfInterest</name>
+        <dataType>String</dataType>
+        <expression>TEXT({!$Record.smagicinteract__Contact__r.Area_of_Interest__c})</expression>
+    </formulas>
+    <formulas>
+        <description>Determines if a help message is received to admissions number</description>
+        <name>forHelpMessageAdmissions</name>
+        <dataType>Boolean</dataType>
+        <expression>AND(
+	TEXT({!$Record.smagicinteract__Direction__c} ) =&apos;IN&apos;,
+	{!$Record.smagicinteract__SenderId__c} =&apos;15186501348&apos;,
+	UPPER({!$Record.smagicinteract__SMSText__c}) !=&apos;DND&apos;,
+	UPPER({!$Record.smagicinteract__SMSText__c}) !=&apos;STOP&apos;,
+	UPPER({!$Record.smagicinteract__SMSText__c}) =&apos;HELP&apos;
+)</expression>
+    </formulas>
+    <formulas>
+        <description>Determines if the message asks for help</description>
+        <name>forHelpMessageAdvising</name>
+        <dataType>Boolean</dataType>
+        <expression>AND(
+	TEXT({!$Record.smagicinteract__Direction__c} ) =&apos;IN&apos;,
+        {!$Record.smagicinteract__SenderId__c} =&apos;15185203220&apos;,
+	UPPER({!$Record.smagicinteract__SMSText__c}) !=&apos;DND&apos;,
+	UPPER({!$Record.smagicinteract__SMSText__c}) !=&apos;STOP&apos;,
+	UPPER({!$Record.smagicinteract__SMSText__c}) =&apos;HELP&apos;
+)</expression>
+    </formulas>
+    <formulas>
+        <description>Grabs the label that is the hard coded marketo user ID</description>
+        <name>forMarketoUserID</name>
+        <dataType>String</dataType>
+        <expression>{!$Label.MarketoUserID}</expression>
+    </formulas>
+    <formulas>
+        <description>Sets field to today, used for due dates.</description>
+        <name>forToday</name>
+        <dataType>Date</dataType>
+        <expression>TODAY()</expression>
+    </formulas>
+    <interviewLabel>SMS_IncomingSMS_Process_1 {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>SMS_IncomingSMS_Process</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <description>Sends message confirming contact/lead is opted out of admissions texts.</description>
+        <name>AutoReply_DND_ADM</name>
+        <label>AutoReply_DND_ADM</label>
+        <locationX>50</locationX>
+        <locationY>431</locationY>
+        <connector>
+            <targetReference>OptOut_Admissions_SMS</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>smagicinteract__Automation_Key_Reference__c</field>
+            <value>
+                <stringValue>PA-000001</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>smagicinteract__Contact__c</field>
+            <value>
+                <elementReference>$Record.smagicinteract__Contact__r.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>smagicinteract__SMS_History__c</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>smagicinteract__Converse_App_Task__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>Sends a SMS to the student saying they have opted out of messages originating from the Advising SMS number.</description>
+        <name>AutoReply_DND_ADV</name>
+        <label>AutoReply_DND_ADV</label>
+        <locationX>314</locationX>
+        <locationY>539</locationY>
+        <connector>
+            <targetReference>OptOut_Advising_SMS</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>smagicinteract__Automation_Key_Reference__c</field>
+            <value>
+                <stringValue>PA-000002</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>smagicinteract__Contact__c</field>
+            <value>
+                <elementReference>$Record.smagicinteract__Contact__r.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>smagicinteract__SMS_History__c</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>smagicinteract__Converse_App_Task__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>Sends a SMS to the student requesting they call for help.</description>
+        <name>AutoReply_Help_Admissions</name>
+        <label>AutoReply Help Admissions</label>
+        <locationX>842</locationX>
+        <locationY>755</locationY>
+        <inputAssignments>
+            <field>smagicinteract__Automation_Key_Reference__c</field>
+            <value>
+                <stringValue>PA-000448</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>smagicinteract__Contact__c</field>
+            <value>
+                <elementReference>$Record.smagicinteract__Contact__r.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>smagicinteract__SMS_History__c</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>smagicinteract__Converse_App_Task__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>Sends a SMS to the student requesting they call for help.</description>
+        <name>AutoReply_Help_Advising</name>
+        <label>AutoReply Help Advising</label>
+        <locationX>578</locationX>
+        <locationY>647</locationY>
+        <inputAssignments>
+            <field>smagicinteract__Automation_Key_Reference__c</field>
+            <value>
+                <stringValue>PA-000449</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>smagicinteract__Contact__c</field>
+            <value>
+                <elementReference>$Record.smagicinteract__Contact__r.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>smagicinteract__SMS_History__c</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>smagicinteract__Converse_App_Task__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>Sends SMS stating that they will be contacted.</description>
+        <name>AutoReply_New_ADM</name>
+        <label>AutoReply_New_ADM</label>
+        <locationX>1106</locationX>
+        <locationY>863</locationY>
+        <connector>
+            <targetReference>Notify_Counselor</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>smagicinteract__Automation_Key_Reference__c</field>
+            <value>
+                <stringValue>PA-000003</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>smagicinteract__Contact__c</field>
+            <value>
+                <elementReference>$Record.smagicinteract__Contact__r.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>smagicinteract__SMS_History__c</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>smagicinteract__Converse_App_Task__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>Send message to sender stating they will be contacted.</description>
+        <name>AutoReply_New_ADM_Non_Nursing</name>
+        <label>AutoReply_New_ADM</label>
+        <locationX>1898</locationX>
+        <locationY>1703</locationY>
+        <inputAssignments>
+            <field>smagicinteract__Automation_Key_Reference__c</field>
+            <value>
+                <stringValue>PA-000003</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>smagicinteract__Contact__c</field>
+            <value>
+                <elementReference>$Record.smagicinteract__Contact__r.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>smagicinteract__SMS_History__c</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>smagicinteract__Converse_App_Task__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>Reply to the sender of the message stating university will respond.</description>
+        <name>AutoReply_New_ADM_Nursing</name>
+        <label>AutoReply_New_ADM</label>
+        <locationX>1898</locationX>
+        <locationY>1295</locationY>
+        <connector>
+            <targetReference>TRUE_Admissions_Unknown_nonNursing1</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>smagicinteract__Automation_Key_Reference__c</field>
+            <value>
+                <stringValue>PA-000003</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>smagicinteract__Contact__c</field>
+            <value>
+                <elementReference>$Record.smagicinteract__Contact__r.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>smagicinteract__SMS_History__c</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>smagicinteract__Converse_App_Task__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>Reply to the sender of the message stating university will respond.</description>
+        <name>AutoReply_New_ADV</name>
+        <label>AutoReply_New_ADV</label>
+        <locationX>1634</locationX>
+        <locationY>1187</locationY>
+        <inputAssignments>
+            <field>smagicinteract__Automation_Key_Reference__c</field>
+            <value>
+                <stringValue>PA-000004</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>smagicinteract__Contact__c</field>
+            <value>
+                <elementReference>$Record.smagicinteract__Contact__r.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>smagicinteract__SMS_History__c</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>smagicinteract__Converse_App_Task__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>Send message to person stating they will be contacted.</description>
+        <name>AutoReply_New_ADV_Unknown</name>
+        <label>AutoReply_New_ADV</label>
+        <locationX>1370</locationX>
+        <locationY>1079</locationY>
+        <inputAssignments>
+            <field>smagicinteract__Automation_Key_Reference__c</field>
+            <value>
+                <stringValue>PA-000004</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>smagicinteract__Contact__c</field>
+            <value>
+                <elementReference>$Record.smagicinteract__Contact__r.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>smagicinteract__SMS_History__c</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>smagicinteract__Converse_App_Task__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>Create a task for Marketo that an advising message was received from an unknown person (no contact or no counselor)</description>
+        <name>Task_to_Marketo</name>
+        <label>Task to Marketo</label>
+        <locationX>1634</locationX>
+        <locationY>1079</locationY>
+        <connector>
+            <targetReference>AutoReply_New_ADV</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>ActivityDate</field>
+            <value>
+                <elementReference>forToday</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Description</field>
+            <value>
+                <stringValue>New Incoming text from unknown contact or contact who doesn&apos;t have an advisor.</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>forMarketoUserID</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Priority</field>
+            <value>
+                <stringValue>Normal</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Not Started</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <stringValue>Unassigned Incoming SMS - Advising</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>WhatId</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>WhoId</field>
+            <value>
+                <elementReference>$Record.smagicinteract__Contact__r.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>Create task for marketo to contact the person who sent the message.</description>
+        <name>Task_to_Marketo_Non_Nursing</name>
+        <label>Task to Marketo</label>
+        <locationX>1898</locationX>
+        <locationY>1595</locationY>
+        <connector>
+            <targetReference>AutoReply_New_ADM_Non_Nursing</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>ActivityDate</field>
+            <value>
+                <elementReference>forToday</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Description</field>
+            <value>
+                <stringValue>New Incoming text from unknown contact or contact whose owner is not a Counselor. </stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>forMarketoUserID</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Priority</field>
+            <value>
+                <stringValue>Normal</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Not Started</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <stringValue>Unassigned Incoming SMS</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>WhatId</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>WhoId</field>
+            <value>
+                <elementReference>$Record.smagicinteract__Contact__r.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>Creatif this incoming message is from an unknown person interested in nursing.</description>
+        <name>Task_to_Marketo_Nursing</name>
+        <label>Task to Marketo</label>
+        <locationX>1898</locationX>
+        <locationY>1187</locationY>
+        <connector>
+            <targetReference>AutoReply_New_ADM_Nursing</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>ActivityDate</field>
+            <value>
+                <elementReference>forToday</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Description</field>
+            <value>
+                <stringValue>New Incoming text from unknown contact or contact whose owner is not a Counselor. </stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>forMarketoUserID</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Priority</field>
+            <value>
+                <stringValue>Normal</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Not Started</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <stringValue>Unassigned Incoming SMS - Nursing</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>WhatId</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>WhoId</field>
+            <value>
+                <elementReference>$Record.smagicinteract__Contact__r.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordUpdates>
+        <description>Sets SMS Admissions field to Opt-Out</description>
+        <name>OptOut_Admissions_SMS</name>
+        <label>OptOut Admissions SMS</label>
+        <locationX>50</locationX>
+        <locationY>539</locationY>
+        <inputAssignments>
+            <field>SMS_Admissions__c</field>
+            <value>
+                <stringValue>Opt-Out</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record.smagicinteract__Contact__r</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Sets SMS Advising field to Opt-Out</description>
+        <name>OptOut_Advising_SMS</name>
+        <label>OptOut Advising SMS</label>
+        <locationX>314</locationX>
+        <locationY>647</locationY>
+        <inputAssignments>
+            <field>SMS_Advising__c</field>
+            <value>
+                <stringValue>Opt-Out</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record.smagicinteract__Contact__r</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>186</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Admissions_OptOut</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>smagicinteract__Direction__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>IN</stringValue>
+            </value>
+        </filters>
+        <object>smagicinteract__smsMagic__c</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <subflows>
+        <description>Runs a subflow to create an email for the advisor on the contact record.</description>
+        <name>Notify_Advisor</name>
+        <label>Notify Advisor</label>
+        <locationX>1370</locationX>
+        <locationY>971</locationY>
+        <connector>
+            <targetReference>AutoReply_New_ADV_Unknown</targetReference>
+        </connector>
+        <flowName>SMS_Flow</flowName>
+        <inputAssignments>
+            <name>vContactID</name>
+            <value>
+                <elementReference>$Record.smagicinteract__Contact__r.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>vIncomingMessage</name>
+            <value>
+                <elementReference>$Record.smagicinteract__SMSText__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>vInMessageID</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>vMobileNumber</name>
+            <value>
+                <elementReference>$Record.smagicinteract__PhoneNumber__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>vOwnerType</name>
+            <value>
+                <stringValue>Advisor</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>vSenderID</name>
+            <value>
+                <elementReference>$Record.smagicinteract__SenderId__c</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <subflows>
+        <description>Runs a subflow to create an email for the admissions counselor on the contact record.</description>
+        <name>Notify_Counselor</name>
+        <label>Notify Counselor</label>
+        <locationX>1106</locationX>
+        <locationY>971</locationY>
+        <flowName>SMS_Flow</flowName>
+        <inputAssignments>
+            <name>vContactID</name>
+            <value>
+                <elementReference>$Record.smagicinteract__Contact__r.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>vIncomingMessage</name>
+            <value>
+                <elementReference>$Record.smagicinteract__SMSText__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>vInMessageID</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>vMobileNumber</name>
+            <value>
+                <elementReference>$Record.smagicinteract__PhoneNumber__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>vOwnerType</name>
+            <value>
+                <stringValue>Counselor</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>vSenderID</name>
+            <value>
+                <elementReference>$Record.smagicinteract__SenderId__c</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+</Flow>

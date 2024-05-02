@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Create Partnership Activity Type Cases &amp; Logs</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Case_Partnership Activity Record Type</label>
+    <recordTypeVisibilities>
+        <recordType>Case.Partnership_Activity_Case</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>Case_Log__c.Partnership_Activity_Case_Log</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+</PermissionSet>

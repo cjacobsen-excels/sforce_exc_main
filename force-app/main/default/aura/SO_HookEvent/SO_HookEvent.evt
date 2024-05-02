@@ -1,0 +1,3 @@
+<aura:event type="COMPONENT" description="Hook Events">
+  <aura:attribute name="payload" type="Object" />
+</aura:event>

@@ -1,0 +1,155 @@
+<aura:component
+  access="global"
+  extends="c:Spark_BaseComponent"
+  extensible="true"
+  implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction"
+  controller="SO_API"
+>
+  <aura:attribute name="schemaName" type="String" />
+  <aura:attribute name="recordId" type="String" />
+  <aura:attribute name="requirements" type="Object" />
+  <aura:attribute name="filteredContacts" type="Object" />
+  <aura:attribute name="selectedUser" type="Object" />
+  <aura:attribute name="query" type="String" default="" />
+  <aura:attribute name="showDropdown" type="Boolean" default="false" />
+  <aura:attribute name="disableCreate" type="Boolean" default="true" />
+  <aura:attribute name="pointerIndex" type="Integer" default="0" />
+  <aura:attribute name="state" type="Integer" default="0" />
+  <aura:attribute name="qualificationId" type="String" />
+
+  <aura:handler name="init" value="{!this}" action="{!c.onInit}" /> {!v.body}
+  <section class="stateful">
+    <aura:if isTrue="{!v.state &lt; 2}">
+      <div class="content">
+        <div class="saving-state">
+          <div
+            class="slds-progress-bar indeterminate"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            role="progressbar"
+          >
+            <div class="line"></div>
+            <div class="subline inc"></div>
+            <div class="subline dec"></div>
+          </div>
+        </div>
+        <div class="slds-grid slds-gutters slds-wrap">
+          <aura:if isTrue="{!v.selectedUser != null}">
+            <!-- <div class="relative"></div> -->
+            <div class="slds-col slds-size_1-of-1 slds-p-top_small">
+              <div class="slds-text-title_bold">
+                {!v.selectedUser.value.FirstName + ' ' + v.selectedUser.value.LastName} <br />
+              </div>
+            </div>
+
+            <div class="slds-col slds-size_1-of-1 slds-p-top_small">
+              <aura:if
+                isTrue="{!v.selectedUser.properties.passesSoft &amp;&amp; v.selectedUser.properties.passesHard}"
+              >
+                <span class="slds-badge slds-theme_success">Qualifications Met</span>
+              </aura:if>
+              <aura:if
+                isTrue="{!v.selectedUser.properties.passesSoft &amp;&amp; !v.selectedUser.properties.passesHard}"
+              >
+                <span class="slds-badge slds-theme_error">Missing - Major</span>
+              </aura:if>
+              <aura:if
+                isTrue="{!!v.selectedUser.properties.passesSoft &amp;&amp; !v.selectedUser.properties.passesHard}"
+              >
+                <span class="slds-badge slds-theme_error">Missing - Major/Minor</span>
+              </aura:if>
+              <aura:if
+                isTrue="{!!v.selectedUser.properties.passesSoft &amp;&amp; v.selectedUser.properties.passesHard}"
+              >
+                <span class="slds-badge slds-theme_warning">Missing - Minor</span>
+              </aura:if>
+              <br />
+              <aura:if
+                isTrue="{!!v.selectedUser.properties.passesSoft || !v.selectedUser.properties.passesHard}"
+              >
+                <small class="">Missing: {!v.selectedUser.properties.failureStr}</small>
+              </aura:if>
+            </div>
+          </aura:if>
+
+          <div class="slds-col slds-size_2-of-2 slds-p-top_small">
+            <aura:if isTrue="{!v.selectedUser != null}">
+              <div class="header">Available On-Call Scheduled Offerings <br /></div>
+              <div class="slds-text-body_small">
+                Note: if a checkbox is disabled, it means the selected user has conflicting dates or the
+                Offering is already confirmed. <br />
+              </div>
+              <aura:iteration items="{!v.selectedUser.properties.schedules}" var="schedule" indexVar="i">
+                <lightning:input
+                  type="checkbox"
+                  checked="{!schedule.checked}"
+                  label="{!schedule.scheduleName}"
+                  disabled="{!schedule.overLappingDates || schedule.alreadyConfirmed}"
+                  value="{!schedule.scheduleId}"
+                  onchange="{!c.checkBoxChanged}"
+                />
+              </aura:iteration>
+              <aura:set attribute="else">
+                <div class="slds-text-body_small">You are not qualified to sign-up for on-call shifts.</div>
+              </aura:set>
+            </aura:if>
+          </div>
+
+          <div class="slds-col slds-size_1-of-2 slds-m-top_small">
+            <lightning:button label="Create" disabled="{!v.disableCreate}" onclick="{!c.nextScreen}" />
+          </div>
+        </div>
+      </div>
+    </aura:if>
+
+    <aura:if isTrue="{!v.state == 2}">
+      <h2 style="font-size: 16px; margin-bottom: 8px">Clinical Instructor successfully set</h2>
+      <a href="{!'/one/one.app?#/sObject/'+ v.selectedUser.value.Id + '/view'}" target="_blank"
+        >Faculty Member</a
+      ><br />
+      <a href="{!'/one/one.app?#/sObject/'+ v.qualificationId + '/view'}" target="_blank"
+        >CI Qualifications
+      </a>
+      <br />
+      <p class="slds-m-top_medium slds-m-bottom_medium">Status: Pending</p>
+      <aura:if
+        isTrue="{!v.selectedUser.properties.passesSoft &amp;&amp; v.selectedUser.properties.passesHard}"
+      >
+        <span class="slds-badge slds-theme_success">Qualifications Met</span>
+      </aura:if>
+      <aura:if
+        isTrue="{!v.selectedUser.properties.passesSoft &amp;&amp; !v.selectedUser.properties.passesHard}"
+      >
+        <span class="slds-badge slds-theme_error">Missing - Major</span>
+      </aura:if>
+      <aura:if
+        isTrue="{!!v.selectedUser.properties.passesSoft &amp;&amp; !v.selectedUser.properties.passesHard}"
+      >
+        <span class="slds-badge slds-theme_error">Missing - Major/Minor</span>
+      </aura:if>
+      <aura:if
+        isTrue="{!!v.selectedUser.properties.passesSoft &amp;&amp; v.selectedUser.properties.passesHard}"
+      >
+        <span class="slds-badge slds-theme_warning">Missing - Minor</span>
+      </aura:if>
+      <br />
+      <aura:if isTrue="{!!v.selectedUser.properties.passesSoft || !v.selectedUser.properties.passesHard}">
+        <small class="slds-m-top_small">Missing: {!v.selectedUser.properties.failureStr}</small>
+      </aura:if>
+    </aura:if>
+
+    <div class="loading-state">
+      <div class="slds-spinner_container" style="min-height: 12rem">
+        <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+          <span class="slds-assistive-text">Loading</span>
+          <div class="slds-spinner__dot-a"></div>
+          <div class="slds-spinner__dot-b"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="hidden dependencies">
+    <c:spark_SearchLibrary aura:id="searchLibrary" />
+  </div>
+</aura:component>

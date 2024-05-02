@@ -1,0 +1,3 @@
+<apex:page standardController="Contact" cache="false" sidebar="false" showHeader="false">
+    <NewEd:Details sfid="{!Contact.Id}"></NewEd:Details>
+</apex:page>

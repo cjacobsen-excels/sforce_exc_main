@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>Oppty_RW_MKTG_Ops</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>MKTG Ops can edit all O&amp;A Opportunities.</description>
+        <label>Oppty_RW__MKTG_Ops</label>
+        <sharedTo>
+            <role>MKTG_Ops</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>notEqual</operation>
+            <value>Student Opportunity</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Oppty_StudentMgmt_R</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Student Management group can view opportunities.</description>
+        <label>Oppty_StudentMgmt_R</label>
+        <sharedTo>
+            <group>Student_Management</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>notEqual</operation>
+            <value>Student Opportunity</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>R_A_Opportunities</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>R&amp;A Opportunities</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>Admissions_and_Enrollment_Management</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Non-Matriculated,Admissions/Enrollments</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>R_A_Opportunities_Marketing</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>R&amp;A Opportunities Marketing</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>Marketing</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Non-Matriculated,Admissions/Enrollments</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Role_and_Internal_Subordinates_MKTG_Ops</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Role and Internal Subordinates: MKTG-Ops</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>MKTG_Ops</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Non-Matriculated,Admissions/Enrollments</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+</SharingRules>

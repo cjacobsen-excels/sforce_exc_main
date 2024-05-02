@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>55.0</apiVersion>
+    <assignments>
+        <description>Evaluation to Contact values</description>
+        <name>Assign_Evaluation_Values_to_Contact</name>
+        <label>Assign Evaluation Values to Contact</label>
+        <locationX>176</locationX>
+        <locationY>323</locationY>
+        <assignmentItems>
+            <assignToReference>Contact4Update.Last_Course_Eval_Type__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.Evaluation_Type__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Contact4Update.Last_Course_Eval_Date__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.CreatedDate</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Contact4Update.Id</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.Faculty_Member__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Contact_with_Evaluation_Values</targetReference>
+        </connector>
+    </assignments>
+    <description>Flow to trigger on After Save on the creation of Evaluation record. Stamps the Evaluation Type and Evaluation Date on the contact.</description>
+    <environments>Default</environments>
+    <interviewLabel>Evaluation - Create - RT - {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Evaluation - Create - After Save</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <description>Updates contact with the values defined in the assignment (Current Stamping: Evaluation Type and Evaluation Date)</description>
+        <name>Update_Contact_with_Evaluation_Values</name>
+        <label>Update Contact with Evaluation Values</label>
+        <locationX>176</locationX>
+        <locationY>431</locationY>
+        <inputReference>Contact4Update</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Assign_Evaluation_Values_to_Contact</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Faculty_Member__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Evaluation_Type__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>2 Week</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Evaluation_Type__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Mid Point Feedback</stringValue>
+            </value>
+        </filters>
+        <object>Evaluation__c</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <triggerOrder>5</triggerOrder>
+    <variables>
+        <name>Contact4Update</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Contact</objectType>
+    </variables>
+</Flow>

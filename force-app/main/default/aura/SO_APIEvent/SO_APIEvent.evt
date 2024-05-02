@@ -1,0 +1,5 @@
+<aura:event type="COMPONENT" description="Event template">
+  <aura:attribute name="payload" type="Object"/>
+  <aura:attribute name="type" type="String"/>
+  <aura:attribute name="compId" type="String"/>
+</aura:event>

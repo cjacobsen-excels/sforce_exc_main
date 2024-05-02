@@ -1,0 +1,40 @@
+.THIS .slds-table {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.THIS .data {
+  display: table-row-group;
+}
+
+.THIS .row {
+  display: table-row;
+}
+
+.THIS .cell {
+  display: table-cell;
+  /*border-left: 1px solid #dddbda;*/
+  border-top: 1px solid #dddbda;
+  padding: 8px;
+}
+
+.THIS .header .cell {
+  border-top: none;
+}
+
+.THIS .cell:first-child {
+  border-left: none;
+  padding-left: 16px;
+}
+
+.THIS .header .cell {
+  background: #FAFAF9;
+  font-weight: bold;
+  color: #514F4D;
+}
+
+.THIS .content {
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+}

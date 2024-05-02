@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <name>Nursing</name>
+    <queueMembers>
+        <users>
+            <user>bmongeon@excelsior.edu</user>
+            <user>bcringle@excelsior.edu</user>
+            <user>cgrant@excelsior.edu</user>
+            <user>cmiller@excelsior.edu</user>
+            <user>edavis@excelsior.edu</user>
+            <user>jbrunick@excelsior.edu</user>
+            <user>jsherman@excelsior.edu</user>
+            <user>jchong@excelsior.edu</user>
+            <user>mhait@excelsior.edu</user>
+            <user>nmarshall@excelsior.edu</user>
+            <user>pflowers@excelsior.edu</user>
+            <user>rhancox@excelsior.edu</user>
+            <user>sdergura@excelsior.edu</user>
+            <user>shillebrandt@excelsior.edu</user>
+            <user>ssymes@excelsior.edu</user>
+            <user>tbrownell@excelsior.edu</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>BMCServiceDesk__Incident__c</sobjectType>
+    </queueSobject>
+</Queue>

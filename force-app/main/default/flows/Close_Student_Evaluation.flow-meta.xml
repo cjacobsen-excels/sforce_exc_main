@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <apiVersion>59.0</apiVersion>
+    <assignments>
+        <name>Assign_Additional_Comments</name>
+        <label>Assign Additional Comments</label>
+        <locationX>182</locationX>
+        <locationY>650</locationY>
+        <assignmentItems>
+            <assignToReference>recordId.Flag_Additional_Comments__c</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>forAdditionalComments</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Eval</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Closing_Values</name>
+        <label>Assign Closing Values</label>
+        <locationX>50</locationX>
+        <locationY>458</locationY>
+        <assignmentItems>
+            <assignToReference>recordId.Status__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Completed</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>recordId.Flag_Resolution__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Resolution</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Assign_Additional_Comments</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <name>Can_they_Change_Status</name>
+        <label>Can they Change Status</label>
+        <locationX>336</locationX>
+        <locationY>134</locationY>
+        <defaultConnector>
+            <targetReference>Error</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Yes</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>OwnerIdFormula</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>$User.Id</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Working_Screen</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>If the user has selected a resolution value, set the status = completed.</description>
+        <name>Has_Resolution_Been_Set</name>
+        <label>Has Resolution Been Set</label>
+        <locationX>182</locationX>
+        <locationY>350</locationY>
+        <defaultConnector>
+            <targetReference>Assign_Additional_Comments</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Resolved</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Resolution</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Closing_Values</targetReference>
+            </connector>
+            <label>Resolved</label>
+        </rules>
+    </decisions>
+    <dynamicChoiceSets>
+        <name>Resolution_Picklists</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>Flag_Resolution__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <environments>Default</environments>
+    <formulas>
+        <description>Format the Additional Comments to be on a new line when added to the Flag comments field.</description>
+        <name>forAdditionalComments</name>
+        <dataType>String</dataType>
+        <expression>BR()&amp;BR()&amp;{!Additional_Comments}</expression>
+    </formulas>
+    <formulas>
+        <name>OwnerIdFormula</name>
+        <dataType>String</dataType>
+        <expression>LEFT({!recordId.OwnerId},15)</expression>
+    </formulas>
+    <interviewLabel>Close Student Evaluation {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Close Student Evaluation</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <recordUpdates>
+        <name>Update_Eval</name>
+        <label>Update Eval</label>
+        <locationX>182</locationX>
+        <locationY>758</locationY>
+        <inputReference>recordId</inputReference>
+    </recordUpdates>
+    <runInMode>SystemModeWithoutSharing</runInMode>
+    <screens>
+        <name>Error</name>
+        <label>Error</label>
+        <locationX>490</locationX>
+        <locationY>242</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>Error1</name>
+            <fieldText>&lt;p&gt;No Action for you to take &lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>false</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Working_Screen</name>
+        <label>Working Screen</label>
+        <locationX>182</locationX>
+        <locationY>242</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Has_Resolution_Been_Set</targetReference>
+        </connector>
+        <fields>
+            <name>Resolution</name>
+            <choiceReferences>Resolution_Picklists</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Resolution</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <helpText>&lt;p&gt;If completing the flag, please choose a resolution status Otherwise, leave as &quot;None&quot;.&lt;/p&gt;</helpText>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>false</isRequired>
+        </fields>
+        <fields>
+            <name>Additional_Comments</name>
+            <dataType>String</dataType>
+            <fieldText>Additional Comments</fieldText>
+            <fieldType>InputField</fieldType>
+            <helpText>&lt;p&gt;Add comments on the resolution steps here.&lt;/p&gt;</helpText>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>false</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <start>
+        <locationX>210</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Can_they_Change_Status</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <textTemplates>
+        <description>Add a line break before adding additional comments in the Assignment node.</description>
+        <name>txtAdditionalComments</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;{!Additional_Comments}&lt;/p&gt;</text>
+    </textTemplates>
+    <variables>
+        <name>recordId</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Evaluation__c</objectType>
+    </variables>
+</Flow>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Sync Partner Affiliations 3-8-21</label>
+    <protected>false</protected>
+    <values>
+        <field>End_Point_Url__c</field>
+        <value xsi:type="xsd:string">/v1/leads.json?filterType=sfdcContactId&amp;filterValues={!v.Id}&amp;fields=sfdcId,X2nd_Acad_Corp_Part_Ref__c,Acad_Corp_Part_Ref__c,sfdcContactId</value>
+    </values>
+    <values>
+        <field>Include_In_Main_Sync__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>Is_Active__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>Is_Url_Merge__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Qualified_Object_Api__c</field>
+        <value xsi:type="xsd:string">Contact</value>
+    </values>
+    <values>
+        <field>Qualified_Objects__c</field>
+        <value xsi:type="xsd:string">SELECT Id FROM Contact WHERE Marketo_Id__c != null AND Marketo_Sync__c = true</value>
+    </values>
+    <values>
+        <field>Run_Every_min__c</field>
+        <value xsi:type="xsd:double">10.0</value>
+    </values>
+    <values>
+        <field>Sync_Field_Map__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Sync_Fields__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Sync_Object__c</field>
+        <value xsi:type="xsd:string">Affiliation</value>
+    </values>
+    <values>
+        <field>Sync_Type__c</field>
+        <value xsi:type="xsd:string">GET</value>
+    </values>
+    <values>
+        <field>Url_Merge_Field__c</field>
+        <value xsi:type="xsd:string">Id</value>
+    </values>
+    <values>
+        <field>Utilize_Dynamic__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>json__c</field>
+        <value xsi:type="xsd:string">{
+&quot;_meta&quot;: {
+&quot;object&quot;: &quot;Contact&quot;,
+&quot;creationType&quot;: &quot;UPSERT_ONLY&quot;
+},
+&quot;sfdcContactId&quot;: &quot;Id&quot;,
+&quot;X2nd_Acad_Corp_Part_Ref__c&quot;: &quot;X2nd_Acad_Corp_Part_Ref__c&quot;,
+&quot;Acad_Corp_Part_Ref__c&quot;: &quot;Acad_Corp_Part_Ref__c&quot;,
+&quot;Id&quot; : &quot;Marketo_Id__c&quot;,
+&quot;Acad_Corp_Part_Ref__c&quot;: {
+		&quot;_meta&quot;: {
+			&quot;object&quot;: &quot;hed__Affiliation__c&quot;
+		},
+		&quot;Acad_Corp_Part_Ref__c&quot;: &quot;hed__Account__c&quot;,
+                &quot;$PARENT.Id&quot; : &quot;hed__Contact__c&quot;,
+                &quot;`true`&quot;:&quot;hed__Primary__c&quot;,
+                &quot;`Pending`&quot;:&quot;hed__Status__c&quot;
+	},
+&quot;X2nd_Acad_Corp_Part_Ref__c&quot;: {
+		&quot;_meta&quot;: {
+			&quot;object&quot;: &quot;hed__Affiliation__c&quot;
+		},
+		&quot;X2nd_Acad_Corp_Part_Ref__c&quot;: &quot;hed__Account__c&quot;,
+                &quot;$PARENT.Id&quot; : &quot;hed__Contact__c&quot;,
+                &quot;`false`&quot;:&quot;hed__Primary__c&quot;,
+                &quot;`Pending`&quot;:&quot;hed__Status__c&quot;
+	}
+}</value>
+    </values>
+    <values>
+        <field>push_json__c</field>
+        <value xsi:nil="true"/>
+    </values>
+</CustomMetadata>

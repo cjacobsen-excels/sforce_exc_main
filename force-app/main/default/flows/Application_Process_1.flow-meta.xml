@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>59.0</apiVersion>
+    <description>Migrated from the Application Process process using Initial Evaluation Complete criteria. Adelante nodes removed.</description>
+    <environments>Default</environments>
+    <interviewLabel>Application Process_1 {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>RT-CU-AS Create Task for Application review complete</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>myRule_6_A1</targetReference>
+        </connector>
+        <filterFormula>AND(
+	!ISBLANK({!$Record.Initial_Evaluation_Complete_Date__c}),
+        {!$Record.Initial_Evaluation_Complete_Date__c} = TODAY(),
+	OR(
+		ISNEW(), 
+		ISCHANGED({!$Record.Initial_Evaluation_Complete_Date__c}))
+
+)</filterFormula>
+        <object>hed__Application__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <subflows>
+        <name>myRule_6_A1</name>
+        <label>Task to Oppty Owner</label>
+        <locationX>176</locationX>
+        <locationY>323</locationY>
+        <flowName>Contact_Admissions_Task_Flow</flowName>
+        <inputAssignments>
+            <name>vOwnerID</name>
+            <value>
+                <elementReference>$Record.traa_Opportunity__r.OwnerId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>vContactID</name>
+            <value>
+                <elementReference>$Record.hed__Applicant__r.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>vWhatId</name>
+            <value>
+                <elementReference>$Record.traa_Opportunity__r.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>vTaskName</name>
+            <value>
+                <stringValue>InitialEvaluationComplete</stringValue>
+            </value>
+        </inputAssignments>
+    </subflows>
+</Flow>

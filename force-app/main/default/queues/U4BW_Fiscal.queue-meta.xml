@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <name>U4BW - Fiscal</name>
+    <queueMembers>
+        <users>
+            <user>azieba@excelsior.edu</user>
+            <user>cmoore@excelsior.edu</user>
+            <user>dspillane@excelsior.edu</user>
+            <user>ffredette@excelsior.edu</user>
+            <user>fredyrivas@excelsior.edu</user>
+            <user>hkoldin@excelsior.edu</user>
+            <user>kaguado@excelsior.edu</user>
+            <user>msmith@excelsior.edu</user>
+            <user>peiwang@excelsior.edu</user>
+            <user>scourtney@excelsior.edu</user>
+            <user>sway@excelsior.edu</user>
+            <user>tharwood@excelsior.edu</user>
+            <user>tlenz@excelsior.edu</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>BMCServiceDesk__Problem__c</sobjectType>
+    </queueSobject>
+</Queue>

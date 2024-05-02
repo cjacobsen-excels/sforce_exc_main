@@ -1,0 +1,1571 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <apiVersion>49.0</apiVersion>
+    <choices>
+        <name>AdjustFacultyPerformanceReview</name>
+        <choiceText>Adjunct Faculty Performance Review</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Adjunct Faculty Performance Review</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>ClinicalAssociateEvaluationForm</name>
+        <choiceText>Clinical Associate Evaluation Form</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Clinical Associate Evaluation Form</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>ClinicalExaminerEvalForm</name>
+        <choiceText>Clinical Examiner Evaluation Form</choiceText>
+        <dataType>String</dataType>
+    </choices>
+    <choices>
+        <name>NullChoice</name>
+        <choiceText>NULL</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue></stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>x2_wk_Evaluation</name>
+        <choiceText>Adjunct Faculty 2-Week Check-in</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Adjunct Faculty 2-Week Check-in</stringValue>
+        </value>
+    </choices>
+    <decisions>
+        <name>CE_or_CA</name>
+        <label>CE or CA?</label>
+        <locationX>589</locationX>
+        <locationY>480</locationY>
+        <defaultConnector>
+            <targetReference>No_CA_CE_FoundScreen</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>CA</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>CourseConnectionRole</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Clinical Associate</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Clinical_Associate_Eval_Form_Screen1</targetReference>
+            </connector>
+            <label>CA</label>
+        </rules>
+        <rules>
+            <name>CE</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>CourseConnectionRole</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Clinical Examiner</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Clinical_Examiner_Eval_Form_Screen1</targetReference>
+            </connector>
+            <label>CE</label>
+        </rules>
+    </decisions>
+    <dynamicChoiceSets>
+        <name>CA_Eval_Question_1</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>CA_Response_1__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>CA_Eval_Question_2</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>CA_Response_2__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>CA_Eval_Question_3</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>CA_Response_3__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>CA_Eval_Question_4</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>CA_Response_4__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>CA_Eval_Question_5</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>CA_Response_5__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>CA_Eval_Question_6</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>CA_Response_6__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>CA_Eval_Question_7</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>CA_Response_7__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>CA_Eval_Question_8</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>CA_Response_8__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>CA_IR_Question11</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>CA_IR_Response_11__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>CA_IR_Question12</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>CA_IR_Response_12__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>CA_IR_Question13</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>CA_IR_Response_13__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>CA_IR_Question14</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>CA_IR_Response_14__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>CA_IR_Question15</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>CA_IR_Response_15__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>CA_IR_Question16</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>CA_IR_Response_16__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>CA_TP_Question1</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>CA_Test_Process_Response_1__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>CA_TP_Question10</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>CA_Test_Process_Response_10__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>CA_TP_Question2</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>CA_Test_Process_Response_2__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>CA_TP_Question3</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>CA_Test_Process_Response_3__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>CA_TP_Question4</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>CA_Test_Process_Response_4__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>CA_TP_Question5</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>CA_Test_Process_Response_5__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>CA_TP_Question6</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>CA_Test_Process_Response_6__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>CA_TP_Question7</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>CA_Test_Process_Response_7__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>CA_TP_Question8</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>CA_Test_Process_Response_8__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>CA_TP_Question9</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>CA_Test_Process_Response_9__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>CE_AR_Question26</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>CE_AR_Response_26__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>CE_AR_Question27a</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>CE_AR_Response_27a__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>CE_AR_Question27b</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>CE_AR_Response_27b__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>CE_ER_Question1</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>CE_ER_Response_1__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>CE_ER_Question10</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>CE_ER_Response_10__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>CE_ER_Question11</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>CE_ER_Response_11__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>CE_ER_Question12</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>CE_ER_Response_12__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>CE_ER_Question13</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>CE_ER_Response_13__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>CE_ER_Question14</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>CE_ER_Response_14__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>CE_ER_Question15</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>CE_ER_Response_15__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>CE_ER_Question16</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>CE_ER_Response_16__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>CE_ER_Question17</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>CE_ER_Response_17__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>CE_ER_Question18</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>CE_ER_Response_18__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>CE_ER_Question19</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>CE_ER_Response_19__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>CE_ER_Question2</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>CE_ER_Response_2__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>CE_ER_Question3</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>CE_ER_Response_3__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>CE_ER_Question4</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>CE_ER_Response_4__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>CE_ER_Question5</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>CE_ER_Response_5__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>CE_ER_Question6</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>CE_ER_Response_6__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>CE_ER_Question7</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>CE_ER_Response_7__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>CE_ER_Question8</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>CE_ER_Response_8__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>CE_ER_Question9</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>CE_ER_Response_9__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>CE_PA_Question20</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>CE_PA_Response_1__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>CE_PA_Question21</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>CE_PA_Response_21__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>CE_PA_Question22</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>CE_PA_Response_22__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>CE_PA_Question23</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>CE_PA_Response_23__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>CE_PA_Question24</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>CE_PA_Response_24__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>CE_PA_Question25</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>CE_PA_Response_25__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>Recommend_future_teaching_assignments</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>Recommend_future_teaching_assignments__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <formulas>
+        <name>Adjunct2weekRecordTypeID</name>
+        <dataType>String</dataType>
+        <expression>{!$Label.Adjunct_Faculty_2wk_Eval_Record_Type_ID}</expression>
+    </formulas>
+    <formulas>
+        <description>CA Evaluation Record Type ID</description>
+        <name>CAEvalRecordTypeID</name>
+        <dataType>String</dataType>
+        <expression>{!$Label.CA_Evaluations_Record_ID}</expression>
+    </formulas>
+    <formulas>
+        <description>CE Evaluation Record Type ID</description>
+        <name>CEEvaluationRecordTypeID</name>
+        <dataType>String</dataType>
+        <expression>{!$Label.CE_Evaluation_Record_Type_ID}</expression>
+    </formulas>
+    <formulas>
+        <name>CourseOfferingRecordTypeID</name>
+        <dataType>String</dataType>
+        <expression>{!$Label.CourseOfferingRecordTypeID}</expression>
+    </formulas>
+    <formulas>
+        <description>Faculty Evaluation Record Type ID</description>
+        <name>FacultyEvaluationRecordTypeID</name>
+        <dataType>String</dataType>
+        <expression>{!$Label.Faculty_Evaluation_Record_Type}</expression>
+    </formulas>
+    <interviewLabel>CE Eval Flow {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>CE Eval Flow</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <recordCreates>
+        <name>Create_Clinical_Associate_Evaluation</name>
+        <label>Create Clinical Associate Evaluation</label>
+        <locationX>1507</locationX>
+        <locationY>687</locationY>
+        <inputAssignments>
+            <field>CA_IR_Response_11__c</field>
+            <value>
+                <elementReference>CA_IR_Response11</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CA_IR_Response_12__c</field>
+            <value>
+                <elementReference>CA_IR_Response12</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CA_IR_Response_13__c</field>
+            <value>
+                <elementReference>CA_IR_Response13</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CA_IR_Response_14__c</field>
+            <value>
+                <elementReference>CA_IR_Response14</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CA_IR_Response_15__c</field>
+            <value>
+                <elementReference>CA_IR_Response15</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CA_IR_Response_16__c</field>
+            <value>
+                <elementReference>CA_IR_Response16</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CA_Response_1__c</field>
+            <value>
+                <elementReference>CA_Eval_Response_1</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CA_Response_2__c</field>
+            <value>
+                <elementReference>CA_Eval_Response_2</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CA_Response_3__c</field>
+            <value>
+                <elementReference>CA_Response_3</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CA_Response_4__c</field>
+            <value>
+                <elementReference>CA_Response_4</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CA_Response_5__c</field>
+            <value>
+                <elementReference>CA_Response_5</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CA_Response_6__c</field>
+            <value>
+                <elementReference>CA_Response_6</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CA_Response_7__c</field>
+            <value>
+                <elementReference>CA_Response_7</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CA_Response_8__c</field>
+            <value>
+                <elementReference>CA_Response_8</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CA_Test_Process_Response_10__c</field>
+            <value>
+                <elementReference>CA_TP_Response10</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CA_Test_Process_Response_1__c</field>
+            <value>
+                <elementReference>CA_TP_Response1</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CA_Test_Process_Response_2__c</field>
+            <value>
+                <elementReference>CA_TP_Response2</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CA_Test_Process_Response_3__c</field>
+            <value>
+                <elementReference>CA_TP_Response3</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CA_Test_Process_Response_4__c</field>
+            <value>
+                <elementReference>CA_TP_Respone4</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CA_Test_Process_Response_5__c</field>
+            <value>
+                <elementReference>CA_TP_Response5</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CA_Test_Process_Response_6__c</field>
+            <value>
+                <elementReference>CA_TP_Response6</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CA_Test_Process_Response_7__c</field>
+            <value>
+                <elementReference>CA_TP_Response7</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CA_Test_Process_Response_8__c</field>
+            <value>
+                <elementReference>CA_TP_Response8</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CA_Test_Process_Response_9__c</field>
+            <value>
+                <elementReference>CA_TP_Response9</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Course_Offering__c</field>
+            <value>
+                <elementReference>CourseOfferingId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Faculty_Member__c</field>
+            <value>
+                <elementReference>CourseConnectionContactId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>RecordTypeId</field>
+            <value>
+                <elementReference>CAEvalRecordTypeID</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Evaluation__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>Clinical Performance in Nursing Examination (CPNE®)
+Clinical Examiner Evaluation Form</description>
+        <name>Create_Clinical_Examiner_Evaluation</name>
+        <label>Create Clinical Examiner Evaluation</label>
+        <locationX>1226</locationX>
+        <locationY>459</locationY>
+        <inputAssignments>
+            <field>CE_AR_Response_26__c</field>
+            <value>
+                <elementReference>CE_AR_Response26</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CE_AR_Response_27a__c</field>
+            <value>
+                <elementReference>CE_AR_Response27a</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CE_AR_Response_27b__c</field>
+            <value>
+                <elementReference>CE_AR_Response27b</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CE_ER_Response_10__c</field>
+            <value>
+                <elementReference>CE_ER_Response10</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CE_ER_Response_11__c</field>
+            <value>
+                <elementReference>CE_ER_Response11</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CE_ER_Response_12__c</field>
+            <value>
+                <elementReference>CE_ER_Response12</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CE_ER_Response_13__c</field>
+            <value>
+                <elementReference>CE_ER_Response13</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CE_ER_Response_14__c</field>
+            <value>
+                <elementReference>CE_ER_Response14</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CE_ER_Response_15__c</field>
+            <value>
+                <elementReference>CE_ER_Response15</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CE_ER_Response_16__c</field>
+            <value>
+                <elementReference>CE_ER_Response16</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CE_ER_Response_17__c</field>
+            <value>
+                <elementReference>CE_ER_Response17</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CE_ER_Response_18__c</field>
+            <value>
+                <elementReference>CE_ER_Response18</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CE_ER_Response_19__c</field>
+            <value>
+                <elementReference>CE_ER_Response19</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CE_ER_Response_1__c</field>
+            <value>
+                <elementReference>CE_ER_Response1</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CE_ER_Response_2__c</field>
+            <value>
+                <elementReference>CE_ER_Response2</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CE_ER_Response_3__c</field>
+            <value>
+                <elementReference>CE_ER_Response3</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CE_ER_Response_4__c</field>
+            <value>
+                <elementReference>CE_ER_Response4</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CE_ER_Response_5__c</field>
+            <value>
+                <elementReference>CE_ER_Response5</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CE_ER_Response_6__c</field>
+            <value>
+                <elementReference>CE_ER_Response6</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CE_ER_Response_7__c</field>
+            <value>
+                <elementReference>CE_ER_Response7</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CE_ER_Response_8__c</field>
+            <value>
+                <elementReference>CE_ER_Response8</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CE_ER_Response_9__c</field>
+            <value>
+                <elementReference>CE_ER_Response9</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CE_PA_Response_1__c</field>
+            <value>
+                <elementReference>CE_PA_Response20</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CE_PA_Response_21__c</field>
+            <value>
+                <elementReference>CE_PA_Response21</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CE_PA_Response_22__c</field>
+            <value>
+                <elementReference>CE_PA_Response22</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CE_PA_Response_23__c</field>
+            <value>
+                <elementReference>CE_PA_Response23</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CE_PA_Response_24__c</field>
+            <value>
+                <elementReference>CE_PA_Response24</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CE_PA_Response_25__c</field>
+            <value>
+                <elementReference>CE_PA_Response25</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Course_Offering__c</field>
+            <value>
+                <elementReference>CourseOfferingId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Faculty_Member__c</field>
+            <value>
+                <elementReference>CourseConnectionContactId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>RecordTypeId</field>
+            <value>
+                <elementReference>CEEvaluationRecordTypeID</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Evaluation__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordLookups>
+        <name>GetCourseConnection</name>
+        <label>GetCourseConnection</label>
+        <locationX>409</locationX>
+        <locationY>498</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>CE_or_CA</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Name</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>CourseConnectionId</elementReference>
+            </value>
+        </filters>
+        <object>hed__Course_Enrollment__c</object>
+        <outputAssignments>
+            <assignToReference>CourseConnectionRole</assignToReference>
+            <field>Role__c</field>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>CourseConnectionContactId</assignToReference>
+            <field>hed__Contact__c</field>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>CourseOfferingId</assignToReference>
+            <field>hed__Course_Offering__c</field>
+        </outputAssignments>
+    </recordLookups>
+    <screens>
+        <name>Clinical_Associate_Eval_Form_Screen1</name>
+        <label>Clinical Associate Eval Form</label>
+        <locationX>1083</locationX>
+        <locationY>687</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Clinical_Associate_Eval_Form_Screen2</targetReference>
+        </connector>
+        <fields>
+            <name>CA1</name>
+            <fieldText>&lt;p&gt;&lt;b style=&quot;background-color: rgb(255, 255, 255); color: rgb(62, 62, 60); font-size: 14px;&quot;&gt;Clinical Associate Evaluation Form&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Directions</name>
+            <fieldText>&lt;p&gt;&lt;b&gt;Excelsior College Nursing Program, &lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;Clinical Associate Evaluation Form&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;Directions:&lt;/b&gt; This form is to be completed by the RPAC director or CPNE® nurse faculty. In the space provided,&lt;/p&gt;&lt;p&gt;place a (&lt;b&gt;Y&lt;/b&gt;) for each behavior that is met and an (&lt;b&gt;N&lt;/b&gt;) to indicate behaviors that were not met. Please document all&lt;/p&gt;&lt;p&gt;pertinent examples. For any behavior that is deemed to &lt;b&gt;require modification&lt;/b&gt;, use (&lt;b&gt;RM&lt;/b&gt;).&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>CA_Eval_Response_1</name>
+            <choiceReferences>CA_Eval_Question_1</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>1. Assesses examination materials for completeness and accuracy prior to submitting them to RPAC office.</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>CA_Eval_Response_2</name>
+            <choiceReferences>CA_Eval_Question_2</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>2. Submits CPNE® examiner evaluation form(s) completed according to Excelsior College/RPAC policies.</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>CA_Response_3</name>
+            <choiceReferences>CA_Eval_Question_3</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>3. Advises examiners regarding their compliance with examiner expected behaviors.</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>CA_Response_4</name>
+            <choiceReferences>CA_Eval_Question_4</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>4. Exits students in a supportive manner. Provides information necessary for them to progress with their degree plans (e.g., state board information, continuing their education with Excelsior), and when deemed appropriate, provides the student with suggestions related to preparing to repeat the examination.</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>CA_Response_5</name>
+            <choiceReferences>CA_Eval_Question_5</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>5. Records descriptive information on the CA report that completely and accurately documents pertinent test process information (i.e., failure situations, student comments related to testing, and suggestions made to students when exiting the CPNE®).</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>CA_Response_6</name>
+            <choiceReferences>CA_Eval_Question_6</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>6. Acts as a student advocate.</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>CA_Response_7</name>
+            <choiceReferences>CA_Eval_Question_7</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>7. Uses CA and CE protocols to make correct pass/fail decisions.</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>CA_Response_8</name>
+            <choiceReferences>CA_Eval_Question_8</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>8. Uses feedback and evaluation to achieve identified goals.</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Clinical_Associate_Eval_Form_Screen2</name>
+        <label>Clinical Associate Eval Form</label>
+        <locationX>1242</locationX>
+        <locationY>687</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Clinical_Associate_Eval_Form_Screen3</targetReference>
+        </connector>
+        <fields>
+            <name>CA2</name>
+            <fieldText>&lt;p&gt;&lt;b style=&quot;font-size: 14px; background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;Clinical Associate Evaluation Form&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>TestProcessManager</name>
+            <fieldText>&lt;p&gt;Test Process Manager&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>CA_TP_Response1</name>
+            <choiceReferences>CA_TP_Question1</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>1. Secures, distributes, and collects all materials (equipment, forms, etc.) needed for each lab station and each PCS.</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>CA_TP_Response2</name>
+            <choiceReferences>CA_TP_Question2</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>2. Orients the students to the examination within an appropriate time frame.</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>CA_TP_Response3</name>
+            <choiceReferences>CA_TP_Question3</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>3. Reviews kardexes for compliance with examination protocols and appropriate patient selection, suggesting changes as needed.</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>CA_TP_Respone4</name>
+            <choiceReferences>CA_TP_Question4</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>4. Maintains an environment appropriate to testing throughout the examination.</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>CA_TP_Response5</name>
+            <choiceReferences>CA_TP_Question5</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>5. Conducts the examination efficiently, minimizing delays whenever possible.</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>CA_TP_Response6</name>
+            <choiceReferences>CA_TP_Question6</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>6. Collaborates on pass/fail decisions according to the critical elements and test protocols, using flexibility where appropriate.</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>CA_TP_Response7</name>
+            <choiceReferences>CA_TP_Question7</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>7. Allows for sufficient break time for students and examiners between PCSs.</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>CA_TP_Response8</name>
+            <choiceReferences>CA_TP_Question8</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>8. Assigns fourth and fifth PCSs fairly, balancing needs of students with those of the examiners as much as possible.</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>CA_TP_Response9</name>
+            <choiceReferences>CA_TP_Question9</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>9. Serves as liaison in communication and problem solving between hospital and examiners, students and examiners, and examiners and the RPAC office.</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>CA_TP_Response10</name>
+            <choiceReferences>CA_TP_Question10</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>10. Verifies the accuracy and completeness of all testing materials, returning them to individual examiners as needed for correction.</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Clinical_Associate_Eval_Form_Screen3</name>
+        <label>Clinical Associate Eval Form</label>
+        <locationX>1370</locationX>
+        <locationY>685</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Create_Clinical_Associate_Evaluation</targetReference>
+        </connector>
+        <fields>
+            <name>CA3</name>
+            <fieldText>&lt;p&gt;&lt;b style=&quot;font-size: 14px; background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;Clinical Associate Evaluation Form&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Interpersonal_Communications</name>
+            <fieldText>&lt;p&gt;Interpersonal Relations/Communications&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>CA_IR_Response11</name>
+            <choiceReferences>CA_IR_Question11</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>11. Communicates time frames and necessary changes in the schedule to both students and examiners.</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>CA_IR_Response12</name>
+            <choiceReferences>CA_IR_Question12</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>12. Monitors examiner behaviors throughout the examination, giving feedback to each examiner in an appropriate manner.</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>CA_IR_Response13</name>
+            <choiceReferences>CA_IR_Question13</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>13. Responds to examiner and student needs during the examination.</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>CA_IR_Response14</name>
+            <choiceReferences>CA_IR_Question14</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>14. Communicates with examiners, students, and staff in a professional manner.</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>CA_IR_Response15</name>
+            <choiceReferences>CA_IR_Question15</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>15. Communicates rationale for decision making to the examiner when appropriate, and demonstrates respect for the examiner’s judgment.</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>CA_IR_Response16</name>
+            <choiceReferences>CA_IR_Question16</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>16. Discusses potential student failures privately where participants can express themselves.</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Clinical_Examiner_Eval_Form_Screen1</name>
+        <label>Clinical Examiner Eval Form</label>
+        <locationX>939</locationX>
+        <locationY>458</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Clinical_Examiner_Eval_Form_Screen2</targetReference>
+        </connector>
+        <fields>
+            <name>CE1</name>
+            <fieldText>&lt;p&gt;&lt;b style=&quot;font-size: 14px;&quot;&gt;Clinical Performance in Nursing Examination Evaluation&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>CE_Directions</name>
+            <fieldText>&lt;p&gt;&lt;b&gt;Clinical Performance in Nursing Examination (CPNE®)&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Clinical Examiner Evaluation Form&lt;/p&gt;&lt;p&gt;Directions for Clinical Associates: Use this form to document examples of exemplary CE behavior&lt;/p&gt;&lt;p&gt;or examples of questionable CE behavior. In the space provided for each expected behavior, place&lt;/p&gt;&lt;p&gt;a (Y) for behaviors that were satisfactory; use an (N) to indicate behaviors that were unsatisfactory. Discuss&lt;/p&gt;&lt;p&gt;the evaluation with the clinical examiner, sign the form, provide a copy to the CE, and submit original to the&lt;/p&gt;&lt;p&gt;RPAC office.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>CE_ER_Response1</name>
+            <choiceReferences>CE_ER_Question1</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>1. Functions as objective observer rather than as teacher during the entire clinical examination.</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>CE_ER_Response2</name>
+            <choiceReferences>CE_ER_Question2</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>2. Behaves toward students in a manner intended to neutralize their anxiety and to promote objective assessment of competence.</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>CE_ER_Response3</name>
+            <choiceReferences>CE_ER_Question3</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>3. Selects patients according to predetermined guidelines.</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>CE_ER_Response4</name>
+            <choiceReferences>CE_ER_Question4</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>4. Prepares the PCS assignment sheet accurately and completely, and assigns appropriate areas of care within allotted time frames.</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>CE_ER_Response5</name>
+            <choiceReferences>CE_ER_Question5</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>5. Prepares the patients for the PCS in a positive but neutral manner.</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>CE_ER_Response6</name>
+            <choiceReferences>CE_ER_Question6</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>6. Expedites the testing process by assuring that all necessary supplies and equipment are available prior to beginning the test.</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>CE_ER_Response7</name>
+            <choiceReferences>CE_ER_Question7</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>7. Evaluates students during the test by using only the specified guidelines and critical elements.</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>CE_ER_Response8</name>
+            <choiceReferences>CE_ER_Question8</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>8. Observes the student at all times during the entire testing episode.</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>CE_ER_Response9</name>
+            <choiceReferences>CE_ER_Question9</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>9. Documents the completion, error, or omission of each critical element during the test, as each area is being performed.</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>CE_ER_Response10</name>
+            <choiceReferences>CE_ER_Question10</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>10. Allows student to correct errors unless the patient is actually, or on the verge of, being jeopardized.</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>CE_ER_Response11</name>
+            <choiceReferences>CE_ER_Question11</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>11. Terminates the testing episode when necessary at the time and in the manner specified by predetermined criteria.</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>CE_ER_Response12</name>
+            <choiceReferences>CE_ER_Question12</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>12. Obtains clarification and corroboration from the clinical associate prior to failing a student.</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>CE_ER_Response13</name>
+            <choiceReferences>CE_ER_Question13</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>13. Completes all forms as specified as legal documentation of the test.</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>CE_ER_Response14</name>
+            <choiceReferences>CE_ER_Question14</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>14. Promotes and maintains cooperative relationship with nursing staff.</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>CE_ER_Response15</name>
+            <choiceReferences>CE_ER_Question15</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>15. Implements all pertinent rules and regulations related to the CPNE® and the Excelsior College Nursing Program and respects the authority of the Clinical Associate.</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>CE_ER_Response16</name>
+            <choiceReferences>CE_ER_Question16</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>16. Behaves in a manner consistent with professional standards and with the philosophy of the Excelsior College Nursing Program.</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>CE_ER_Response17</name>
+            <choiceReferences>CE_ER_Question17</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>17. Functions as Clinical Examiner at least once every four to six weeks (this may be altered with permission from the dean or RPAC director).</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>CE_ER_Response18</name>
+            <choiceReferences>CE_ER_Question18</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>18. Verbalizes scripted statements at each designated point of the examination, including simulated labs.</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>CE_ER_Response19</name>
+            <choiceReferences>CE_ER_Question19</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>19. Orients students to the clinical unit before each PCS using the Unit Orientation, including all equipment to be used during the PCS and the assigned nurse.</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Clinical_Examiner_Eval_Form_Screen2</name>
+        <label>Clinical Examiner Eval Form</label>
+        <locationX>1070</locationX>
+        <locationY>459</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Create_Clinical_Examiner_Evaluation</targetReference>
+        </connector>
+        <fields>
+            <name>CE2</name>
+            <fieldText>&lt;p&gt;&lt;b style=&quot;font-size: 14px; background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;Clinical Performance in Nursing Examination Evaluation&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>PatientAdvocateRole</name>
+            <fieldText>&lt;p&gt;&lt;b&gt;Patient Advocate Role&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>CE_PA_Response20</name>
+            <choiceReferences>CE_PA_Question20</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>20. Establishes relationships with patient, patient’s family, and staff that promote the best interest of the patient.</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>CE_PA_Response21</name>
+            <choiceReferences>CE_PA_Question21</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>21. Assumes full responsibility for knowing all essential aspects of the patient’s nursing care prior to beginning the test.</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>CE_PA_Response22</name>
+            <choiceReferences>CE_PA_Question22</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>22. Remains with the student continuously during all aspects of care to ensure the safety and well-being of the patient.</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>CE_PA_Response23</name>
+            <choiceReferences>CE_PA_Question23</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>23. Intervenes to protect the patient from actual harm or immediate threat of harm during the test period.</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>CE_PA_Response24</name>
+            <choiceReferences>CE_PA_Question24</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>24. Remains aware of and attentive to the patient’s needs throughout the test episode, but interrupts the student only when absolutely necessary.</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>CE_PA_Response25</name>
+            <choiceReferences>CE_PA_Question25</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>25. Assumes responsibility for assuring that the patient is left in as safe and comfortable a condition as possible, and that continuity of care is maintained through the customary oral and written reports at the conclusion of the examination.</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>AdditionalRequirements</name>
+            <fieldText>&lt;p&gt;&lt;b&gt;Additional Requirements&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>CE_AR_Response26</name>
+            <choiceReferences>CE_AR_Question26</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>26. Annual attendance at update sessions.</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>CE_AR_Response27a</name>
+            <choiceReferences>CE_AR_Question27a</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>27. Involvement with students and/or new graduates as a teacher, mentor, or preceptor.</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>OR</name>
+            <fieldText>&lt;p&gt;&lt;b&gt;OR&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>CE_AR_Response27b</name>
+            <choiceReferences>CE_AR_Question27b</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Documented continuing education in areas that pertain to the CPNE® for at least thirty contact hours every two years.</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>No_CA_CE_FoundScreen</name>
+        <label>No CA CE Found</label>
+        <locationX>599</locationX>
+        <locationY>736</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>NO_CE_CA</name>
+            <fieldText>&lt;p&gt;No Clinical Examiner or Clinical Associate was found on the Course Offering.&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <start>
+        <locationX>50</locationX>
+        <locationY>481</locationY>
+        <connector>
+            <targetReference>GetCourseConnection</targetReference>
+        </connector>
+    </start>
+    <status>Obsolete</status>
+    <variables>
+        <name>CAonCallContact</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>ClinicalAssociateContact</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>CourseConnectionContactId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>CourseConnectionId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>CourseConnectionRole</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>CourseOfferingId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>GetCourseOfferingRecordTypeID</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>PrimaryFacultyContact</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

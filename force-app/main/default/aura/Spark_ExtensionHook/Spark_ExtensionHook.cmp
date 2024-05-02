@@ -1,0 +1,6 @@
+<aura:component abstract="true" extensible="true" access="global">
+  <aura:attribute name="viewModel" type="Object" />
+  <aura:attribute name="schemaData" type="Object" />
+  <aura:attribute name="parentComponent" type="Object" />
+  <aura:registerEvent name="hookEvent" type="c:SO_HookEvent" /> {!v.body}
+</aura:component>

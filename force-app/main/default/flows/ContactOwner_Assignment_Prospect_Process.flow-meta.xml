@@ -1,0 +1,1032 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <processMetadataValues>
+            <name>ActionCallType</name>
+            <value>
+                <stringValue>flow</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>flowSelection</name>
+            <value>
+                <stringValue>Contact_RR_Assignment_Flow</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>myRule_1_A1</name>
+        <label>RR Graduate Team</label>
+        <locationX>100</locationX>
+        <locationY>200</locationY>
+        <actionName>Contact_RR_Assignment_Flow</actionName>
+        <actionType>flow</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>vContactID</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>maxOccurs</name>
+                <value>
+                    <numberValue>1.0</numberValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>objectType</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Reference</stringValue>
+                </value>
+            </processMetadataValues>
+            <name>vContactID</name>
+            <value>
+                <elementReference>myVariable_current.Id</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>vRRTeam</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>maxOccurs</name>
+                <value>
+                    <numberValue>1.0</numberValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>objectType</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <name>vRRTeam</name>
+            <value>
+                <stringValue>Graduate</stringValue>
+            </value>
+        </inputParameters>
+        <nameSegment>Contact_RR_Assignment_Flow</nameSegment>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <actionCalls>
+        <processMetadataValues>
+            <name>ActionCallType</name>
+            <value>
+                <stringValue>flow</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>flowSelection</name>
+            <value>
+                <stringValue>Contact_RR_Assignment_Flow</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>myRule_3_A1</name>
+        <label>RR Military/Veteran Team</label>
+        <locationX>300</locationX>
+        <locationY>200</locationY>
+        <actionName>Contact_RR_Assignment_Flow</actionName>
+        <actionType>flow</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>vContactID</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>maxOccurs</name>
+                <value>
+                    <numberValue>1.0</numberValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>objectType</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Reference</stringValue>
+                </value>
+            </processMetadataValues>
+            <name>vContactID</name>
+            <value>
+                <elementReference>myVariable_current.Id</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>vRRTeam</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>maxOccurs</name>
+                <value>
+                    <numberValue>1.0</numberValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>objectType</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <name>vRRTeam</name>
+            <value>
+                <stringValue>Military</stringValue>
+            </value>
+        </inputParameters>
+        <nameSegment>Contact_RR_Assignment_Flow</nameSegment>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <actionCalls>
+        <processMetadataValues>
+            <name>ActionCallType</name>
+            <value>
+                <stringValue>flow</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>flowSelection</name>
+            <value>
+                <stringValue>Contact_RR_Assignment_Flow</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>myRule_5_A1</name>
+        <label>RR Partner Team</label>
+        <locationX>500</locationX>
+        <locationY>200</locationY>
+        <actionName>Contact_RR_Assignment_Flow</actionName>
+        <actionType>flow</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>vContactID</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>maxOccurs</name>
+                <value>
+                    <numberValue>1.0</numberValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>objectType</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Reference</stringValue>
+                </value>
+            </processMetadataValues>
+            <name>vContactID</name>
+            <value>
+                <elementReference>myVariable_current.Id</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>vRRTeam</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>maxOccurs</name>
+                <value>
+                    <numberValue>1.0</numberValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>objectType</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <name>vRRTeam</name>
+            <value>
+                <stringValue>Partner</stringValue>
+            </value>
+        </inputParameters>
+        <nameSegment>Contact_RR_Assignment_Flow</nameSegment>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <actionCalls>
+        <processMetadataValues>
+            <name>ActionCallType</name>
+            <value>
+                <stringValue>flow</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>flowSelection</name>
+            <value>
+                <stringValue>Contact_RR_Assignment_Flow</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>myRule_7_A1</name>
+        <label>RR Military/Veteran Team</label>
+        <locationX>700</locationX>
+        <locationY>200</locationY>
+        <actionName>Contact_RR_Assignment_Flow</actionName>
+        <actionType>flow</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>vContactID</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>maxOccurs</name>
+                <value>
+                    <numberValue>1.0</numberValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>objectType</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Reference</stringValue>
+                </value>
+            </processMetadataValues>
+            <name>vContactID</name>
+            <value>
+                <elementReference>myVariable_current.Id</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>vRRTeam</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>maxOccurs</name>
+                <value>
+                    <numberValue>1.0</numberValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>objectType</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <name>vRRTeam</name>
+            <value>
+                <stringValue>Military</stringValue>
+            </value>
+        </inputParameters>
+        <nameSegment>Contact_RR_Assignment_Flow</nameSegment>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <actionCalls>
+        <processMetadataValues>
+            <name>ActionCallType</name>
+            <value>
+                <stringValue>flow</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>flowSelection</name>
+            <value>
+                <stringValue>Contact_RR_Assignment_Flow</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>myRule_9_A1</name>
+        <label>RR General Admissions Team</label>
+        <locationX>900</locationX>
+        <locationY>200</locationY>
+        <actionName>Contact_RR_Assignment_Flow</actionName>
+        <actionType>flow</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>vContactID</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>maxOccurs</name>
+                <value>
+                    <numberValue>1.0</numberValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>objectType</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Reference</stringValue>
+                </value>
+            </processMetadataValues>
+            <name>vContactID</name>
+            <value>
+                <elementReference>myVariable_current.Id</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>vRRTeam</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>maxOccurs</name>
+                <value>
+                    <numberValue>1.0</numberValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>objectType</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <name>vRRTeam</name>
+            <value>
+                <stringValue>GeneralAdmissions</stringValue>
+            </value>
+        </inputParameters>
+        <nameSegment>Contact_RR_Assignment_Flow</nameSegment>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <apiVersion>49.0</apiVersion>
+    <decisions>
+        <processMetadataValues>
+            <name>index</name>
+            <value>
+                <numberValue>0.0</numberValue>
+            </value>
+        </processMetadataValues>
+        <name>myDecision</name>
+        <label>myDecision</label>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>myDecision2</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>default</defaultConnectorLabel>
+        <rules>
+            <name>myRule_1</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_myRule_1</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_1_A1</targetReference>
+            </connector>
+            <label>Graduate Prospect?</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <processMetadataValues>
+            <name>index</name>
+            <value>
+                <numberValue>1.0</numberValue>
+            </value>
+        </processMetadataValues>
+        <name>myDecision2</name>
+        <label>myDecision2</label>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>myDecision4</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>default</defaultConnectorLabel>
+        <rules>
+            <name>myRule_3</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_myRule_3</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_3_A1</targetReference>
+            </connector>
+            <label>Military Prospect?</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <processMetadataValues>
+            <name>index</name>
+            <value>
+                <numberValue>2.0</numberValue>
+            </value>
+        </processMetadataValues>
+        <name>myDecision4</name>
+        <label>myDecision4</label>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>myDecision6</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>default</defaultConnectorLabel>
+        <rules>
+            <name>myRule_5</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_myRule_5</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_5_A1</targetReference>
+            </connector>
+            <label>Partner Prospect?</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <processMetadataValues>
+            <name>index</name>
+            <value>
+                <numberValue>3.0</numberValue>
+            </value>
+        </processMetadataValues>
+        <name>myDecision6</name>
+        <label>myDecision6</label>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>myDecision8</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>default</defaultConnectorLabel>
+        <rules>
+            <name>myRule_7</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_myRule_7</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_7_A1</targetReference>
+            </connector>
+            <label>Veteran Prospect?</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <processMetadataValues>
+            <name>index</name>
+            <value>
+                <numberValue>4.0</numberValue>
+            </value>
+        </processMetadataValues>
+        <name>myDecision8</name>
+        <label>myDecision8</label>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>default</defaultConnectorLabel>
+        <rules>
+            <name>myRule_9</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_myRule_9</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_9_A1</targetReference>
+            </connector>
+            <label>General Population Prospect</label>
+        </rules>
+    </decisions>
+    <description>Round robin assignment for Prospects.</description>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>AND(
+	OR(
+		LEFT([Contact].Owner.UserRole.DeveloperName, 20) != &apos;Admissions_Counselor&apos;, 
+		![Contact].Owner.IsActive),
+	
+	OR(
+		[Contact].Contact_Category__c = &apos;&apos;,
+		[Contact].Contact_Category__c = &apos;Prospective Student&apos;,
+		[Contact].Contact_Category__c = &apos;Transcript Received&apos;,
+		[Contact].Contact_Category__c = &apos;Military Prospect&apos;),
+	OR(
+		TEXT([Contact].Level_of_Interest__c) =&apos;Grad Certificate&apos;,
+		TEXT([Contact].Level_of_Interest__c) =&apos;Masters&apos;,
+		TEXT([Contact].Level_of_Interest__c) =&apos;Post-Masters Cert&apos;),
+	
+	OR(
+		DATEVALUE([Contact].CreatedDate) &gt;= TODAY() - 184,
+		AND(
+			OR(
+				TEXT([Contact].Prospect_Rating__c) =&apos;Hot&apos;,
+				TEXT([Contact].Prospect_Rating__c) =&apos;Warm&apos;),
+	
+			TEXT([Contact].Status__c) != &apos;Closed&apos;,
+			TEXT([Contact].Status__c) != &apos;Not Interested&apos;
+		)
+	)
+)</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_myRule_1</name>
+        <dataType>Boolean</dataType>
+        <expression>AND(
+	OR(
+		LEFT({!myVariable_current.Owner.UserRole.DeveloperName}, 20) != &apos;Admissions_Counselor&apos;, 
+		!{!myVariable_current.Owner.IsActive}),
+	
+	OR(
+		{!myVariable_current.Contact_Category__c} = &apos;&apos;,
+		{!myVariable_current.Contact_Category__c} = &apos;Prospective Student&apos;,
+		{!myVariable_current.Contact_Category__c} = &apos;Transcript Received&apos;,
+		{!myVariable_current.Contact_Category__c} = &apos;Military Prospect&apos;),
+	OR(
+		TEXT({!myVariable_current.Level_of_Interest__c}) =&apos;Grad Certificate&apos;,
+		TEXT({!myVariable_current.Level_of_Interest__c}) =&apos;Masters&apos;,
+		TEXT({!myVariable_current.Level_of_Interest__c}) =&apos;Post-Masters Cert&apos;),
+	
+	OR(
+		DATEVALUE({!myVariable_current.CreatedDate}) &gt;= TODAY() - 184,
+		AND(
+			OR(
+				TEXT({!myVariable_current.Prospect_Rating__c}) =&apos;Hot&apos;,
+				TEXT({!myVariable_current.Prospect_Rating__c}) =&apos;Warm&apos;),
+	
+			TEXT({!myVariable_current.Status__c}) != &apos;Closed&apos;,
+			TEXT({!myVariable_current.Status__c}) != &apos;Not Interested&apos;
+		)
+	)
+)</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>AND(
+	OR(
+		LEFT([Contact].Owner.UserRole.DeveloperName, 20) != &apos;Admissions_Counselor&apos;, 
+		![Contact].Owner.IsActive),
+		
+	OR(
+		TEXT([Contact].Military_Status__c ) = &apos;Active Duty&apos;,
+		TEXT([Contact].Military_Status__c ) = &apos;National Guard&apos;,
+		TEXT([Contact].Military_Status__c ) = &apos;Reserve&apos;),
+	
+	OR(
+		[Contact].Contact_Category__c = &apos;&apos;,
+		[Contact].Contact_Category__c = &apos;Prospective Student&apos;,
+		[Contact].Contact_Category__c = &apos;Transcript Received&apos;,
+		[Contact].Contact_Category__c = &apos;Military Prospect&apos;),
+		
+	OR(
+		DATEVALUE([Contact].CreatedDate) &gt;= TODAY() - 184,
+		AND(
+			OR(
+				TEXT([Contact].Prospect_Rating__c) =&apos;Hot&apos;,
+				TEXT([Contact].Prospect_Rating__c) =&apos;Warm&apos;),
+	
+			TEXT([Contact].Status__c) != &apos;Closed&apos;,
+			TEXT([Contact].Status__c) != &apos;Not Interested&apos;
+		)
+	)
+)</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_myRule_3</name>
+        <dataType>Boolean</dataType>
+        <expression>AND(
+	OR(
+		LEFT({!myVariable_current.Owner.UserRole.DeveloperName}, 20) != &apos;Admissions_Counselor&apos;, 
+		!{!myVariable_current.Owner.IsActive}),
+		
+	OR(
+		TEXT({!myVariable_current.Military_Status__c} ) = &apos;Active Duty&apos;,
+		TEXT({!myVariable_current.Military_Status__c} ) = &apos;National Guard&apos;,
+		TEXT({!myVariable_current.Military_Status__c} ) = &apos;Reserve&apos;),
+	
+	OR(
+		{!myVariable_current.Contact_Category__c} = &apos;&apos;,
+		{!myVariable_current.Contact_Category__c} = &apos;Prospective Student&apos;,
+		{!myVariable_current.Contact_Category__c} = &apos;Transcript Received&apos;,
+		{!myVariable_current.Contact_Category__c} = &apos;Military Prospect&apos;),
+		
+	OR(
+		DATEVALUE({!myVariable_current.CreatedDate}) &gt;= TODAY() - 184,
+		AND(
+			OR(
+				TEXT({!myVariable_current.Prospect_Rating__c}) =&apos;Hot&apos;,
+				TEXT({!myVariable_current.Prospect_Rating__c}) =&apos;Warm&apos;),
+	
+			TEXT({!myVariable_current.Status__c}) != &apos;Closed&apos;,
+			TEXT({!myVariable_current.Status__c}) != &apos;Not Interested&apos;
+		)
+	)
+)</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>AND(
+	OR(
+		LEFT([Contact].Owner.UserRole.DeveloperName, 20) != &apos;Admissions_Counselor&apos;, 
+		![Contact].Owner.IsActive),
+	
+	OR(
+		!ISBLANK([Contact].Acad_Corp_Part_Ref__c),
+		!ISBLANK([Contact].X2nd_Acad_Corp_Part_Ref__c)),	
+		
+	OR(
+		[Contact].Contact_Category__c = &apos;&apos;,
+		[Contact].Contact_Category__c = &apos;Prospective Student&apos;,
+		[Contact].Contact_Category__c = &apos;Transcript Received&apos;,
+		[Contact].Contact_Category__c = &apos;Military Prospect&apos;),
+
+	OR(
+		DATEVALUE([Contact].CreatedDate) &gt;= TODAY() - 184,
+		AND(
+			OR(
+				TEXT([Contact].Prospect_Rating__c) =&apos;Hot&apos;,
+				TEXT([Contact].Prospect_Rating__c) =&apos;Warm&apos;),
+	
+			TEXT([Contact].Status__c) != &apos;Closed&apos;,
+			TEXT([Contact].Status__c) != &apos;Not Interested&apos;
+		)
+	)
+)</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_myRule_5</name>
+        <dataType>Boolean</dataType>
+        <expression>AND(
+	OR(
+		LEFT({!myVariable_current.Owner.UserRole.DeveloperName}, 20) != &apos;Admissions_Counselor&apos;, 
+		!{!myVariable_current.Owner.IsActive}),
+	
+	OR(
+		!ISBLANK({!myVariable_current.Acad_Corp_Part_Ref__c}),
+		!ISBLANK({!myVariable_current.X2nd_Acad_Corp_Part_Ref__c})),	
+		
+	OR(
+		{!myVariable_current.Contact_Category__c} = &apos;&apos;,
+		{!myVariable_current.Contact_Category__c} = &apos;Prospective Student&apos;,
+		{!myVariable_current.Contact_Category__c} = &apos;Transcript Received&apos;,
+		{!myVariable_current.Contact_Category__c} = &apos;Military Prospect&apos;),
+
+	OR(
+		DATEVALUE({!myVariable_current.CreatedDate}) &gt;= TODAY() - 184,
+		AND(
+			OR(
+				TEXT({!myVariable_current.Prospect_Rating__c}) =&apos;Hot&apos;,
+				TEXT({!myVariable_current.Prospect_Rating__c}) =&apos;Warm&apos;),
+	
+			TEXT({!myVariable_current.Status__c}) != &apos;Closed&apos;,
+			TEXT({!myVariable_current.Status__c}) != &apos;Not Interested&apos;
+		)
+	)
+)</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>AND(
+	OR(
+		LEFT([Contact].Owner.UserRole.DeveloperName, 20) != &apos;Admissions_Counselor&apos;, 
+		![Contact].Owner.IsActive),
+	
+	TEXT([Contact].Military_Status__c ) = &apos;Veteran&apos;,
+	
+	OR(
+		[Contact].Contact_Category__c = &apos;&apos;,
+		[Contact].Contact_Category__c = &apos;Prospective Student&apos;,
+		[Contact].Contact_Category__c = &apos;Transcript Received&apos;,
+		[Contact].Contact_Category__c = &apos;Military Prospect&apos;),
+	
+	OR(
+		DATEVALUE([Contact].CreatedDate) &gt;= TODAY() - 184,
+		AND(
+			OR(
+				TEXT([Contact].Prospect_Rating__c) =&apos;Hot&apos;,
+				TEXT([Contact].Prospect_Rating__c) =&apos;Warm&apos;),
+	
+			TEXT([Contact].Status__c) != &apos;Closed&apos;,
+			TEXT([Contact].Status__c) != &apos;Not Interested&apos;
+		)
+	)
+)</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_myRule_7</name>
+        <dataType>Boolean</dataType>
+        <expression>AND(
+	OR(
+		LEFT({!myVariable_current.Owner.UserRole.DeveloperName}, 20) != &apos;Admissions_Counselor&apos;, 
+		!{!myVariable_current.Owner.IsActive}),
+	
+	TEXT({!myVariable_current.Military_Status__c} ) = &apos;Veteran&apos;,
+	
+	OR(
+		{!myVariable_current.Contact_Category__c} = &apos;&apos;,
+		{!myVariable_current.Contact_Category__c} = &apos;Prospective Student&apos;,
+		{!myVariable_current.Contact_Category__c} = &apos;Transcript Received&apos;,
+		{!myVariable_current.Contact_Category__c} = &apos;Military Prospect&apos;),
+	
+	OR(
+		DATEVALUE({!myVariable_current.CreatedDate}) &gt;= TODAY() - 184,
+		AND(
+			OR(
+				TEXT({!myVariable_current.Prospect_Rating__c}) =&apos;Hot&apos;,
+				TEXT({!myVariable_current.Prospect_Rating__c}) =&apos;Warm&apos;),
+	
+			TEXT({!myVariable_current.Status__c}) != &apos;Closed&apos;,
+			TEXT({!myVariable_current.Status__c}) != &apos;Not Interested&apos;
+		)
+	)
+)</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>AND(
+	OR(
+		LEFT([Contact].Owner.UserRole.DeveloperName, 20) != &apos;Admissions_Counselor&apos;, 
+		![Contact].Owner.IsActive),
+				
+	OR(
+		[Contact].Contact_Category__c = &apos;&apos;,
+		[Contact].Contact_Category__c = &apos;Prospective Student&apos;,
+		[Contact].Contact_Category__c = &apos;Transcript Received&apos;,
+		[Contact].Contact_Category__c = &apos;Military Prospect&apos;),
+
+	OR(
+		TEXT([Contact].Prospect_Rating__c) =&apos;Hot&apos;,
+		TEXT([Contact].Prospect_Rating__c) =&apos;Warm&apos;),
+	
+	TEXT([Contact].Status__c) != &apos;Closed&apos;,
+	TEXT([Contact].Status__c) != &apos;Not Interested&apos;
+)</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_myRule_9</name>
+        <dataType>Boolean</dataType>
+        <expression>AND(
+	OR(
+		LEFT({!myVariable_current.Owner.UserRole.DeveloperName}, 20) != &apos;Admissions_Counselor&apos;, 
+		!{!myVariable_current.Owner.IsActive}),
+				
+	OR(
+		{!myVariable_current.Contact_Category__c} = &apos;&apos;,
+		{!myVariable_current.Contact_Category__c} = &apos;Prospective Student&apos;,
+		{!myVariable_current.Contact_Category__c} = &apos;Transcript Received&apos;,
+		{!myVariable_current.Contact_Category__c} = &apos;Military Prospect&apos;),
+
+	OR(
+		TEXT({!myVariable_current.Prospect_Rating__c}) =&apos;Hot&apos;,
+		TEXT({!myVariable_current.Prospect_Rating__c}) =&apos;Warm&apos;),
+	
+	TEXT({!myVariable_current.Status__c}) != &apos;Closed&apos;,
+	TEXT({!myVariable_current.Status__c}) != &apos;Not Interested&apos;
+)</expression>
+    </formulas>
+    <interviewLabel>ContactOwner_Assignment_Prospect_Process-4_InterviewLabel</interviewLabel>
+    <label>ContactOwner_Assignment_Prospect_Process</label>
+    <processMetadataValues>
+        <name>ObjectType</name>
+        <value>
+            <stringValue>Contact</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>ObjectVariable</name>
+        <value>
+            <elementReference>myVariable_current</elementReference>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OldObjectVariable</name>
+        <value>
+            <elementReference>myVariable_old</elementReference>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>TriggerType</name>
+        <value>
+            <stringValue>onAllChanges</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Workflow</processType>
+    <startElementReference>myDecision</startElementReference>
+    <status>Obsolete</status>
+    <variables>
+        <name>myVariable_current</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <objectType>Contact</objectType>
+    </variables>
+    <variables>
+        <name>myVariable_old</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Contact</objectType>
+    </variables>
+</Flow>

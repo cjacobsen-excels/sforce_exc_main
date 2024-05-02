@@ -1,0 +1,107 @@
+<template>
+  <div
+    class="slds-timeline__item_expandable slds-timeline__item_task slds-is-open"
+  >
+    <span class="slds-assistive-text">{taskData.taskSubType}</span>
+    <div class="slds-media">
+      <div class="slds-media__figure">
+        <button
+          class="slds-button slds-button_icon"
+          title="Toggle details"
+          aria-controls="task-item-expanded-81"
+          aria-expanded="false"
+          onclick={expandItem}
+        >
+          <svg
+            class="slds-button__icon slds-timeline__details-action-icon"
+            aria-hidden="true"
+          >
+            <use
+              xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#switch"
+            ></use>
+          </svg>
+          <span class="slds-assistive-text">Toggle details</span>
+        </button>
+        <div
+          class="slds-icon_container slds-icon-standard-task slds-timeline__icon"
+          title="task"
+        >
+          <!--  <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                <use xlink:href={iconSVG}></use>
+              </svg> -->
+          <lightning-icon
+            icon-name={iconSVG}
+            alternative-text={taskData.taskSubType}
+            title={taskData.taskSubType}
+            size="small"
+          ></lightning-icon>
+        </div>
+      </div>
+      <div class="slds-media__body">
+        <div class="slds-grid slds-grid_align-spread slds-timeline__trigger">
+          <div
+            class="slds-grid slds-grid_vertical-align-center slds-truncate_container_75 slds-no-space"
+          >
+            <h3 class="slds-truncate" title="Task subject">
+              <a href="#">
+                <strong>{taskData.subject}</strong>
+              </a>
+            </h3>
+          </div>
+          <p class="slds-m-horizontal_xx-small">{taskData.activityDateText}</p>
+          <!-- <div class="slds-timeline__actions slds-timeline__actions_inline">
+                <p class="slds-timeline__date">Task date & time</p>
+                <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-button_icon-x-small" aria-haspopup="true" title="More Options for this item">
+                  <svg class="slds-button__icon" aria-hidden="true">
+                    <use xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#down"></use>
+                  </svg>
+                  <span class="slds-assistive-text">More Options for this item</span>
+                </button>
+              </div> -->
+        </div>
+        <p class="slds-m-horizontal_xx-small">{taskNotifyMsg}</p>
+        <template lwc:if={areDetailsVisible}>
+          <article
+            class="slds-box slds-timeline__item_details slds-theme_shade slds-m-top_x-small slds-m-horizontal_xx-small slds-p-around_medium"
+            id="task-item-expanded-81"
+          >
+            <ul class="slds-list_horizontal slds-wrap">
+              <!--  <li class="slds-grid slds-grid_vertical slds-size_1-of-2 slds-p-bottom_small">
+                      <span class="slds-text-title slds-p-bottom_x-small">Name</span>
+                      <span class="slds-text-body_medium slds-truncate" title="Charlie Gomez">
+                      <a href="#">Charlie Gomez</a>
+                      </span>
+                  </li>  -->
+              <template lwc:if={taskData.activityName}>
+                <li
+                  class="slds-grid slds-grid_vertical slds-size_1-of-2 slds-p-bottom_small"
+                >
+                  <span class="slds-text-title slds-p-bottom_x-small"
+                    >Related To</span
+                  >
+                  <span
+                    class="slds-text-body_medium slds-truncate"
+                    title="Related to"
+                  >
+                    <a href="#">{taskData.activityName}</a>
+                  </span>
+                </li>
+              </template>
+            </ul>
+            <div>
+              <span class="slds-text-title">Description</span>
+              <p
+                class="slds-p-top_x-small"
+                style="display: flex; word-break: break-all"
+              >
+                <lightning-formatted-text
+                  value={taskData.taskDescription}
+                ></lightning-formatted-text>
+              </p>
+            </div>
+          </article>
+        </template>
+      </div>
+    </div>
+  </div>
+</template>

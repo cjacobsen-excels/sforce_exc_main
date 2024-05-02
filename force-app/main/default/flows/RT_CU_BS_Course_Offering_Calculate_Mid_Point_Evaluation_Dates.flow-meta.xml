@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>59.0</apiVersion>
+    <assignments>
+        <description>We Create them on the Same Day</description>
+        <name>Assign_Common_Values</name>
+        <label>Assign Common Values</label>
+        <locationX>314</locationX>
+        <locationY>695</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Mid_Point_Create_Date__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>CreateDate_ALL</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Mid_Point_Feedback_Status__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Not Started</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <description>We Populate all the fields required in the Mid Point Creation Process in this step.
+Mid Point Open Date = Course Start Date + 42  
+Mid Point Close Date = Mid Term Open Date + 21 
+Mid Point Create Date = Term.Start Date + 18</description>
+        <name>Assign_Mid_Point_Date_Fields_to_the_Record</name>
+        <label>Assign Mid Point Date Fields to the Record</label>
+        <locationX>50</locationX>
+        <locationY>503</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Mid_Point_Open_Date__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>OpenDate_Type_Term</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Mid_Point_Close_Date__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>CloseDate_Type_Term</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Assign_Common_Values</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>We Populate all the fields required in the Mid Point Creation Process in this step.
+Mid Point Open Date = Course Start Date + 21  
+Mid Point Close Date = Mid Term Open Date + 21 
+Mid Point Create Date = Term.Start Date + 18</description>
+        <name>Assign_Mid_Point_Date_Fields_to_the_Record_1</name>
+        <label>Assign Mid Point Date Fields to the Record</label>
+        <locationX>314</locationX>
+        <locationY>503</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Mid_Point_Open_Date__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>OpenDate_Type_Term12</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Mid_Point_Close_Date__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>CloseDate_Type_Term</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Assign_Common_Values</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <description>We only want to populate the fields only for Record Type. Dev Name = Course_Offering</description>
+        <name>Record_Type</name>
+        <label>Record Type</label>
+        <locationX>578</locationX>
+        <locationY>287</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Dev_Name_Course_Offering</name>
+            <conditionLogic>1 OR (2 AND 3)</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Course_Offering</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.RecordType.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Hybrid_Clinical</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Course_Offering_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Hybrid Clinical</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Term_Type</targetReference>
+            </connector>
+            <label>Dev Name - Course_Offering</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>15 Week Course = Type = Term
+8 Week Course = Type = Term 1 or 2</description>
+        <name>Term_Type</name>
+        <label>Term Type</label>
+        <locationX>314</locationX>
+        <locationY>395</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>TERM</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.hed__Term__r.hed__Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Term</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Mid_Point_Date_Fields_to_the_Record</targetReference>
+            </connector>
+            <label>TERM</label>
+        </rules>
+        <rules>
+            <name>TERM_1_2</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.hed__Term__r.hed__Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Term 1</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.hed__Term__r.hed__Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Term 2</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Mid_Point_Date_Fields_to_the_Record_1</targetReference>
+            </connector>
+            <label>TERM 1/2</label>
+        </rules>
+    </decisions>
+    <description>Sets the mid point evaluation open and close dates on a course offering record. Allows to hide/unhide evaluations from faculty based on these dates.</description>
+    <environments>Default</environments>
+    <formulas>
+        <description>Type Term: Mid Point Close Date = Mid Term Open Date + 21</description>
+        <name>CloseDate_Type_Term</name>
+        <dataType>Date</dataType>
+        <expression>{!$Record.Mid_Point_Open_Date__c} + 21</expression>
+    </formulas>
+    <formulas>
+        <name>CreateDate_ALL</name>
+        <dataType>Date</dataType>
+        <expression>{!$Record.hed__Start_Date__c} + 18</expression>
+    </formulas>
+    <formulas>
+        <description>Type Term : Mid Point Open Date = Course Start Date + 42</description>
+        <name>OpenDate_Type_Term</name>
+        <dataType>Date</dataType>
+        <expression>{!$Record.hed__Start_Date__c} + 42</expression>
+    </formulas>
+    <formulas>
+        <description>Type Term1 or 2 : Mid Point Open Date = Course Start Date + 21</description>
+        <name>OpenDate_Type_Term12</name>
+        <dataType>Date</dataType>
+        <expression>{!$Record.hed__Start_Date__c} + 21</expression>
+    </formulas>
+    <interviewLabel>RT-CU-BS Course Offering - Calculate Mid Point Evaluation Dates {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>RT-CU-BS Course Offering - Calculate Mid Point Evaluation Dates</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>452</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Record_Type</targetReference>
+        </connector>
+        <filterLogic>(1 OR 3) AND 2 AND 4 AND 5</filterLogic>
+        <filters>
+            <field>hed__Term__c</field>
+            <operator>IsChanged</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Mid_Point_Create_Date__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>hed__Term__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Active</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Number_of_Students_Registered__c</field>
+            <operator>GreaterThan</operator>
+            <value>
+                <numberValue>0.0</numberValue>
+            </value>
+        </filters>
+        <object>hed__Course_Offering__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

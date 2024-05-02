@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>BA Liberal Arts</fullName>
+        <default>false</default>
+        <label>BA Liberal Arts</label>
+    </customValue>
+    <customValue>
+        <fullName>BPS Business and Management</fullName>
+        <default>false</default>
+        <label>BPS Business and Management</label>
+    </customValue>
+    <customValue>
+        <fullName>BPS Technology Management, Electrical Technology</fullName>
+        <default>false</default>
+        <label>BPS Technology Management, Electrical Technology</label>
+    </customValue>
+    <customValue>
+        <fullName>BPS Technology Management, Information Technology</fullName>
+        <default>false</default>
+        <label>BPS Technology Management, Information Technology</label>
+    </customValue>
+    <customValue>
+        <fullName>BPS Technology Management, Nuclear Technology</fullName>
+        <default>false</default>
+        <label>BPS Technology Management, Nuclear Technology</label>
+    </customValue>
+    <customValue>
+        <fullName>BPS Technology Management, Renewable Energy Technology</fullName>
+        <default>false</default>
+        <label>BPS Technology Management, Renewable Energy Technology</label>
+    </customValue>
+    <customValue>
+        <fullName>BS Accounting</fullName>
+        <default>false</default>
+        <label>BS Accounting</label>
+    </customValue>
+    <customValue>
+        <fullName>BS Business, Finance</fullName>
+        <default>false</default>
+        <label>BS Business, Finance</label>
+    </customValue>
+    <customValue>
+        <fullName>BS Business, General Accounting</fullName>
+        <default>false</default>
+        <label>BS Business, General Accounting</label>
+    </customValue>
+    <customValue>
+        <fullName>BS Business, General Business</fullName>
+        <default>false</default>
+        <label>BS Business, General Business</label>
+    </customValue>
+    <customValue>
+        <fullName>BS Business, Logistics Management</fullName>
+        <default>false</default>
+        <label>BS Business, Logistics Management</label>
+    </customValue>
+    <customValue>
+        <fullName>BS Business, Management of Human Resources</fullName>
+        <default>false</default>
+        <label>BS Business, Management of Human Resources</label>
+    </customValue>
+    <customValue>
+        <fullName>BS Business, Marketing</fullName>
+        <default>false</default>
+        <label>BS Business, Marketing</label>
+    </customValue>
+    <customValue>
+        <fullName>BS Criminal Justice, Homeland Security</fullName>
+        <default>false</default>
+        <label>BS Criminal Justice, Homeland Security</label>
+    </customValue>
+    <customValue>
+        <fullName>BS Criminal Justice</fullName>
+        <default>false</default>
+        <label>BS Criminal Justice</label>
+    </customValue>
+    <customValue>
+        <fullName>BS Cybersecurity, Cyber Operations</fullName>
+        <default>false</default>
+        <label>BS Cybersecurity, Cyber Operations</label>
+    </customValue>
+    <customValue>
+        <fullName>BS Cybersecurity, General Track</fullName>
+        <default>false</default>
+        <label>BS Cybersecurity, General Track</label>
+    </customValue>
+    <customValue>
+        <fullName>BS Electrical Engineering Technology, Electronics</fullName>
+        <default>false</default>
+        <label>BS Electrical Engineering Technology, Electronics</label>
+    </customValue>
+    <customValue>
+        <fullName>BS Electrical Engineering Technology, Power Systems</fullName>
+        <default>false</default>
+        <label>BS Electrical Engineering Technology, Power Systems</label>
+    </customValue>
+    <customValue>
+        <fullName>BS Health Care Management</fullName>
+        <default>false</default>
+        <label>BS Health Care Management</label>
+    </customValue>
+    <customValue>
+        <fullName>BS Health Science, Management</fullName>
+        <default>false</default>
+        <label>BS Health Science, Management</label>
+    </customValue>
+    <customValue>
+        <fullName>BS Health Sciences</fullName>
+        <default>false</default>
+        <label>BS Health Sciences</label>
+    </customValue>
+    <customValue>
+        <fullName>BS Health Sciences, Health and Wellness</fullName>
+        <default>false</default>
+        <label>BS Health Sciences, Health and Wellness</label>
+    </customValue>
+    <customValue>
+        <fullName>BS Health Sciences, Public Health</fullName>
+        <default>false</default>
+        <label>BS Health Sciences, Public Health</label>
+    </customValue>
+    <customValue>
+        <fullName>BS History</fullName>
+        <default>false</default>
+        <label>BS History</label>
+    </customValue>
+    <customValue>
+        <fullName>BS Homeland Security and Emergency Management</fullName>
+        <default>false</default>
+        <label>BS Homeland Security and Emergency Management</label>
+    </customValue>
+    <customValue>
+        <fullName>BS Information Technology, Cybersecurity Technology</fullName>
+        <default>false</default>
+        <label>BS Information Technology, Cybersecurity Technology</label>
+    </customValue>
+    <customValue>
+        <fullName>BS Information Technology, General</fullName>
+        <default>false</default>
+        <label>BS Information Technology, General</label>
+    </customValue>
+    <customValue>
+        <fullName>BS Information Technology, Network Operations</fullName>
+        <default>false</default>
+        <label>BS Information Technology, Network Operations</label>
+    </customValue>
+    <customValue>
+        <fullName>BS Liberal Arts</fullName>
+        <default>false</default>
+        <label>BS Liberal Arts</label>
+    </customValue>
+    <customValue>
+        <fullName>BS Liberal Arts, Logistics Operations Management</fullName>
+        <default>false</default>
+        <label>BS Liberal Arts, Logistics Operations Management</label>
+    </customValue>
+    <customValue>
+        <fullName>BS Military Leadership</fullName>
+        <default>false</default>
+        <label>BS Military Leadership</label>
+    </customValue>
+    <customValue>
+        <fullName>BS National Security, Intelligence and Security Analysis</fullName>
+        <default>false</default>
+        <label>BS National Security, Intelligence and Security Analysis</label>
+    </customValue>
+    <customValue>
+        <fullName>BS National Security, Topics in National Security</fullName>
+        <default>false</default>
+        <label>BS National Security, Topics in National Security</label>
+    </customValue>
+    <customValue>
+        <fullName>BS Natural Sciences</fullName>
+        <default>false</default>
+        <label>BS Natural Sciences</label>
+    </customValue>
+    <customValue>
+        <fullName>BS Natural Sciences, Biology</fullName>
+        <default>false</default>
+        <label>BS Natural Sciences, Biology</label>
+    </customValue>
+    <customValue>
+        <fullName>BS Nuclear Engineering Technology, General</fullName>
+        <default>false</default>
+        <label>BS Nuclear Engineering Technology, General</label>
+    </customValue>
+    <customValue>
+        <fullName>BS Nuclear Engineering Technology, Nuclear Cybersecurity</fullName>
+        <default>false</default>
+        <label>BS Nuclear Engineering Technology, Nuclear Cybersecurity</label>
+    </customValue>
+    <customValue>
+        <fullName>BS Nuclear Engineering Technology, Nuclear Leadership</fullName>
+        <default>false</default>
+        <label>BS Nuclear Engineering Technology, Nuclear Leadership</label>
+    </customValue>
+    <customValue>
+        <fullName>BS Nursing</fullName>
+        <default>false</default>
+        <label>BS Nursing</label>
+    </customValue>
+    <customValue>
+        <fullName>BS Psychology</fullName>
+        <default>false</default>
+        <label>BS Psychology</label>
+    </customValue>
+    <customValue>
+        <fullName>BS Social Sciences</fullName>
+        <default>false</default>
+        <label>BS Social Sciences</label>
+    </customValue>
+    <customValue>
+        <fullName>BS Social Sciences, Human Services</fullName>
+        <default>false</default>
+        <label>BS Social Sciences, Human Services</label>
+    </customValue>
+    <customValue>
+        <fullName>LPN-BS in Nursing</fullName>
+        <default>false</default>
+        <label>LPN-BS in Nursing</label>
+    </customValue>
+    <customValue>
+        <fullName>Provisional BS in Nursing</fullName>
+        <default>false</default>
+        <label>Provisional BS in Nursing</label>
+    </customValue>
+    <masterLabel>Bachelors Degree</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

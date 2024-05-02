@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Two Week Check-in</label>
+    <protected>false</protected>
+    <values>
+        <field>Date__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Description_Text_Area__c</field>
+        <value xsi:type="xsd:string">This task is optional for a 1st time instructor and can be manually triggered for any instructor. This task prompts the Faculty Program Director to evaluate performance of the instructor during the first two weeks of the term.</value>
+    </values>
+    <values>
+        <field>Description__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>ID__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Name_Subject__c</field>
+        <value xsi:type="xsd:string">Two Week Check-in</value>
+    </values>
+    <values>
+        <field>Quantity__c</field>
+        <value xsi:nil="true"/>
+    </values>
+</CustomMetadata>

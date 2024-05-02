@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <description>Notify the cnhs team the offering has been created</description>
+        <name>Notify_Offering_Created</name>
+        <label>Notify Offering Created</label>
+        <locationX>176</locationX>
+        <locationY>468</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <elementReference>conEmailDistribution</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <elementReference>conEmailSubject</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>forNewOfferingURL</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>emailSimple</nameSegment>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <apiVersion>59.0</apiVersion>
+    <constants>
+        <description>Contains the email addresses to notify</description>
+        <name>conEmailDistribution</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>cmoore@excelsior.edu</stringValue>
+        </value>
+    </constants>
+    <constants>
+        <description>Subject of the email</description>
+        <name>conEmailSubject</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Nursing On Call Offering for Upcoming Term has been Created</stringValue>
+        </value>
+    </constants>
+    <description>Creates an on call offering for nursing faculty at the start of Term 1 or Term 2</description>
+    <environments>Default</environments>
+    <formulas>
+        <description>URL of the course offering to put in the email thread</description>
+        <name>forNewOfferingURL</name>
+        <dataType>String</dataType>
+        <expression>&quot;New OnCall offering has been created for the new eight week term. Link: https://excelsior.lightning.force.com/lightning/r/hed__Course_Offering__c/&quot; &amp;{!Create_Course_Offering}&amp; &quot;/view&quot;</expression>
+    </formulas>
+    <formulas>
+        <description>Name of the offering that changes each term</description>
+        <name>forOfferingName</name>
+        <dataType>String</dataType>
+        <expression>&quot;Nursing OnCall &quot;&amp; {!$Record.Name}</expression>
+    </formulas>
+    <interviewLabel>Create On Call Offering - Scheduled {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Create On Call Offering - Scheduled</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <description>Create the on call course offering with data from the parent NUR290 course</description>
+        <name>Create_Course_Offering</name>
+        <label>Create Course Offering</label>
+        <locationX>176</locationX>
+        <locationY>360</locationY>
+        <connector>
+            <targetReference>Notify_Offering_Created</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Approval_Status__c</field>
+            <value>
+                <stringValue>Not Required</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Call_In_Type__c</field>
+            <value>
+                <stringValue>On Call</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Course_Offering_Sign_Status__c</field>
+            <value>
+                <stringValue>Draft</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Course_Offering_Type__c</field>
+            <value>
+                <stringValue>Clinical Instructor On Call</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>FPD__c</field>
+            <value>
+                <elementReference>Get_NUR290_Info.FPD__r.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Hours_Limit_Approval_Status__c</field>
+            <value>
+                <stringValue>Not Required</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Name</field>
+            <value>
+                <elementReference>forOfferingName</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>RecordTypeId</field>
+            <value>
+                <stringValue>0124O000000R1cSQAS</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>hed__Course__c</field>
+            <value>
+                <elementReference>Get_NUR290_Info.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>hed__End_Date__c</field>
+            <value>
+                <elementReference>$Record.hed__End_Date__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>hed__Facility__c</field>
+            <value>
+                <elementReference>Get_NUR290_Info.Facility__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>hed__Start_Date__c</field>
+            <value>
+                <elementReference>$Record.hed__Start_Date__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>hed__Term__c</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>hed__Course_Offering__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordLookups>
+        <description>Get data from the NUR290 Course to populate the on call offering</description>
+        <name>Get_NUR290_Info</name>
+        <label>Get NUR290 Info</label>
+        <locationX>176</locationX>
+        <locationY>252</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Create_Course_Offering</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>hed__Course_ID__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>NUR*290</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>hed__Course__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_NUR290_Info</targetReference>
+        </connector>
+        <filterLogic>1 AND (2 OR 3)</filterLogic>
+        <filters>
+            <field>Create_On_Call_Offering__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>hed__Type__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Term 1</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>hed__Type__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Term 2</stringValue>
+            </value>
+        </filters>
+        <object>hed__Term__c</object>
+        <schedule>
+            <frequency>Daily</frequency>
+            <startDate>2023-11-17</startDate>
+            <startTime>05:00:00.000Z</startTime>
+        </schedule>
+        <triggerType>Scheduled</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

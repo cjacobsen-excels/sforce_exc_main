@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>End of Course Eval</label>
+    <protected>false</protected>
+    <values>
+        <field>Date__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Description_Text_Area__c</field>
+        <value xsi:type="xsd:string">This task is required for a 1st time instructor. This task prompts the Faculty Program Director to conduct a performance evaluation based on the work of the instructor over the entire term.</value>
+    </values>
+    <values>
+        <field>Description__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>ID__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Name_Subject__c</field>
+        <value xsi:type="xsd:string">End of Course Evaluation</value>
+    </values>
+    <values>
+        <field>Quantity__c</field>
+        <value xsi:nil="true"/>
+    </values>
+</CustomMetadata>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>T50.1</label>
+    <protected>false</protected>
+    <values>
+        <field>Assigned_To_Id__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Assigned_To__c</field>
+        <value xsi:type="xsd:string">Opportunity Owner</value>
+    </values>
+    <values>
+        <field>Comments__c</field>
+        <value xsi:type="xsd:string">Meeting to discuss partnership to determine if there are any special requests/needs before implementation. Chief Marketing &amp; Business Development Manager should be included in the discussions for special partners. If standard partner, an email is enough.</value>
+    </values>
+    <values>
+        <field>Due_Date__c</field>
+        <value xsi:type="xsd:string">1 Day after Stage changes to 50 - Negotiation</value>
+    </values>
+    <values>
+        <field>Skip_for_CEP__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>Subject__c</field>
+        <value xsi:type="xsd:string">POP.Schedule meeting with Marketing Operations</value>
+    </values>
+    <values>
+        <field>Type__c</field>
+        <value xsi:type="xsd:string">Meeting</value>
+    </values>
+</CustomMetadata>

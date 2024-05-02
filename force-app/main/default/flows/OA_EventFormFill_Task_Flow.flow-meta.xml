@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Fault</name>
+        <label>Fault</label>
+        <locationX>891</locationX>
+        <locationY>164</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>tFaultEmailBody</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <stringValue>Flow **OA_EventFormFill_Task** Error</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <stringValue>SalesforceAdmin@excelsior.edu</stringValue>
+            </value>
+        </inputParameters>
+        <nameSegment>emailSimple</nameSegment>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <apiVersion>49.0</apiVersion>
+    <constants>
+        <name>cTaskComments</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Create prospect case and follow up with student</stringValue>
+        </value>
+    </constants>
+    <constants>
+        <name>cTaskStatus</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Not Started</stringValue>
+        </value>
+    </constants>
+    <constants>
+        <name>cTaskSubject</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Create Prospect Case</stringValue>
+        </value>
+    </constants>
+    <constants>
+        <name>cType</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Other</stringValue>
+        </value>
+    </constants>
+    <decisions>
+        <name>OwnerId_Found</name>
+        <label>OwnerId Found</label>
+        <locationX>649</locationX>
+        <locationY>295</locationY>
+        <defaultConnector>
+            <targetReference>Fault</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>Yes</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>vTaskOwner</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>New_Task</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <description>Auto task for partner secondary account owner triggered by OA CC/CAP Events form fill.</description>
+    <formulas>
+        <name>fDueDate</name>
+        <dataType>Date</dataType>
+        <expression>{!$Flow.CurrentDate} + 1</expression>
+    </formulas>
+    <interviewLabel>OA_EventFormFill_Task_Flow {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>OA_EventFormFill_Task_Flow</label>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <name>New_Task</name>
+        <label>New Task</label>
+        <locationX>648</locationX>
+        <locationY>431</locationY>
+        <inputAssignments>
+            <field>ActivityDate</field>
+            <value>
+                <elementReference>fDueDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Description</field>
+            <value>
+                <elementReference>cTaskComments</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>vTaskOwner</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <elementReference>cTaskSubject</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Type</field>
+            <value>
+                <elementReference>cType</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>WhoId</field>
+            <value>
+                <elementReference>vContactID</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+    </recordCreates>
+    <recordLookups>
+        <name>Find_Partner_2nd_OwnerId</name>
+        <label>Find Partner 2nd OwnerId</label>
+        <locationX>648</locationX>
+        <locationY>166</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>OwnerId_Found</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Fault</targetReference>
+        </faultConnector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>vContactID</elementReference>
+            </value>
+        </filters>
+        <object>Contact</object>
+        <outputAssignments>
+            <assignToReference>vTaskOwner</assignToReference>
+            <field>Partner_Account_Secondary_OwnerId__c</field>
+        </outputAssignments>
+    </recordLookups>
+    <startElementReference>Find_Partner_2nd_OwnerId</startElementReference>
+    <status>Active</status>
+    <textTemplates>
+        <name>tFaultEmailBody</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>** OA_EventFormFill_Task_Flow **
+
+****** Current Variable Values ******
+
+Contact ID:            {!vContactID}
+Task Owner:          {!vTaskOwner}
+
+Current Time:       {!$Flow.CurrentDateTime}
+Fault Message:    {!$Flow.FaultMessage}</text>
+    </textTemplates>
+    <variables>
+        <name>vContactID</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>vTaskOwner</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

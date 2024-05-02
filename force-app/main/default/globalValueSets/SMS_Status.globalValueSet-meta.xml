@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Opt-In</fullName>
+        <default>false</default>
+        <label>Opt-In</label>
+    </customValue>
+    <customValue>
+        <fullName>Opt-Out</fullName>
+        <default>false</default>
+        <label>Opt-Out</label>
+    </customValue>
+    <description>SMS Opt-In/Opt-Out Status</description>
+    <masterLabel>SMS Status</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

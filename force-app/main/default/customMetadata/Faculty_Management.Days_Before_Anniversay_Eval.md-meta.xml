@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Days Before Anniversay Eval</label>
+    <protected>false</protected>
+    <values>
+        <field>Date__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Description_Text_Area__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Description__c</field>
+        <value xsi:type="xsd:string">Indicates the number of days prior to the 1 or 3 year anniversary to check for faculty requiring an evaluation (triggers task creation)</value>
+    </values>
+    <values>
+        <field>ID__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Name_Subject__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Quantity__c</field>
+        <value xsi:type="xsd:double">30.0</value>
+    </values>
+</CustomMetadata>

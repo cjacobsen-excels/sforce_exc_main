@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>true</doesSendEmailToMembers>
+    <email>dyang@excelsior.edu</email>
+    <name>InquiryCaseQueue</name>
+    <queueMembers>
+        <roleAndSubordinates>
+            <roleAndSubordinate>Admissions_and_Enrollment_Management</roleAndSubordinate>
+        </roleAndSubordinates>
+        <users>
+            <user>dyang@excelsior.edu</user>
+            <user>ec@excelsior.edu</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+</Queue>

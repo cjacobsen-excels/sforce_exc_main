@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>ASAP - Apply</fullName>
+        <default>false</default>
+        <label>ASAP - Apply</label>
+    </customValue>
+    <customValue>
+        <fullName>1 month - Apply</fullName>
+        <default>false</default>
+        <label>1 month - Apply</label>
+    </customValue>
+    <customValue>
+        <fullName>3 month - Apply</fullName>
+        <default>false</default>
+        <label>3 month - Apply</label>
+    </customValue>
+    <customValue>
+        <fullName>6 month - Apply</fullName>
+        <default>false</default>
+        <label>6 month - Apply</label>
+    </customValue>
+    <customValue>
+        <fullName>12 month - Apply</fullName>
+        <default>false</default>
+        <label>12 month - Apply</label>
+    </customValue>
+    <customValue>
+        <fullName>ASAP - Enroll</fullName>
+        <default>false</default>
+        <label>ASAP - Enroll</label>
+    </customValue>
+    <customValue>
+        <fullName>3 Months - Enroll</fullName>
+        <default>false</default>
+        <label>3 Months - Enroll</label>
+    </customValue>
+    <customValue>
+        <fullName>6 Months - Enroll</fullName>
+        <default>false</default>
+        <label>6 Months - Enroll</label>
+    </customValue>
+    <customValue>
+        <fullName>12 Months - Enroll</fullName>
+        <default>false</default>
+        <label>12 Months - Enroll</label>
+    </customValue>
+    <customValue>
+        <fullName>Other Year - Enroll</fullName>
+        <default>false</default>
+        <label>Other Year - Enroll</label>
+    </customValue>
+    <customValue>
+        <fullName>non applicable</fullName>
+        <default>false</default>
+        <label>non applicable</label>
+    </customValue>
+    <customValue>
+        <fullName>Uncertain</fullName>
+        <default>false</default>
+        <label>Uncertain</label>
+    </customValue>
+    <masterLabel>Expect to Enroll</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

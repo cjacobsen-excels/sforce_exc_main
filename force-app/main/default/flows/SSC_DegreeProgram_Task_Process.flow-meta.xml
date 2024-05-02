@@ -1,0 +1,1529 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <processMetadataValues>
+            <name>ActionCallType</name>
+            <value>
+                <stringValue>flow</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>flowSelection</name>
+            <value>
+                <stringValue>SSC_Task_Flow</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>myRule_3_A1</name>
+        <label>TEASAS Task to Advisor</label>
+        <locationX>300</locationX>
+        <locationY>200</locationY>
+        <actionName>SSC_Task_Flow</actionName>
+        <actionType>flow</actionType>
+        <connector>
+            <targetReference>myDecision4</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>vOwnerID</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>maxOccurs</name>
+                <value>
+                    <numberValue>1.0</numberValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>objectType</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Reference</stringValue>
+                </value>
+            </processMetadataValues>
+            <name>vOwnerID</name>
+            <value>
+                <elementReference>myVariable_current.Academic_Advisor__r.Id</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>vWhatId</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>maxOccurs</name>
+                <value>
+                    <numberValue>1.0</numberValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>objectType</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Reference</stringValue>
+                </value>
+            </processMetadataValues>
+            <name>vWhatId</name>
+            <value>
+                <elementReference>myVariable_current.Id</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>vTaskName</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>maxOccurs</name>
+                <value>
+                    <numberValue>1.0</numberValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>objectType</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <name>vTaskName</name>
+            <value>
+                <stringValue>DP.TEASAS</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>vContactID</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>maxOccurs</name>
+                <value>
+                    <numberValue>1.0</numberValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>objectType</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Reference</stringValue>
+                </value>
+            </processMetadataValues>
+            <name>vContactID</name>
+            <value>
+                <elementReference>myVariable_current.Student_Name__r.Id</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>SSC_Task_Flow</nameSegment>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <actionCalls>
+        <processMetadataValues>
+            <name>ActionCallType</name>
+            <value>
+                <stringValue>flow</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>flowSelection</name>
+            <value>
+                <stringValue>SSC_Task_Flow</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>myRule_5_A1</name>
+        <label>TEASAS Task to Advisor</label>
+        <locationX>500</locationX>
+        <locationY>200</locationY>
+        <actionName>SSC_Task_Flow</actionName>
+        <actionType>flow</actionType>
+        <connector>
+            <targetReference>myDecision6</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>vOwnerID</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>maxOccurs</name>
+                <value>
+                    <numberValue>1.0</numberValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>objectType</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Reference</stringValue>
+                </value>
+            </processMetadataValues>
+            <name>vOwnerID</name>
+            <value>
+                <elementReference>myVariable_current.Academic_Advisor__r.Id</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>vWhatId</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>maxOccurs</name>
+                <value>
+                    <numberValue>1.0</numberValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>objectType</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Reference</stringValue>
+                </value>
+            </processMetadataValues>
+            <name>vWhatId</name>
+            <value>
+                <elementReference>myVariable_current.Id</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>vTaskName</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>maxOccurs</name>
+                <value>
+                    <numberValue>1.0</numberValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>objectType</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <name>vTaskName</name>
+            <value>
+                <stringValue>DP.TEASAS</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>vContactID</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>maxOccurs</name>
+                <value>
+                    <numberValue>1.0</numberValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>objectType</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Reference</stringValue>
+                </value>
+            </processMetadataValues>
+            <name>vContactID</name>
+            <value>
+                <elementReference>myVariable_current.Student_Name__r.Id</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>SSC_Task_Flow</nameSegment>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <actionCalls>
+        <processMetadataValues>
+            <name>ActionCallType</name>
+            <value>
+                <stringValue>flow</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>flowSelection</name>
+            <value>
+                <stringValue>SSC_Task_Flow</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>myRule_7_A1</name>
+        <label>FAS Task to Advisor</label>
+        <locationX>700</locationX>
+        <locationY>200</locationY>
+        <actionName>SSC_Task_Flow</actionName>
+        <actionType>flow</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>vContactID</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>maxOccurs</name>
+                <value>
+                    <numberValue>1.0</numberValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>objectType</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Reference</stringValue>
+                </value>
+            </processMetadataValues>
+            <name>vContactID</name>
+            <value>
+                <elementReference>myVariable_current.Student_Name__r.Id</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>vOwnerID</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>maxOccurs</name>
+                <value>
+                    <numberValue>1.0</numberValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>objectType</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Reference</stringValue>
+                </value>
+            </processMetadataValues>
+            <name>vOwnerID</name>
+            <value>
+                <elementReference>myVariable_current.Academic_Advisor__r.Id</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>vTaskName</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>maxOccurs</name>
+                <value>
+                    <numberValue>1.0</numberValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>objectType</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <name>vTaskName</name>
+            <value>
+                <stringValue>DP.FAS</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>vWhatId</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>maxOccurs</name>
+                <value>
+                    <numberValue>1.0</numberValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>objectType</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Reference</stringValue>
+                </value>
+            </processMetadataValues>
+            <name>vWhatId</name>
+            <value>
+                <elementReference>myVariable_current.Id</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>SSC_Task_Flow</nameSegment>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <actionCalls>
+        <processMetadataValues>
+            <name>ActionCallType</name>
+            <value>
+                <stringValue>flow</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>flowSelection</name>
+            <value>
+                <stringValue>SSC_Task_Flow</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>myRule_9_A1</name>
+        <label>Task to Advisor</label>
+        <locationX>900</locationX>
+        <locationY>200</locationY>
+        <actionName>SSC_Task_Flow</actionName>
+        <actionType>flow</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>vOwnerID</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>maxOccurs</name>
+                <value>
+                    <numberValue>1.0</numberValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>objectType</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Reference</stringValue>
+                </value>
+            </processMetadataValues>
+            <name>vOwnerID</name>
+            <value>
+                <elementReference>myVariable_current.Academic_Advisor__r.Id</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>vWhatId</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>maxOccurs</name>
+                <value>
+                    <numberValue>1.0</numberValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>objectType</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Reference</stringValue>
+                </value>
+            </processMetadataValues>
+            <name>vWhatId</name>
+            <value>
+                <elementReference>myVariable_current.Id</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>vContactID</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>maxOccurs</name>
+                <value>
+                    <numberValue>1.0</numberValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>objectType</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Reference</stringValue>
+                </value>
+            </processMetadataValues>
+            <name>vContactID</name>
+            <value>
+                <elementReference>myVariable_current.Student_Name__r.Id</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>vTaskName</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>maxOccurs</name>
+                <value>
+                    <numberValue>1.0</numberValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>objectType</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <name>vTaskName</name>
+            <value>
+                <stringValue>DP.DPO</stringValue>
+            </value>
+        </inputParameters>
+        <nameSegment>SSC_Task_Flow</nameSegment>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <apiVersion>52.0</apiVersion>
+    <decisions>
+        <processMetadataValues>
+            <name>index</name>
+            <value>
+                <numberValue>0.0</numberValue>
+            </value>
+        </processMetadataValues>
+        <name>myDecision</name>
+        <label>myDecision</label>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>myDecision2</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>default</defaultConnectorLabel>
+        <rules>
+            <name>myRule_1</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_myRule_1</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_1_A1</targetReference>
+            </connector>
+            <label>New Degree</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <processMetadataValues>
+            <name>index</name>
+            <value>
+                <numberValue>1.0</numberValue>
+            </value>
+        </processMetadataValues>
+        <name>myDecision2</name>
+        <label>myDecision2</label>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>myDecision4</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>default</defaultConnectorLabel>
+        <rules>
+            <name>myRule_3</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_myRule_3</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_3_pmetdec</targetReference>
+            </connector>
+            <label>ADM with TEASAS</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <processMetadataValues>
+            <name>index</name>
+            <value>
+                <numberValue>2.0</numberValue>
+            </value>
+        </processMetadataValues>
+        <name>myDecision4</name>
+        <label>myDecision4</label>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>myDecision6</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>default</defaultConnectorLabel>
+        <rules>
+            <name>myRule_5</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_myRule_5</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_5_pmetdec</targetReference>
+            </connector>
+            <label>EN with TEASAS</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <processMetadataValues>
+            <name>index</name>
+            <value>
+                <numberValue>3.0</numberValue>
+            </value>
+        </processMetadataValues>
+        <name>myDecision6</name>
+        <label>myDecision6</label>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>myDecision8</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>default</defaultConnectorLabel>
+        <rules>
+            <name>myRule_7</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_myRule_7</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_7_pmetdec</targetReference>
+            </connector>
+            <label>EN - FAS</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <processMetadataValues>
+            <name>index</name>
+            <value>
+                <numberValue>4.0</numberValue>
+            </value>
+        </processMetadataValues>
+        <name>myDecision8</name>
+        <label>myDecision8</label>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>default</defaultConnectorLabel>
+        <rules>
+            <name>myRule_9</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_myRule_9</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_9_pmetdec</targetReference>
+            </connector>
+            <label>Degree Progression</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>myRule_3_pmetdec</name>
+        <label>Previously Met Decision</label>
+        <locationX>300</locationX>
+        <locationY>100</locationY>
+        <defaultConnector>
+            <targetReference>myRule_3_A1</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Not Previously Met</defaultConnectorLabel>
+        <rules>
+            <name>myRule_3_pmetnullrule</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>myVariable_old</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_3_A1</targetReference>
+            </connector>
+            <label>Previously Met - Null</label>
+        </rules>
+        <rules>
+            <name>myRule_3_pmetrule</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_myRule_3_pmetrule</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myDecision4</targetReference>
+            </connector>
+            <label>Previously Met - Prev</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>myRule_5_pmetdec</name>
+        <label>Previously Met Decision</label>
+        <locationX>500</locationX>
+        <locationY>100</locationY>
+        <defaultConnector>
+            <targetReference>myRule_5_A1</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Not Previously Met</defaultConnectorLabel>
+        <rules>
+            <name>myRule_5_pmetnullrule</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>myVariable_old</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_5_A1</targetReference>
+            </connector>
+            <label>Previously Met - Null</label>
+        </rules>
+        <rules>
+            <name>myRule_5_pmetrule</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_myRule_5_pmetrule</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myDecision6</targetReference>
+            </connector>
+            <label>Previously Met - Prev</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>myRule_7_pmetdec</name>
+        <label>Previously Met Decision</label>
+        <locationX>700</locationX>
+        <locationY>100</locationY>
+        <defaultConnector>
+            <targetReference>myRule_7_A1</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Not Previously Met</defaultConnectorLabel>
+        <rules>
+            <name>myRule_7_pmetnullrule</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>myVariable_old</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_7_A1</targetReference>
+            </connector>
+            <label>Previously Met - Null</label>
+        </rules>
+        <rules>
+            <name>myRule_7_pmetrule</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_myRule_7_pmetrule</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <label>Previously Met - Prev</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>myRule_9_pmetdec</name>
+        <label>Previously Met Decision</label>
+        <locationX>900</locationX>
+        <locationY>100</locationY>
+        <defaultConnector>
+            <targetReference>myRule_9_A1</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Not Previously Met</defaultConnectorLabel>
+        <rules>
+            <name>myRule_9_pmetnullrule</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>myVariable_old</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_9_A1</targetReference>
+            </connector>
+            <label>Previously Met - Null</label>
+        </rules>
+        <rules>
+            <name>myRule_9_pmetrule</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_myRule_9_pmetrule</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <label>Previously Met - Prev</label>
+        </rules>
+    </decisions>
+    <description>Update Contact Status on new Degree Program record | TEASAS, EN task (no reactivate EN)</description>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>ISNEW() </stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_myRule_1</name>
+        <dataType>Boolean</dataType>
+        <expression>ISNEW()</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>OR(
+	AND(
+		ISNEW(),
+        TEXT([Degree_Program__c].Student_Status__c ) = &apos;Commit to Enroll&apos;,
+		[Degree_Program__c].Degree_Code__c != &apos;AAN&apos;,
+		[Degree_Program__c].Degree_Code__c != &apos;ASN&apos;,
+		CONTAINS([Degree_Program__c].Student_Name__r.Special_POP_Codes__c , &apos;TEASAS&apos;) 
+	),
+	AND(
+        TEXT([Degree_Program__c].Student_Status__c ) = &apos;Commit to Enroll&apos;,
+		[Degree_Program__c].Degree_Code__c != &apos;AAN&apos;,
+		[Degree_Program__c].Degree_Code__c != &apos;ASN&apos;,
+		CONTAINS([Degree_Program__c].Student_Name__r.Special_POP_Codes__c , &apos;TEASAS&apos;) 
+	)
+)</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_myRule_3</name>
+        <dataType>Boolean</dataType>
+        <expression>OR(
+	AND(
+		ISNEW(),
+        TEXT({!myVariable_current.Student_Status__c} ) = &apos;Commit to Enroll&apos;,
+		{!myVariable_current.Degree_Code__c} != &apos;AAN&apos;,
+		{!myVariable_current.Degree_Code__c} != &apos;ASN&apos;,
+		CONTAINS({!myVariable_current.Student_Name__r.Special_POP_Codes__c} , &apos;TEASAS&apos;) 
+	),
+	AND(
+        TEXT({!myVariable_current.Student_Status__c} ) = &apos;Commit to Enroll&apos;,
+		{!myVariable_current.Degree_Code__c} != &apos;AAN&apos;,
+		{!myVariable_current.Degree_Code__c} != &apos;ASN&apos;,
+		CONTAINS({!myVariable_current.Student_Name__r.Special_POP_Codes__c} , &apos;TEASAS&apos;) 
+	)
+)</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>OR(
+	AND(
+		ISNEW(),
+        TEXT([Degree_Program__c].Student_Status__c ) = &apos;Commit to Enroll&apos;,
+		[Degree_Program__c].Degree_Code__c != &apos;AAN&apos;,
+		[Degree_Program__c].Degree_Code__c != &apos;ASN&apos;,
+		CONTAINS([Degree_Program__c].Student_Name__r.Special_POP_Codes__c , &apos;TEASAS&apos;) 
+	),
+	AND(
+        TEXT([Degree_Program__c].Student_Status__c ) = &apos;Commit to Enroll&apos;,
+		[Degree_Program__c].Degree_Code__c != &apos;AAN&apos;,
+		[Degree_Program__c].Degree_Code__c != &apos;ASN&apos;,
+		CONTAINS([Degree_Program__c].Student_Name__r.Special_POP_Codes__c , &apos;TEASAS&apos;) 
+	)
+)</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_myRule_3_pmetrule</name>
+        <dataType>Boolean</dataType>
+        <expression>OR(
+	AND(
+		ISNEW(),
+        TEXT({!myVariable_old.Student_Status__c} ) = &apos;Commit to Enroll&apos;,
+		{!myVariable_old.Degree_Code__c} != &apos;AAN&apos;,
+		{!myVariable_old.Degree_Code__c} != &apos;ASN&apos;,
+		CONTAINS({!myVariable_old.Student_Name__r.Special_POP_Codes__c} , &apos;TEASAS&apos;) 
+	),
+	AND(
+        TEXT({!myVariable_old.Student_Status__c} ) = &apos;Commit to Enroll&apos;,
+		{!myVariable_old.Degree_Code__c} != &apos;AAN&apos;,
+		{!myVariable_old.Degree_Code__c} != &apos;ASN&apos;,
+		CONTAINS({!myVariable_old.Student_Name__r.Special_POP_Codes__c} , &apos;TEASAS&apos;) 
+	)
+)</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>OR(
+	AND(
+		ISNEW(),
+        TEXT([Degree_Program__c].Student_Status__c ) = &apos;Enrolled-Active&apos;,
+		[Degree_Program__c].Degree_Code__c != &apos;AAN&apos;,
+		[Degree_Program__c].Degree_Code__c != &apos;ASN&apos;,
+		CONTAINS([Degree_Program__c].Student_Name__r.Special_POP_Codes__c , &apos;TEASAS&apos;) 
+	),
+	AND(
+        TEXT([Degree_Program__c].Student_Status__c ) = &apos;Enrolled-Active&apos;,
+		[Degree_Program__c].Degree_Code__c != &apos;AAN&apos;,
+		[Degree_Program__c].Degree_Code__c != &apos;ASN&apos;,
+		CONTAINS([Degree_Program__c].Student_Name__r.Special_POP_Codes__c , &apos;TEASAS&apos;) 
+	)
+)</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_myRule_5</name>
+        <dataType>Boolean</dataType>
+        <expression>OR(
+	AND(
+		ISNEW(),
+        TEXT({!myVariable_current.Student_Status__c} ) = &apos;Enrolled-Active&apos;,
+		{!myVariable_current.Degree_Code__c} != &apos;AAN&apos;,
+		{!myVariable_current.Degree_Code__c} != &apos;ASN&apos;,
+		CONTAINS({!myVariable_current.Student_Name__r.Special_POP_Codes__c} , &apos;TEASAS&apos;) 
+	),
+	AND(
+        TEXT({!myVariable_current.Student_Status__c} ) = &apos;Enrolled-Active&apos;,
+		{!myVariable_current.Degree_Code__c} != &apos;AAN&apos;,
+		{!myVariable_current.Degree_Code__c} != &apos;ASN&apos;,
+		CONTAINS({!myVariable_current.Student_Name__r.Special_POP_Codes__c} , &apos;TEASAS&apos;) 
+	)
+)</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>OR(
+	AND(
+		ISNEW(),
+        TEXT([Degree_Program__c].Student_Status__c ) = &apos;Enrolled-Active&apos;,
+		[Degree_Program__c].Degree_Code__c != &apos;AAN&apos;,
+		[Degree_Program__c].Degree_Code__c != &apos;ASN&apos;,
+		CONTAINS([Degree_Program__c].Student_Name__r.Special_POP_Codes__c , &apos;TEASAS&apos;) 
+	),
+	AND(
+        TEXT([Degree_Program__c].Student_Status__c ) = &apos;Enrolled-Active&apos;,
+		[Degree_Program__c].Degree_Code__c != &apos;AAN&apos;,
+		[Degree_Program__c].Degree_Code__c != &apos;ASN&apos;,
+		CONTAINS([Degree_Program__c].Student_Name__r.Special_POP_Codes__c , &apos;TEASAS&apos;) 
+	)
+)</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_myRule_5_pmetrule</name>
+        <dataType>Boolean</dataType>
+        <expression>OR(
+	AND(
+		ISNEW(),
+        TEXT({!myVariable_old.Student_Status__c} ) = &apos;Enrolled-Active&apos;,
+		{!myVariable_old.Degree_Code__c} != &apos;AAN&apos;,
+		{!myVariable_old.Degree_Code__c} != &apos;ASN&apos;,
+		CONTAINS({!myVariable_old.Student_Name__r.Special_POP_Codes__c} , &apos;TEASAS&apos;) 
+	),
+	AND(
+        TEXT({!myVariable_old.Student_Status__c} ) = &apos;Enrolled-Active&apos;,
+		{!myVariable_old.Degree_Code__c} != &apos;AAN&apos;,
+		{!myVariable_old.Degree_Code__c} != &apos;ASN&apos;,
+		CONTAINS({!myVariable_old.Student_Name__r.Special_POP_Codes__c} , &apos;TEASAS&apos;) 
+	)
+)</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>OR(
+	AND(
+		ISNEW(),
+		TEXT([Degree_Program__c].Student_Status__c ) = &apos;Enrolled-Active&apos;,
+		!ISBLANK([Degree_Program__c].Academic_Advisor__c ),
+		[Degree_Program__c].Status_Date__c = [Degree_Program__c].Enrollment_Date__c,
+		TEXT([Degree_Program__c].Student_Name__c.Contact_Status_Advising__c ) != &apos;FAS Complete&apos;
+	),
+	AND(
+		TEXT([Degree_Program__c].Student_Status__c ) = &apos;Enrolled-Active&apos;,
+		!ISBLANK([Degree_Program__c].Academic_Advisor__c ),
+		[Degree_Program__c].Status_Date__c = [Degree_Program__c].Enrollment_Date__c,
+		TEXT([Degree_Program__c].Student_Name__c.Contact_Status_Advising__c ) != &apos;FAS Complete&apos;
+	)
+)</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_myRule_7</name>
+        <dataType>Boolean</dataType>
+        <expression>OR(
+	AND(
+		ISNEW(),
+		TEXT({!myVariable_current.Student_Status__c} ) = &apos;Enrolled-Active&apos;,
+		!ISBLANK({!myVariable_current.Academic_Advisor__c} ),
+		{!myVariable_current.Status_Date__c} = {!myVariable_current.Enrollment_Date__c},
+		TEXT({!myVariable_current.Student_Name__r.Contact_Status_Advising__c} ) != &apos;FAS Complete&apos;
+	),
+	AND(
+		TEXT({!myVariable_current.Student_Status__c} ) = &apos;Enrolled-Active&apos;,
+		!ISBLANK({!myVariable_current.Academic_Advisor__c} ),
+		{!myVariable_current.Status_Date__c} = {!myVariable_current.Enrollment_Date__c},
+		TEXT({!myVariable_current.Student_Name__r.Contact_Status_Advising__c} ) != &apos;FAS Complete&apos;
+	)
+)</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>OR(
+	AND(
+		ISNEW(),
+		TEXT([Degree_Program__c].Student_Status__c ) = &apos;Enrolled-Active&apos;,
+		!ISBLANK([Degree_Program__c].Academic_Advisor__c ),
+		[Degree_Program__c].Status_Date__c = [Degree_Program__c].Enrollment_Date__c,
+		TEXT([Degree_Program__c].Student_Name__c.Contact_Status_Advising__c ) != &apos;FAS Complete&apos;
+	),
+	AND(
+		TEXT([Degree_Program__c].Student_Status__c ) = &apos;Enrolled-Active&apos;,
+		!ISBLANK([Degree_Program__c].Academic_Advisor__c ),
+		[Degree_Program__c].Status_Date__c = [Degree_Program__c].Enrollment_Date__c,
+		TEXT([Degree_Program__c].Student_Name__c.Contact_Status_Advising__c ) != &apos;FAS Complete&apos;
+	)
+)</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_myRule_7_pmetrule</name>
+        <dataType>Boolean</dataType>
+        <expression>OR(
+	AND(
+		ISNEW(),
+		TEXT({!myVariable_old.Student_Status__c} ) = &apos;Enrolled-Active&apos;,
+		!ISBLANK({!myVariable_old.Academic_Advisor__c} ),
+		{!myVariable_old.Status_Date__c} = {!myVariable_old.Enrollment_Date__c},
+		TEXT({!myVariable_old.Student_Name__r.Contact_Status_Advising__c} ) != &apos;FAS Complete&apos;
+	),
+	AND(
+		TEXT({!myVariable_old.Student_Status__c} ) = &apos;Enrolled-Active&apos;,
+		!ISBLANK({!myVariable_old.Academic_Advisor__c} ),
+		{!myVariable_old.Status_Date__c} = {!myVariable_old.Enrollment_Date__c},
+		TEXT({!myVariable_old.Student_Name__r.Contact_Status_Advising__c} ) != &apos;FAS Complete&apos;
+	)
+)</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>AND(
+	OR (
+		[Degree_Program__c].Service_Program_Code__c  = &apos;UG&apos;,
+		[Degree_Program__c].Service_Program_Code__c  = &apos;GL&apos;,
+		[Degree_Program__c].Service_Program_Code__c  = &apos;CT&apos;),
+		
+	OR (
+		TEXT([Degree_Program__c].Degree_Type__c ) = &apos;A&apos;,
+		TEXT([Degree_Program__c].Degree_Type__c ) = &apos;AA&apos;),
+	
+	AND(
+		[Degree_Program__c].School__c != &apos;School of Nursing&apos;,
+		TEXT([Degree_Program__c].Student_Status__c ) = &apos;Specialist Approved&apos;)
+)</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_myRule_9</name>
+        <dataType>Boolean</dataType>
+        <expression>AND(
+	OR (
+		{!myVariable_current.Service_Program_Code__c}  = &apos;UG&apos;,
+		{!myVariable_current.Service_Program_Code__c}  = &apos;GL&apos;,
+		{!myVariable_current.Service_Program_Code__c}  = &apos;CT&apos;),
+		
+	OR (
+		TEXT({!myVariable_current.Degree_Type__c} ) = &apos;A&apos;,
+		TEXT({!myVariable_current.Degree_Type__c} ) = &apos;AA&apos;),
+	
+	AND(
+		{!myVariable_current.School__c} != &apos;School of Nursing&apos;,
+		TEXT({!myVariable_current.Student_Status__c} ) = &apos;Specialist Approved&apos;)
+)</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>AND(
+	OR (
+		[Degree_Program__c].Service_Program_Code__c  = &apos;UG&apos;,
+		[Degree_Program__c].Service_Program_Code__c  = &apos;GL&apos;,
+		[Degree_Program__c].Service_Program_Code__c  = &apos;CT&apos;),
+		
+	OR (
+		TEXT([Degree_Program__c].Degree_Type__c ) = &apos;A&apos;,
+		TEXT([Degree_Program__c].Degree_Type__c ) = &apos;AA&apos;),
+	
+	AND(
+		[Degree_Program__c].School__c != &apos;School of Nursing&apos;,
+		TEXT([Degree_Program__c].Student_Status__c ) = &apos;Specialist Approved&apos;)
+)</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_myRule_9_pmetrule</name>
+        <dataType>Boolean</dataType>
+        <expression>AND(
+	OR (
+		{!myVariable_old.Service_Program_Code__c}  = &apos;UG&apos;,
+		{!myVariable_old.Service_Program_Code__c}  = &apos;GL&apos;,
+		{!myVariable_old.Service_Program_Code__c}  = &apos;CT&apos;),
+		
+	OR (
+		TEXT({!myVariable_old.Degree_Type__c} ) = &apos;A&apos;,
+		TEXT({!myVariable_old.Degree_Type__c} ) = &apos;AA&apos;),
+	
+	AND(
+		{!myVariable_old.School__c} != &apos;School of Nursing&apos;,
+		TEXT({!myVariable_old.Student_Status__c} ) = &apos;Specialist Approved&apos;)
+)</expression>
+    </formulas>
+    <interviewLabel>SSC_DegreeProgram_Task_Process-17_InterviewLabel</interviewLabel>
+    <label>SSC_DegreeProgram_Task_Process</label>
+    <processMetadataValues>
+        <name>ObjectType</name>
+        <value>
+            <stringValue>Degree_Program__c</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>ObjectVariable</name>
+        <value>
+            <elementReference>myVariable_current</elementReference>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OldObjectVariable</name>
+        <value>
+            <elementReference>myVariable_old</elementReference>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>TriggerType</name>
+        <value>
+            <stringValue>onAllChanges</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Workflow</processType>
+    <recordUpdates>
+        <processMetadataValues>
+            <name>evaluationType</name>
+            <value>
+                <stringValue>always</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>extraTypeInfo</name>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>isChildRelationship</name>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>reference</name>
+            <value>
+                <stringValue>[Degree_Program__c]</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>referenceTargetField</name>
+        </processMetadataValues>
+        <name>myRule_1_A1</name>
+        <label>Update Contact Status</label>
+        <locationX>100</locationX>
+        <locationY>200</locationY>
+        <connector>
+            <targetReference>myDecision2</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <processMetadataValues>
+                <name>implicit</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </processMetadataValues>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>myVariable_current.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Contact Status - Advising</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Reference</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Contact_Status_Advising__c</field>
+            <value>
+                <elementReference>myVariable_current.Student_Name__r.Contact_Status_Advising__c</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Degree_Program__c</object>
+    </recordUpdates>
+    <startElementReference>myDecision</startElementReference>
+    <status>Obsolete</status>
+    <variables>
+        <name>myVariable_current</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <objectType>Degree_Program__c</objectType>
+    </variables>
+    <variables>
+        <name>myVariable_old</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Degree_Program__c</objectType>
+    </variables>
+</Flow>

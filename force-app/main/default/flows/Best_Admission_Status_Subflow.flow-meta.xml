@@ -1,0 +1,672 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <assignments>
+        <description>If there is one Opportunity - Simply take those values and assign them - No logic</description>
+        <name>Assign_Contact_Variables</name>
+        <label>Assign Contact Variables</label>
+        <locationX>138</locationX>
+        <locationY>566</locationY>
+        <assignmentItems>
+            <assignToReference>Contact4Update.Best_Admission_Status__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Loop_Opportunities.Opportunity_Status__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Contact4Update.Best_Admission_Role__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Loop_Opportunities.Opportunity_Role__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Contact4Update.Best_Admissions_Status_Date__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Contact4Update.Id</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>ContactInputVar</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Loop_Opportunities</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Contact_Variables1</name>
+        <label>Assign Contact Variables</label>
+        <locationX>604</locationX>
+        <locationY>1832</locationY>
+        <assignmentItems>
+            <assignToReference>Contact4Update.Best_Admission_Status__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>HighestOpportunityVar.Opportunity_Status__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Contact4Update.Best_Admission_Role__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>HighestOpportunityVar.Opportunity_Role__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Contact4Update.Best_Admissions_Status_Date__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Contact4Update.Id</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>ContactInputVar</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Assign_Contact_Variables11</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Here we just make sure - which ever route it goes- the record which entered this flow gets the triggering criteria unchecked</description>
+        <name>Assign_Contact_Variables11</name>
+        <label>Assign Contact Variables</label>
+        <locationX>327</locationX>
+        <locationY>2024</locationY>
+        <assignmentItems>
+            <assignToReference>Contact4Update.Trigger_Best_Admission_Calculation__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Add_Delay_for_2_Mins</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Contact_Variables_1</name>
+        <label>Assign Contact Variables</label>
+        <locationX>442</locationX>
+        <locationY>1406</locationY>
+        <assignmentItems>
+            <assignToReference>Contact4Update.Best_Admission_Status__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Loop_opportunity1.Opportunity_Status__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Contact4Update.Best_Admission_Role__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Loop_opportunity1.Opportunity_Role__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Contact4Update.Best_Admissions_Status_Date__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Contact4Update.Id</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>ContactInputVar</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Loop_opportunity1</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Assign: {!AllRelatedOpportunityCount}</description>
+        <name>Assign_Total_Number_of_Opportunities</name>
+        <label>Assign Total Number of Opportunities</label>
+        <locationX>327</locationX>
+        <locationY>242</locationY>
+        <assignmentItems>
+            <assignToReference>AllRelatedOpportunityCount</assignToReference>
+            <operator>AssignCount</operator>
+            <value>
+                <elementReference>All_Related_Opportunity</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Number_of_Opportunities</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>The selection of the opportunity is done in the LOOP! Please read the help text there to make sure you understand how does a record get into this.</description>
+        <name>Assign_Values_from_Collection_to_Single_Varable</name>
+        <label>Assign Values from Collection to Single Varable</label>
+        <locationX>692</locationX>
+        <locationY>782</locationY>
+        <assignmentItems>
+            <assignToReference>HighestOpportunityVar</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Loop_opportunity</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Loop_opportunity</targetReference>
+        </connector>
+    </assignments>
+    <collectionProcessors>
+        <description>Instead of taking all opportunities forward - we just need the top 2 here!</description>
+        <name>Filter_Out_Closed_Opportunities_modified_Today</name>
+        <elementSubtype>FilterCollectionProcessor</elementSubtype>
+        <label>Filter Out Closed Opportunities modified Today</label>
+        <locationX>604</locationX>
+        <locationY>458</locationY>
+        <assignNextValueToReference>currentItem_Filter_Out_Closed_Opportunities_modified_Today</assignNextValueToReference>
+        <collectionProcessorType>FilterCollectionProcessor</collectionProcessorType>
+        <collectionReference>All_Related_Opportunity</collectionReference>
+        <conditionLogic>and</conditionLogic>
+        <conditions>
+            <leftValueReference>currentItem_Filter_Out_Closed_Opportunities_modified_Today.Opportunity_Status__c</leftValueReference>
+            <operator>NotEqualTo</operator>
+            <rightValue>
+                <stringValue>Closed</stringValue>
+            </rightValue>
+        </conditions>
+        <connector>
+            <targetReference>Sort_All_Opportunities</targetReference>
+        </connector>
+    </collectionProcessors>
+    <collectionProcessors>
+        <description>First Sort by probability and then by last modified date and get the top 2 records</description>
+        <name>Sort_All_Opportunities</name>
+        <elementSubtype>SortCollectionProcessor</elementSubtype>
+        <label>Sort All Opportunities</label>
+        <locationX>604</locationX>
+        <locationY>566</locationY>
+        <collectionProcessorType>SortCollectionProcessor</collectionProcessorType>
+        <collectionReference>Filter_Out_Closed_Opportunities_modified_Today</collectionReference>
+        <connector>
+            <targetReference>Loop_opportunity</targetReference>
+        </connector>
+        <limit>2</limit>
+        <sortOptions>
+            <doesPutEmptyStringAndNullFirst>false</doesPutEmptyStringAndNullFirst>
+            <sortField>Probability</sortField>
+            <sortOrder>Desc</sortOrder>
+        </sortOptions>
+        <sortOptions>
+            <doesPutEmptyStringAndNullFirst>false</doesPutEmptyStringAndNullFirst>
+            <sortField>LastModifiedDate</sortField>
+            <sortOrder>Desc</sortOrder>
+        </sortOptions>
+    </collectionProcessors>
+    <decisions>
+        <name>Decide_based_on_Contact_Best_Status</name>
+        <label>Decide based on Contact Best Status</label>
+        <locationX>462</locationX>
+        <locationY>1190</locationY>
+        <defaultConnector>
+            <targetReference>Assign_Contact_Variables1</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Withdrawn_Status</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>Contact_Related_to_Opportunity.Best_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Withdrawn Academic Probation</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Contact_Related_to_Opportunity.Best_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Withdrawn Accounting</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Contact_Related_to_Opportunity.Best_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Withdrawn AW grade limit</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Contact_Related_to_Opportunity.Best_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Withdrawn Bad Ck</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Contact_Related_to_Opportunity.Best_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Withdrawn Bursar Request</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Contact_Related_to_Opportunity.Best_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Withdrawn Commit to Enroll</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Contact_Related_to_Opportunity.Best_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Withdrawn Credit Accumulation</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Contact_Related_to_Opportunity.Best_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Withdrawn Dismissed</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Contact_Related_to_Opportunity.Best_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Withdrawn Enrollment</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Contact_Related_to_Opportunity.Best_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Withdrawn FACTS</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Contact_Related_to_Opportunity.Best_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Withdrawn GL Deg</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Contact_Related_to_Opportunity.Best_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Withdrawn Identity Verification</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Contact_Related_to_Opportunity.Best_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Withdrawn Limit Reached</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Contact_Related_to_Opportunity.Best_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Withdrawn Matriculation</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Contact_Related_to_Opportunity.Best_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Withdrawn no HS verification</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Contact_Related_to_Opportunity.Best_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Withdrawn No SSAF Student type</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Contact_Related_to_Opportunity.Best_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Withdrawn Nurs Fail</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Contact_Related_to_Opportunity.Best_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Withdrawn Nursing Exam Failure</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Contact_Related_to_Opportunity.Best_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Withdrawn Package Pricing</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Contact_Related_to_Opportunity.Best_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Withdrawn Payment Plan Failure</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Contact_Related_to_Opportunity.Best_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>WITHDRAWN PROGRAM COMPLETE</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Contact_Related_to_Opportunity.Best_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Withdrawn Studnt Req</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Contact_Related_to_Opportunity.Best_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Withdrawn time limit</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Contact_Related_to_Opportunity.Best_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Withdrawn-Concurrent Nursing Enrollment</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Contact_Related_to_Opportunity.Best_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Withdrawn-Degree Revoked</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Contact_Related_to_Opportunity.Best_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Commit to Enroll</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Contact_Related_to_Opportunity.Best_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Graduate</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Contact_Related_to_Opportunity.Best_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Specialist Approved</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Loop_opportunity1</targetReference>
+            </connector>
+            <label>Withdrawn Status</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>If there is only one opportunity, then only use those values</description>
+        <name>Number_of_Opportunities</name>
+        <label>Number of Opportunities</label>
+        <locationX>327</locationX>
+        <locationY>350</locationY>
+        <defaultConnector>
+            <targetReference>Filter_Out_Closed_Opportunities_modified_Today</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Greater than 1</defaultConnectorLabel>
+        <rules>
+            <name>Equal_1</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>AllRelatedOpportunityCount</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <numberValue>1.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Loop_Opportunities</targetReference>
+            </connector>
+            <label>Equal = 1</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>If Stage = Enrolled -- We need to get the second best opportunity as the first one will have a always have a higher probability which becomes useless for admissions</description>
+        <name>Stage_Enrolled</name>
+        <label>Stage = Enrolled</label>
+        <locationX>604</locationX>
+        <locationY>974</locationY>
+        <defaultConnector>
+            <targetReference>Assign_Contact_Variables1</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Yes</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>HighestOpportunityVar.StageName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Enrolled</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Contact_Related_to_Opportunity</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <description>Added Filter out Consitions - Testing</description>
+    <environments>Default</environments>
+    <interviewLabel>Best Admission Status Subflow {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Best Admission Status Subflow</label>
+    <loops>
+        <description>This loop will always be executed only once because the only a single opportunity will be passed from here</description>
+        <name>Loop_Opportunities</name>
+        <label>Loop Opportunities</label>
+        <locationX>50</locationX>
+        <locationY>458</locationY>
+        <collectionReference>All_Related_Opportunity</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Assign_Contact_Variables</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Assign_Contact_Variables11</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <loops>
+        <description>*IMP* - Keep the direction as last to first all time. 
+
+The collection sort will only give us one record so we need to assign it to a variable to compare further</description>
+        <name>Loop_opportunity</name>
+        <label>Loop opportunity</label>
+        <locationX>604</locationX>
+        <locationY>674</locationY>
+        <collectionReference>Filter_Out_Closed_Opportunities_modified_Today</collectionReference>
+        <iterationOrder>Desc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Assign_Values_from_Collection_to_Single_Varable</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Stage_Enrolled</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <loops>
+        <description>IMP - Keep Direction First to LAST 
+The collection sort will only give us one record so we need to assign it to a variable to compare further</description>
+        <name>Loop_opportunity1</name>
+        <label>Loop opportunity</label>
+        <locationX>354</locationX>
+        <locationY>1298</locationY>
+        <collectionReference>Filter_Out_Closed_Opportunities_modified_Today</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Assign_Contact_Variables_1</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <isGoTo>true</isGoTo>
+            <targetReference>Assign_Contact_Variables11</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <description>Get all the opportunities that are related to the contact</description>
+        <name>All_Related_Opportunity</name>
+        <label>All Related Opportunity</label>
+        <locationX>327</locationX>
+        <locationY>134</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Assign_Total_Number_of_Opportunities</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>traa_Applicant__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>ContactInputVar</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>Opportunity</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Contact_Related_to_Opportunity</name>
+        <label>Contact Related to Opportunity</label>
+        <locationX>462</locationX>
+        <locationY>1082</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Decide_based_on_Contact_Best_Status</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>ContactInputVar</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Contact</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Best_Status__c</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_Contact</name>
+        <label>Update Contact</label>
+        <locationX>327</locationX>
+        <locationY>2240</locationY>
+        <inputReference>Contact4Update</inputReference>
+    </recordUpdates>
+    <runInMode>SystemModeWithoutSharing</runInMode>
+    <start>
+        <locationX>201</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>All_Related_Opportunity</targetReference>
+        </connector>
+    </start>
+    <status>Obsolete</status>
+    <variables>
+        <description>Will hold the total number of opportunities related to the contact</description>
+        <name>AllRelatedOpportunityCount</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>0</scale>
+    </variables>
+    <variables>
+        <description>Holds the values that will be updated on the contact (Used for best admissions status and related fields)</description>
+        <name>Contact4Update</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Contact</objectType>
+    </variables>
+    <variables>
+        <description>Used as &apos;Input&apos; field from all other flows triggering this sub-flow</description>
+        <name>ContactInputVar</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>currentItem_Filter_Out_Closed_Opportunities_modified_Today</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Opportunity</objectType>
+    </variables>
+    <variables>
+        <name>HighestOpportunityVar</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Opportunity</objectType>
+    </variables>
+    <waits>
+        <description>Added Delay because of the Error - &quot;UNABLE_TO_LOCK_ROW: unable to obtain exclusive access to this record &quot;</description>
+        <name>Add_Delay_for_2_Mins</name>
+        <elementSubtype>WaitDuration</elementSubtype>
+        <label>Add Delay for 2 Mins</label>
+        <locationX>327</locationX>
+        <locationY>2132</locationY>
+        <defaultConnectorLabel>Default Path</defaultConnectorLabel>
+        <waitEvents>
+            <conditionLogic>and</conditionLogic>
+            <connector>
+                <targetReference>Update_Contact</targetReference>
+            </connector>
+            <label>el_0</label>
+            <offset>2</offset>
+            <offsetUnit>Minutes</offsetUnit>
+        </waitEvents>
+    </waits>
+</Flow>

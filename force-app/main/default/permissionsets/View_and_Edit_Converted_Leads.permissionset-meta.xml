@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Permission Set will give access to ONLY &quot;View and Edit Converted Leads&quot; App settings</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>View and Edit Converted Leads</label>
+    <license>Salesforce</license>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>AllowViewEditConvertedLeads</name>
+    </userPermissions>
+</PermissionSet>

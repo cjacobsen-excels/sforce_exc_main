@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>52.0</apiVersion>
+    <assignments>
+        <name>Assign_PoI_Value</name>
+        <label>Assign PoI Value</label>
+        <locationX>848</locationX>
+        <locationY>281</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.traa_Program_of_Interest__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>ProgramofInterest</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Contact</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_PoI_Value_0</name>
+        <label>Assign PoI Value</label>
+        <locationX>536</locationX>
+        <locationY>663</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.traa_Program_of_Interest__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>ProgramCurrentTerm</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Contact_0</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <name>Term_Not_Blank</name>
+        <label>Term Not Blank</label>
+        <locationX>432</locationX>
+        <locationY>389</locationY>
+        <defaultConnector>
+            <targetReference>Get_Current_Term</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Not_Blank</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Start_Term__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_PoI_Value</targetReference>
+            </connector>
+            <label>Not Blank</label>
+        </rules>
+    </decisions>
+    <description>This sets the PoI field value on a net new contact</description>
+    <formulas>
+        <name>ProgramCurrentTerm</name>
+        <dataType>String</dataType>
+        <expression>TEXT({!$Record.Area_of_Interest__c} )+ &apos; - &apos;+ {!Get_Current_Term.Name}</expression>
+    </formulas>
+    <formulas>
+        <name>ProgramofInterest</name>
+        <dataType>String</dataType>
+        <expression>TEXT({!$Record.Area_of_Interest__c}) + &apos; - &apos;+ UPPER(TEXT({!$Record.Start_Term__c})) + &apos; - &apos; + TEXT({!$Record.Term_Year__c})</expression>
+    </formulas>
+    <interviewLabel>TRAA - Contact Create set PoI {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>TRAA - Contact Create set PoI</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_Current_Term</name>
+        <label>Get Current Term</label>
+        <locationX>258</locationX>
+        <locationY>584</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Assign_PoI_Value_0</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Open_for_Applications__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>hed__Term__c</object>
+        <sortField>hed__Start_Date__c</sortField>
+        <sortOrder>Asc</sortOrder>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_Contact</name>
+        <label>Update Contact</label>
+        <locationX>1049</locationX>
+        <locationY>355</locationY>
+        <inputAssignments>
+            <field>traa_Program_of_Interest__c</field>
+            <value>
+                <elementReference>ProgramofInterest</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Contact_0</name>
+        <label>Update Contact</label>
+        <locationX>797</locationX>
+        <locationY>664</locationY>
+        <inputAssignments>
+            <field>traa_Program_of_Interest__c</field>
+            <value>
+                <elementReference>ProgramCurrentTerm</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>58</locationX>
+        <locationY>69</locationY>
+        <connector>
+            <targetReference>Term_Not_Blank</targetReference>
+        </connector>
+        <filterLogic>or</filterLogic>
+        <filters>
+            <field>Area_of_Interest__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <object>Contact</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Obsolete</status>
+    <variables>
+        <description>Count of Matched Opps</description>
+        <name>CountMatchedOpps</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <scale>0</scale>
+        <value>
+            <numberValue>0.0</numberValue>
+        </value>
+    </variables>
+    <variables>
+        <description>Holds the account ID of the new program of interest</description>
+        <name>NewAccountId</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <objectType>Account</objectType>
+    </variables>
+</Flow>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Business</fullName>
+        <default>false</default>
+        <label>Business</label>
+    </customValue>
+    <customValue>
+        <fullName>Nursing</fullName>
+        <default>false</default>
+        <label>Nursing</label>
+    </customValue>
+    <customValue>
+        <fullName>Technology</fullName>
+        <default>false</default>
+        <label>Technology</label>
+    </customValue>
+    <customValue>
+        <fullName>Public Service</fullName>
+        <default>false</default>
+        <label>Public Service</label>
+    </customValue>
+    <customValue>
+        <fullName>Health Sciences</fullName>
+        <default>false</default>
+        <label>Health Sciences</label>
+    </customValue>
+    <customValue>
+        <fullName>Liberal Arts</fullName>
+        <default>false</default>
+        <label>Liberal Arts</label>
+    </customValue>
+    <customValue>
+        <fullName>Public Health</fullName>
+        <default>false</default>
+        <label>Public Health</label>
+    </customValue>
+    <customValue>
+        <fullName>Certificate</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Certificate</label>
+    </customValue>
+    <masterLabel>Area of Interest</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

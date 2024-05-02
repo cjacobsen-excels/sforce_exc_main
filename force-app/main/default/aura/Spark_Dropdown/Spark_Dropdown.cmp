@@ -1,0 +1,22 @@
+<aura:component access="global">
+  <aura:attribute name="options" type="List" default="[]" />
+  <aura:attribute name="pointerIndex" type="Integer" default="0" />
+  <aura:registerEvent name="componentEvent" type="c:SO_ComponentEvent" />
+  <aura:method name="onEnterKey" action="{!c.onEnterKey}" access="PUBLIC" />
+  <aura:method name="onArrowPress" action="{!c.onArrowPress}" access="PUBLIC" />
+
+  <div class="slds-dropdown slds-dropdown_left">
+    <ul class="slds-dropdown__list" role="menu" aria-label="Show More">
+      <aura:iteration items="{!v.options}" var="item" indexVar="i">
+        <li class="{! v.pointerIndex == i ? 'slds-dropdown__item hover' : 'slds-dropdown__item' }" role="presentation">
+          <a href="javascript:void(0);" id="{!globalId + '_' + i}" role="menuitem" tabindex="{!i}" data-i="{!i}" onclick="{!c.selectItem}" onmouseover="{!c.onItemHover}">
+            <span class="slds-truncate" title="{!item.name}">{!item.name}</span>
+          </a>
+        </li>
+      </aura:iteration>
+      <aura:if isTrue="{!empty(v.options)}">
+        <li class="slds-text-color_weak slds-p-left_small slds-p-right_small slds-p-around_x-small">No results found</li>
+      </aura:if>
+    </ul>
+  </div>
+</aura:component>

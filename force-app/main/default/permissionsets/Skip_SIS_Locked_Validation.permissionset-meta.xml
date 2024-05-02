@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customPermissions>
+        <enabled>true</enabled>
+        <name>Skip_SIS_Lock_Validation</name>
+    </customPermissions>
+    <description>Bypass the SIS locked field validation</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Skip SIS Locked Validation</label>
+    <license>Salesforce</license>
+</PermissionSet>

@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <apiVersion>51.0</apiVersion>
+    <assignments>
+        <name>Contact_Eval_Type_Assignment</name>
+        <label>Contact Eval Type Assignment</label>
+        <locationX>50</locationX>
+        <locationY>458</locationY>
+        <assignmentItems>
+            <assignToReference>EvalType</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Choose_Evaluation_To_Complete</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Clinical_Instructor_Lead_Screen_1</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>EvalTypeAssignment</name>
+        <label>EvalTypeAssignment</label>
+        <locationX>578</locationX>
+        <locationY>458</locationY>
+        <assignmentItems>
+            <assignToReference>EvalType</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Eval_Type01</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Clinical_Instructor_Lead_Screen_1</targetReference>
+        </connector>
+    </assignments>
+    <choices>
+        <name>ClinicalInstructorAssistant</name>
+        <choiceText>Clinical Instructor Assistant</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Clinical Instructor Assistant</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>ClinicalInstructorLead</name>
+        <choiceText>Clinical Instructor Lead</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Clinical Instructor Lead</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>end_of_semester</name>
+        <choiceText>&lt;span style=&quot;color: rgb(62, 62, 60); background-color: rgb(255, 255, 255);&quot;&gt;End of Semester&lt;/span&gt;</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>End of Semester</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Immediate</name>
+        <choiceText>&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;Immediate Faculty Review&lt;/span&gt;</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Immediate</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>x1YR</name>
+        <choiceText>&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;1st Year Faculty Evaluation&lt;/span&gt;</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>1 Year</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>x3YR</name>
+        <choiceText>&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;3 Year Anniversary Faculty Review&lt;/span&gt;</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>3 Year</stringValue>
+        </value>
+    </choices>
+    <decisions>
+        <name>CI_L_or_CI_A</name>
+        <label>CI-L or CI-A</label>
+        <locationX>446</locationX>
+        <locationY>242</locationY>
+        <defaultConnector>
+            <isGoTo>true</isGoTo>
+            <targetReference>No_CI_L_or_CI_A</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Course_Offering_ID_Blank</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>CourseOfferingId</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Choose_Evaluation_CIL</targetReference>
+            </connector>
+            <label>Course Offering ID Blank</label>
+        </rules>
+        <rules>
+            <name>Faculty_Blank</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Course_Offering.hed__Faculty__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>No_CI_L_or_CI_A</targetReference>
+            </connector>
+            <label>Faculty Blank</label>
+        </rules>
+        <rules>
+            <name>Clinical_Instructor_Lead</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Course_Offering.Course_Offering_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Clinical Instructor Lead</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Type_of_Evaluation_0</targetReference>
+            </connector>
+            <label>Clinical Instructor Lead</label>
+        </rules>
+    </decisions>
+    <dynamicChoiceSets>
+        <name>TypeofEvaluation</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>Evaluation_Type__c</picklistField>
+        <picklistObject>Evaluation__c</picklistObject>
+    </dynamicChoiceSets>
+    <environments>Default</environments>
+    <formulas>
+        <name>CIARecordType</name>
+        <dataType>String</dataType>
+        <expression>{!$Label.CIA_RecordTypeId}</expression>
+    </formulas>
+    <formulas>
+        <name>CILRecordTypeID</name>
+        <dataType>String</dataType>
+        <expression>{!$Label.CIL_RecordTypeId}</expression>
+    </formulas>
+    <formulas>
+        <name>ContactEvalType</name>
+        <dataType>String</dataType>
+        <expression>CASE({!EvalType},&apos;1 Year&apos;, &apos;1YR&apos;, &apos;3 Year&apos;, &apos;3YR&apos;, &apos;Immediate&apos;, &apos;Immediate&apos;, null)</expression>
+    </formulas>
+    <formulas>
+        <name>FacultyMemberID</name>
+        <dataType>String</dataType>
+        <expression>IF(NOT(ISBLANK({!ContactId})),{!ContactId},{!Get_Course_Offering.hed__Faculty__c})</expression>
+    </formulas>
+    <interviewLabel>Clinical Faculty Eval Flow {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Clinical Faculty Eval Flow</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <recordCreates>
+        <name>Create_CIL_Survey_Record</name>
+        <label>Create CIL Survey Record</label>
+        <locationX>446</locationX>
+        <locationY>1190</locationY>
+        <inputAssignments>
+            <field>CIL_Engage_with_Student_Answer__c</field>
+            <value>
+                <elementReference>CIL_Engage_with_Student_Answer</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CIL_Eval_of_Students_Answer__c</field>
+            <value>
+                <elementReference>CIL_Eval_Students_Answer</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CIL_Next_Steps_Answer__c</field>
+            <value>
+                <elementReference>CIL_Next_Steps_Answer_0</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CIL_Prep_of_Student_Answer__c</field>
+            <value>
+                <elementReference>CIL_Prep_For_Student_Answer</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Course_Offering__c</field>
+            <value>
+                <elementReference>CourseOfferingId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Evaluation_Type__c</field>
+            <value>
+                <elementReference>EvalType</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Faculty_Member__c</field>
+            <value>
+                <elementReference>FacultyMemberID</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>RecordTypeId</field>
+            <value>
+                <elementReference>CILRecordTypeID</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Evaluation__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordLookups>
+        <name>Get_Course_Offering</name>
+        <label>Get Course Offering</label>
+        <locationX>446</locationX>
+        <locationY>134</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>CI_L_or_CI_A</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>CourseOfferingId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>hed__Course_Offering__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <screens>
+        <name>Choose_Evaluation_CIL</name>
+        <label>Choose Evaluation CIL</label>
+        <locationX>50</locationX>
+        <locationY>350</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Contact_Eval_Type_Assignment</targetReference>
+        </connector>
+        <fields>
+            <name>Choose_Evaluation_To_Complete</name>
+            <choiceReferences>Immediate</choiceReferences>
+            <choiceReferences>x1YR</choiceReferences>
+            <choiceReferences>x3YR</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Choose Evaluation To Complete</fieldText>
+            <fieldType>RadioButtons</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>CIL_Type_Of_Eval</name>
+            <fieldText>&lt;p&gt;&lt;b&gt;1st Year:&lt;/b&gt; For Clinical Faculty Evaluation at the end of the First Year since their Last Hire Date.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;3 Year:&lt;/b&gt; For Clinical Faculty Evaluation at their 3rd Year (and any subsequent 3 year anniversary) since their Last Hire Date.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;Immediate: &lt;/b&gt;For on-demand Clinical Faculty Evaluations not tied to a specific anniversary period or course.&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Clinical_Instructor_Lead_Screen_1</name>
+        <label>Clinical Instructor Lead Screen 1</label>
+        <locationX>446</locationX>
+        <locationY>650</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Clinical_Instructor_Lead_Screen_2</targetReference>
+        </connector>
+        <fields>
+            <name>CIL_Title</name>
+            <fieldText>&lt;p&gt;&lt;b&gt;Clinical&lt;span class=&quot;ql-cursor&quot;&gt;﻿&lt;/span&gt; Instructor Lead Evaluation&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Instructions</name>
+            <fieldText>&lt;p&gt;&lt;strong&gt;Instructions&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;This review will contain feedback from the Department Chair and Dean’s designee, the student end-of-course evaluations as well as a variety of other data points related to performance for both lead and assistant clinical instructor assignments. Not all the criteria listed may be appropriate for every review situation. This review will be conducted following the first course taught and again at the 1yr and 3yr anniversary. Your Department Chair will review the results of this evaluation with you.&amp;nbsp;&amp;nbsp;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Clinical_Instructor_Lead_Screen_2</name>
+        <label>Clinical Instructor Lead Screen 2</label>
+        <locationX>446</locationX>
+        <locationY>758</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Clinical_Instructor_Lead_Screen_3</targetReference>
+        </connector>
+        <fields>
+            <name>CIL_Title_0</name>
+            <fieldText>&lt;p&gt;&lt;b&gt;Clinical&lt;span class=&quot;ql-cursor&quot;&gt;﻿&lt;/span&gt; Instructor Lead Evaluation&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Instructions_1</name>
+            <fieldText>&lt;p&gt;&lt;i&gt;Preparation for Students&amp;nbsp;&lt;/i&gt;&lt;/p&gt;&lt;p&gt;For consideration when completing this section:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Plans and coordinates patient assignments for each student in the clinical group consistent with the course and clinical objectives.&amp;nbsp;&amp;nbsp;&lt;/li&gt;&lt;li&gt;Demonstrates competency with nursing skills and associated technology (EHR, automated medication dispensing system, smart intravenous pumps, etc.)&lt;/li&gt;&lt;li&gt;Demonstrates familiarity with assigned clinical unit(s), facility policies and procedures&lt;/li&gt;&lt;li&gt;Completes all facility required training&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>CIL_Prep_For_Student_Answer</name>
+            <fieldText>Answer</fieldText>
+            <fieldType>LargeTextArea</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <validationRule>
+                <errorMessage>&lt;p&gt;Your answer to this question can be no longer than 10,000 characters.&lt;/p&gt;</errorMessage>
+                <formulaExpression>LEN({!CIL_Prep_For_Student_Answer}) &lt; 10000</formulaExpression>
+            </validationRule>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Clinical_Instructor_Lead_Screen_3</name>
+        <label>Clinical Instructor Lead Screen 3</label>
+        <locationX>446</locationX>
+        <locationY>866</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Clinical_Instructor_Lead_Screen_4</targetReference>
+        </connector>
+        <fields>
+            <name>CIL_Title_0_0</name>
+            <fieldText>&lt;p&gt;&lt;b&gt;Clinical&lt;span class=&quot;ql-cursor&quot;&gt;﻿&lt;/span&gt; Instructor Lead Evaluation&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Instructions_3</name>
+            <fieldText>&lt;p&gt;&lt;i&gt;Engagement with Students&lt;/i&gt;&lt;/p&gt;&lt;p&gt;For consideration when completing this section:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Participates in pre-clinical briefs and post-clinical debriefs with students in Canvas&lt;/li&gt;&lt;li&gt;Provides supervision of students in providing safe, quality patient care&lt;/li&gt;&lt;li&gt;Assists students to accomplish the clinical objectives of the course&lt;/li&gt;&lt;li&gt;Exhibits content and skill-based expertise when engaging with students; provides relevant evidence based professional examples pertinent to the topic&lt;/li&gt;&lt;li&gt;Guides students to deeper engagement using probing questions and tying conversation to own nursing experience (asks students how nursing competencies relates to them, shares own experience)&lt;/li&gt;&lt;li&gt;Cultivates a caring environment that supports open dialogue, collaboration, and opportunities for scholarly growth&lt;/li&gt;&lt;/ul&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>CIL_Engage_with_Student_Answer</name>
+            <fieldText>Answer</fieldText>
+            <fieldType>LargeTextArea</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <validationRule>
+                <errorMessage>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;Your answer to this question can be no longer than 10,000 characters.&lt;/span&gt;&lt;/p&gt;</errorMessage>
+                <formulaExpression>LEN({!CIL_Engage_with_Student_Answer}) &lt; 10000</formulaExpression>
+            </validationRule>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Clinical_Instructor_Lead_Screen_4</name>
+        <label>Clinical Instructor Lead Screen 4</label>
+        <locationX>446</locationX>
+        <locationY>974</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Clinical_Instructor_Lead_Screen_5</targetReference>
+        </connector>
+        <fields>
+            <name>CIL_Title_0_0_0</name>
+            <fieldText>&lt;p&gt;&lt;b&gt;Clinical&lt;span class=&quot;ql-cursor&quot;&gt;﻿&lt;/span&gt; Instructor Lead Evaluation&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Instructions_4</name>
+            <fieldText>&lt;p&gt;&lt;i&gt;Evaluation of Students&lt;/i&gt;&lt;/p&gt;&lt;p&gt;For consideration when completing this section:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Provides students with individualized feedback summarizing strengths and areas in need of improvement. Substantiates feedback with examples from student work.&lt;/li&gt;&lt;li&gt;Completes individual clinical evaluation rubric in Canvas for each student by the end of the term&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>CIL_Eval_Students_Answer</name>
+            <fieldText>Answer</fieldText>
+            <fieldType>LargeTextArea</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <validationRule>
+                <errorMessage>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;Your answer to this question can be no longer than 10,000 characters.&lt;/span&gt;&lt;/p&gt;</errorMessage>
+                <formulaExpression>LEN({!CIL_Eval_Students_Answer}) &lt; 10000</formulaExpression>
+            </validationRule>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Clinical_Instructor_Lead_Screen_5</name>
+        <label>Clinical Instructor Lead Screen 5</label>
+        <locationX>446</locationX>
+        <locationY>1082</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Create_CIL_Survey_Record</targetReference>
+        </connector>
+        <fields>
+            <name>CIL_Title_0_0_0_0_0</name>
+            <fieldText>&lt;p&gt;&lt;b&gt;Clinical Instructor Lead Evaluation&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Instructions_5_0</name>
+            <fieldText>&lt;p&gt;&lt;i&gt;Next Steps&lt;/i&gt;&lt;/p&gt;&lt;p&gt;When completing this section, be sure to include:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Whether the clinical instructor is high performing, meeting base line expectations or low performing – provide examples to support your assessment in the comment box below&lt;/li&gt;&lt;li&gt;Areas for development and how they will be addressed&lt;/li&gt;&lt;li&gt;Response to previously established development plan, if applicable&lt;/li&gt;&lt;li&gt;Whether faculty member will be considered for future clinical instruction assignments&lt;/li&gt;&lt;/ul&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>CIL_Next_Steps_Answer_0</name>
+            <fieldText>Answer</fieldText>
+            <fieldType>LargeTextArea</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <validationRule>
+                <errorMessage>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;Your answer to this question can be no longer than 10,000 characters.&lt;/span&gt;&lt;/p&gt;</errorMessage>
+                <formulaExpression>LEN({!CIL_Next_Steps_Answer_0}) &lt; 10000</formulaExpression>
+            </validationRule>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>No_CI_L_or_CI_A</name>
+        <label>No CI-L or CI-A</label>
+        <locationX>314</locationX>
+        <locationY>350</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>No_CIA_or_CIL</name>
+            <fieldText>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;No Clinical Instructor Lead or Clinical Instructor Assistant was found on the Course Offering.&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Type_of_Evaluation_0</name>
+        <label>Type of Evaluation</label>
+        <locationX>578</locationX>
+        <locationY>350</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>EvalTypeAssignment</targetReference>
+        </connector>
+        <fields>
+            <name>Eval_Type01</name>
+            <choiceReferences>Immediate</choiceReferences>
+            <choiceReferences>end_of_semester</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>What type of Evaluation are you completing?</fieldText>
+            <fieldType>RadioButtons</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <start>
+        <locationX>320</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Course_Offering</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>ContactId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>Course_Offering_Type</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>CourseOfferingId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>EvalType</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>PrimaryFaculty</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+</Flow>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customPermissions>
+        <enabled>true</enabled>
+        <name>Enable_The_Email_Activity_CP</name>
+    </customPermissions>
+    <description>This permission set is used to enable the user to see email activity on the contact. Other user who are not having this permission set, can&apos;t see email activity.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Allows User to See Email Activity</label>
+</PermissionSet>

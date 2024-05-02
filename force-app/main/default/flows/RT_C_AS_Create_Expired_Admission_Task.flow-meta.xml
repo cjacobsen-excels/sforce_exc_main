@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <description>Send email when oppty not found</description>
+        <name>Send_Fault_Email</name>
+        <label>Send Fault Email</label>
+        <locationX>440</locationX>
+        <locationY>431</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <stringValue>SalesforceAdmin@excelsior.edu</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <stringValue>Flow RT-C-AS Create Expired Admission Task Error</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>tFaultEmailBody</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>emailSimple</nameSegment>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <apiVersion>60.0</apiVersion>
+    <description>Triggers when an Registered Course record is created for a student (Contact) whose admissions expiry date is before the start date of the registered course. Calls the SSC task subflow to create a task if true.</description>
+    <environments>Default</environments>
+    <interviewLabel>RT-C-AS Create Expired Admission Task {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>RT-C-AS Create Expired Admission Task</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <description>Need to get the id of the Opportunity so the task will be related to it.</description>
+        <name>Get_Most_Recent_Opportunity</name>
+        <label>Get Most Recent Opportunity</label>
+        <locationX>176</locationX>
+        <locationY>323</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Run_SSC_Task_Subflow</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Send_Fault_Email</targetReference>
+        </faultConnector>
+        <filterLogic>(1 OR 2) AND 3 AND 4</filterLogic>
+        <filters>
+            <field>Opportunity_Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Application Ready</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Opportunity_Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Evaluation Completed</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>traa_Applicant__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Student_Name__c</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>StageName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Admitted</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Opportunity</object>
+        <sortField>CreatedDate</sortField>
+        <sortOrder>Desc</sortOrder>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Most_Recent_Opportunity</targetReference>
+        </connector>
+        <filterFormula>AND(
+{!$Record.Student_Name__r.Best_Status__c} = &apos;Commit to Enroll&apos; ,
+{!$Record.Course_Start_Date__c} &gt; {!$Record.Student_Name__r.Admissions_Expiration_Date__c}
+)</filterFormula>
+        <object>Registered_Courses_Exam__c</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <subflows>
+        <description>Run the subflow to create the task. Pass contact/owner/whatID</description>
+        <name>Run_SSC_Task_Subflow</name>
+        <label>Run SSC Task Subflow</label>
+        <locationX>176</locationX>
+        <locationY>431</locationY>
+        <flowName>SSC_Task_Flow</flowName>
+        <inputAssignments>
+            <name>vContactID</name>
+            <value>
+                <elementReference>$Record.Student_Name__r.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>vOwnerID</name>
+            <value>
+                <elementReference>$Record.Student_Name__r.Owner.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>vTaskName</name>
+            <value>
+                <stringValue>ADM.NewCourseAfterExpiry</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>vWhatId</name>
+            <value>
+                <elementReference>Get_Most_Recent_Opportunity.Id</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <textTemplates>
+        <description>Send fault email if no opportunity found</description>
+        <name>tFaultEmailBody</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>&lt;p&gt;** RT-CA-AS Create Expired Admission Task - No Opportunity Found meeting Enrolled-Active criteria**&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;****** Current Variable Values ******&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Registered Exam ID:  {!$Record.Id}&lt;/p&gt;&lt;p&gt;Contact Owner:      {!$Record.Student_Name__r.Owner.Id}&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Current Time:       {!$Flow.CurrentDateTime}&lt;/p&gt;&lt;p&gt;Fault Message:    {!$Flow.FaultMessage}&lt;/p&gt;</text>
+    </textTemplates>
+</Flow>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customPermissions>
+        <enabled>true</enabled>
+        <name>ADM_Special_Perm_Group</name>
+    </customPermissions>
+    <description>Bypass contact Email validation rule.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>ADM_Special Perm Group</label>
+</PermissionSet>

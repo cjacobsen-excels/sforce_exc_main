@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>57.0</apiVersion>
+    <assignments>
+        <description>Update Contact Record</description>
+        <name>Update_Contact_Program_of_Interest</name>
+        <label>Update Contact Program of Interest</label>
+        <locationX>50</locationX>
+        <locationY>2231</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.traa_Program_of_Interest__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Contact_ProgramofInterestwithStartTerm</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <description>Update Contact Record</description>
+        <name>Update_Contact_Program_of_Interest_NoTerm</name>
+        <label>Update Contact Program of Interest</label>
+        <locationX>314</locationX>
+        <locationY>2351</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.traa_Program_of_Interest__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Contact_ProgramofInterestNOStartTerm</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <description>Update Contact Record</description>
+        <name>Update_Contact_Status_Date</name>
+        <label>Update Contact Status Date</label>
+        <locationX>446</locationX>
+        <locationY>1775</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Contact_Status_Date__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Today</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Area_of_interest_change_NULL</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Update Contact Record</description>
+        <name>Update_Partner_Verified_Date</name>
+        <label>Update Partner Verified Date</label>
+        <locationX>446</locationX>
+        <locationY>1439</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Partner_Verified_Date__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Today</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Contact_Status_NULL</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Update Contact Record</description>
+        <name>Update_SMS_Admissions_Date</name>
+        <label>Update SMS Admissions Date</label>
+        <locationX>446</locationX>
+        <locationY>431</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.SMS_Admissions_Date__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Now</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>SMS_Advising_NULL</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Update Contact Record</description>
+        <name>Update_SMS_Advising_Date</name>
+        <label>Update SMS Advising Date</label>
+        <locationX>446</locationX>
+        <locationY>767</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.SMS_Advising_Date__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Now</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>SMS_Coaching_NULL</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Update Contact Record</description>
+        <name>Update_SMS_Coaching_Date</name>
+        <label>Update SMS Coaching Date</label>
+        <locationX>446</locationX>
+        <locationY>1103</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.SMS_Coaching_Date__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Now</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Partner_Verified_NULL</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <description>Check with NULL values</description>
+        <name>Area_of_interest_change_NULL</name>
+        <label>Area of interest change NULL</label>
+        <locationX>578</locationX>
+        <locationY>1991</locationY>
+        <defaultConnectorLabel>FALSE</defaultConnectorLabel>
+        <rules>
+            <name>NOTNULL_Contact_Ares_of_Interest</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Area_of_Interest__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Check_Start_Term_Values</targetReference>
+            </connector>
+            <label>NOT NULL</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Check with NULL values</description>
+        <name>Check_Start_Term_Values</name>
+        <label>Check Start Term Values</label>
+        <locationX>314</locationX>
+        <locationY>2111</locationY>
+        <defaultConnectorLabel>FALSE</defaultConnectorLabel>
+        <rules>
+            <name>Start_Term_NOTNULL</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Start_Term__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Contact_Program_of_Interest</targetReference>
+            </connector>
+            <label>Start Term != NULL</label>
+        </rules>
+        <rules>
+            <name>Start_Term_NULL</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Start_Term__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Term</targetReference>
+            </connector>
+            <label>Start Term = NULL</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Check for NULL Value</description>
+        <name>Contact_Status_NULL</name>
+        <label>Contact Status NULL</label>
+        <locationX>578</locationX>
+        <locationY>1655</locationY>
+        <defaultConnector>
+            <targetReference>Area_of_interest_change_NULL</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>NULL</defaultConnectorLabel>
+        <rules>
+            <name>Not_NULL_ContactStatus</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Status__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Contact_Status_Date</targetReference>
+            </connector>
+            <label>Not NULL</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Check for NULL Value</description>
+        <name>Partner_Verified_NULL</name>
+        <label>Partner Verified NULL</label>
+        <locationX>578</locationX>
+        <locationY>1319</locationY>
+        <defaultConnector>
+            <targetReference>Contact_Status_NULL</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>NULL</defaultConnectorLabel>
+        <rules>
+            <name>Not_NULL_PartnerVerified</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Partner_Verified__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Partner_Verified_Date</targetReference>
+            </connector>
+            <label>Not NULL</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Check for NULL Value</description>
+        <name>SMS_Admission_Null</name>
+        <label>SMS Admission Null</label>
+        <locationX>578</locationX>
+        <locationY>311</locationY>
+        <defaultConnector>
+            <targetReference>SMS_Advising_NULL</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>NULL</defaultConnectorLabel>
+        <rules>
+            <name>Not_NULL_Admission</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.SMS_Admissions__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_SMS_Admissions_Date</targetReference>
+            </connector>
+            <label>Not NULL</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Check for NULL Value</description>
+        <name>SMS_Advising_NULL</name>
+        <label>SMS Advising NULL</label>
+        <locationX>578</locationX>
+        <locationY>647</locationY>
+        <defaultConnector>
+            <targetReference>SMS_Coaching_NULL</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>NULL</defaultConnectorLabel>
+        <rules>
+            <name>NOT_Null_Advising</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.SMS_Advising__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_SMS_Advising_Date</targetReference>
+            </connector>
+            <label>Not NULL</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Check for NULL Value</description>
+        <name>SMS_Coaching_NULL</name>
+        <label>SMS Coaching NULL</label>
+        <locationX>578</locationX>
+        <locationY>983</locationY>
+        <defaultConnector>
+            <targetReference>Partner_Verified_NULL</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>NULL</defaultConnectorLabel>
+        <rules>
+            <name>Not_NULL_SMSCoaching</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.SMS_Coaching__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_SMS_Coaching_Date</targetReference>
+            </connector>
+            <label>Not NULL</label>
+        </rules>
+    </decisions>
+    <description>Help: 
+This flow is to be only run on Contact Creates and triggers on many field values being changed.  Use this flow to stamp default values and other things on contacts.
+
+Version 2 - Moved the TRAA - Contact Create set PoI flow.  
+Version 1 -Moved all the date configurations from the Contact Update Process Builder to Flow. IN00094744. 
+ The reason it is not built into a Single decision is that multiple fields can be changed in a single transaction. For example – when a contact is updated via the application portal, SMS Advising and SMS Admissions both would be a part of the same transaction and a single decision would not be able to handle that data</description>
+    <environments>Default</environments>
+    <formulas>
+        <description>Formula value to be used when the contact DOES NOT have a Start Term.</description>
+        <name>Contact_ProgramofInterestNOStartTerm</name>
+        <dataType>String</dataType>
+        <expression>TEXT({!$Record.Area_of_Interest__c} )+ &apos; - &apos;+ {!Get_Term.Name}</expression>
+    </formulas>
+    <formulas>
+        <description>Formula value to be used when the contact has a Start Term.</description>
+        <name>Contact_ProgramofInterestwithStartTerm</name>
+        <dataType>String</dataType>
+        <expression>TEXT({!$Record.Area_of_Interest__c}) + &apos; - &apos;+ UPPER(TEXT({!$Record.Start_Term__c})) + &apos; - &apos; + TEXT({!$Record.Term_Year__c})</expression>
+    </formulas>
+    <formulas>
+        <description>Returns the Date Time Value</description>
+        <name>Now</name>
+        <dataType>DateTime</dataType>
+        <expression>Now ()</expression>
+    </formulas>
+    <formulas>
+        <description>Returns the Current Date</description>
+        <name>Today</name>
+        <dataType>Date</dataType>
+        <expression>TODAY()</expression>
+    </formulas>
+    <interviewLabel>RT-C-BS-Contact Update {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>RT-C-BS-Contact Update</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <description>Get the ONLY term record where it is open for applications and has the latest start date</description>
+        <name>Get_Term</name>
+        <label>Get Term</label>
+        <locationX>314</locationX>
+        <locationY>2231</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Update_Contact_Program_of_Interest_NoTerm</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Open_for_Applications__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>hed__Term__c</object>
+        <sortField>hed__Start_Date__c</sortField>
+        <sortOrder>Asc</sortOrder>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>452</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>SMS_Admission_Null</targetReference>
+        </connector>
+        <filterLogic>or</filterLogic>
+        <filters>
+            <field>SMS_Admissions__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>SMS_Advising__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>SMS_Coaching__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Partner_Verified__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Area_of_Interest__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <object>Contact</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+    <triggerOrder>10</triggerOrder>
+</Flow>

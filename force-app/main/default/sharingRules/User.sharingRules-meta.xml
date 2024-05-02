@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>User_R_InternalUsers</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Allow all internal users to see other users.</description>
+        <label>User_R_InternalUsers</label>
+        <sharedTo>
+            <group>nonServiceDesk_Users</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>IsActive</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+</SharingRules>

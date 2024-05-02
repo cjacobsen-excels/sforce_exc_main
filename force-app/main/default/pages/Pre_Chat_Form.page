@@ -1,0 +1,90 @@
+<apex:page showHeader="false">
+<head>
+<title>Excelsior College Live Chat</title>
+<meta content="target-densitydpi=160dpi, width=device-width, minimum-scale=1.0, maximum-scale=1.0" name="viewport" />
+<link rel="stylesheet" type="text/css" href="//www.excelsior.edu/static/styles/defaultstyles.css" />
+<script type='text/javascript'>
+function centerWindow() {
+    if (document.body && document.body.offsetWidth) {
+        w = document.body.offsetWidth;
+        h = document.body.offsetHeight;
+    }
+    if (document.compatMode=='CSS1Compat' &&
+        document.documentElement &&
+        document.documentElement.offsetWidth ) {
+            w = document.documentElement.offsetWidth;
+            h = document.documentElement.offsetHeight;
+    }
+    if (window.innerWidth && window.innerHeight) {
+        w = window.innerWidth;
+        h = window.innerHeight;
+    }
+    
+    var w_mid = w / 2;
+    var h_mid = h / 2;
+
+    var l = (screen.width / 2) - w_mid;
+    var t = (screen.height / 2) - h_mid;
+
+    if (l < 0) { l = 0; }
+    if (t < 0) { t = 0; }
+
+    window.moveTo(l,t);
+}
+</script> 
+</head>
+<body style="background-color: #606;" onLoad="centerWindow()">
+
+<div class="sfchat">
+
+    <!-- This script takes the endpoint URL parameter passed from
+    the deployment page and makes it the action for the form -->
+    <script type="text/javascript">
+        (function() {
+            function handlePageLoad() {
+                var endpointMatcher = new RegExp("[\\?\\&]endpoint=([^&#]*)");
+                document.getElementById('prechatForm').setAttribute('action',
+                    decodeURIComponent(endpointMatcher.exec(document.location.search)[1]));
+            } 
+            if (window.addEventListener) {
+                window.addEventListener('load', handlePageLoad, false);
+            } else { 
+                window.attachEvent('onload', handlePageLoad, false);
+        }})();
+    </script>
+    <h1>Live Chat Signup</h1>
+
+    <form id="prechatForm" method="post">
+        <table class="chattable" cellpadding="2" cellspacing="2">
+            <tr>
+                <td>Name</td>
+                <td><input id="prechat_field" name="liveagent.prechat.name" type="text" /></td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td><input name="liveagent.prechat:Email" type="text" /></td>
+            </tr>
+            <tr>
+                <td>Department</td>
+                <td>
+                    <select name="liveagent.prechat.buttons">
+                        <!-- Values are LiveChatButton IDs, 
+                        currently both choices navigate to General. -->
+                        <option value="573U0000000GpKe">General</option>
+                        <option value="573U0000000GpKe">Center for Professional Development</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+    <!-- Creates an auto-query for a matching Lead or Contact record's Email field based on the
+    value of the liveagent.prechat:Email field -->
+    <div style=" text-align:center"><input name="liveagent.prechat.query:Email" type="hidden" value="Contact,Contact.Email,Lead,Lead.Email" /> 
+    <input name="liveagent.prechat.save:Email" type="hidden" value="Email__c" /> <input id="prechat_submit" type="submit" value="Start Live Chat" /></div>
+
+</form>
+</div>
+
+
+    
+</body>
+</apex:page>

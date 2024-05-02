@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>Contact_Graduway_R</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Graduway can Read Security Level 1 Student records.</description>
+        <label>Contact_Graduway_R</label>
+        <sharedTo>
+            <role>Graduway</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Person Account_s1</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Contact_Liaison_RW_SRRO</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>SRRO users have Read/Write access to Liaison contacts.</description>
+        <label>Contact_Liaison_RW_SRRO</label>
+        <sharedTo>
+            <group>RF_SRRO</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Liaison</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Contact_Partner_R_nonO_A</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Non O&amp;A users have Read access to Partner contacts.</description>
+        <label>Contact_Partner_R_nonO&amp;A</label>
+        <sharedTo>
+            <group>nonO_A_Users</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Partner Contact</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Contact_SocialStudio_R</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Social Studio can Read Student records.</description>
+        <label>Contact_SocialStudio_R</label>
+        <sharedTo>
+            <role>Social_Studio</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Person Account,Person Account_s1,Person Account_s2</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Contact_StudentPartner_RW_MKTO</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Marketo has Read/Write access to Student and Partner contacts.</description>
+        <label>Contact_StudentPartner_RW_MKTO</label>
+        <sharedTo>
+            <role>Marketo</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Person Account,Person Account_s1,Partner Contact,Person Account_s2</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Contact_StudentPartner_RW_O_A</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>O&amp;A group has Read/Write access to Student and Partner contacts.</description>
+        <label>Contact_StudentPartner_RW_O&amp;A</label>
+        <sharedTo>
+            <group>O_A</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Person Account,Person Account_s1,Partner Contact,Person Account_s2</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Contact_Student_RW_nonO_A</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Non O&amp;A users have Read/Write access to student contacts.</description>
+        <label>Contact_Student_RW_nonO&amp;A</label>
+        <sharedTo>
+            <group>nonO_A_Users</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Person Account,Person Account_s1,Person Account_s2</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Faculty_Share</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Faculty Share</label>
+        <sharedTo>
+            <role>Faculty_Management</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Faculty</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+</SharingRules>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <description>This flow is designed to run every day but will update the &quot;Trigger_Net_Revenue_Calculation__c&quot; field to calculate the &quot;	Net_Revenue_Calculation__c&quot;</description>
+    <environments>Default</environments>
+    <interviewLabel>Update Calculate Net Revenue Trigger on Census Date {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Update Calculate Net Revenue Trigger on Census Date</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <description>Updates the Trigger Net Revenue Calculation field to allow the Net Revenue Calculation to run</description>
+        <name>Couse_Offering_Trigger_Net_Revenue_Calculation_c_True</name>
+        <label>Set Trigger Net Revenue Calculation</label>
+        <locationX>176</locationX>
+        <locationY>252</locationY>
+        <inputAssignments>
+            <field>Trigger_Net_Revenue_Calculation__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Couse_Offering_Trigger_Net_Revenue_Calculation_c_True</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Active</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>PaymentCalculationIsToday__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>hed__Faculty__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>0034O00002mW89pQAC</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Second_Payment_calculated__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <object>hed__Course_Offering__c</object>
+        <schedule>
+            <frequency>Daily</frequency>
+            <startDate>2023-07-09</startDate>
+            <startTime>02:00:00.000Z</startTime>
+        </schedule>
+        <triggerType>Scheduled</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

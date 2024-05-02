@@ -1,0 +1,5 @@
+<aura:event type="COMPONENT" description="Events fired by action inside of a component">
+  <aura:attribute name="type" type="String"/>
+  <aura:attribute name="data" type="Object" />
+  <aura:attribute name="compId" type="String"/>
+</aura:event>

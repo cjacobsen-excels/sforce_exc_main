@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>54.0</apiVersion>
+    <decisions>
+        <name>new_or_update</name>
+        <label>new or update</label>
+        <locationX>182</locationX>
+        <locationY>311</locationY>
+        <defaultConnector>
+            <targetReference>Disability_field_is_updated_0</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>New record</defaultConnectorLabel>
+        <rules>
+            <name>updated_record</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Verification_Status__c</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Verification_Status_Date_updates_0_0_0</targetReference>
+            </connector>
+            <label>updated record</label>
+        </rules>
+    </decisions>
+    <description>- Updates the Disability field when FA populates the Disability Multi FA field
+- Updates the Verification Status Date when a new Disability is created
+- Updates the Verification Status Date when the Verification Status changes</description>
+    <formulas>
+        <name>VerificationStatusDateoncreation</name>
+        <dataType>Date</dataType>
+        <expression>TODAY()</expression>
+    </formulas>
+    <interviewLabel>ADA Accom Flow - Disability {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>ADA Accom Flow - Disability</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <description>This field gets updated when FA populates the Disability Multi FA field.</description>
+        <name>Disability_field_is_updated_0</name>
+        <label>Disability and date field are populated</label>
+        <locationX>314</locationX>
+        <locationY>431</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Disability__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Disability__c</field>
+            <value>
+                <elementReference>$Record.Disability_Multi_Test__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Verification_Status_Date__c</field>
+            <value>
+                <elementReference>VerificationStatusDateoncreation</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <description>When the Verification Status Updates, the Verification Status Date updates</description>
+        <name>Verification_Status_Date_updates_0_0_0</name>
+        <label>Verification Status Date updates</label>
+        <locationX>50</locationX>
+        <locationY>431</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Verification_Status__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <elementReference>$Record__Prior.Verification_Status__c</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Verification_Status_Date__c</field>
+            <value>
+                <elementReference>VerificationStatusDateoncreation</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>new_or_update</targetReference>
+        </connector>
+        <object>Disability__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

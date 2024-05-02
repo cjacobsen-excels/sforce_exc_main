@@ -1,0 +1,607 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>57.0</apiVersion>
+    <assignments>
+        <description>Update Contact Record</description>
+        <name>Update_Contact_Program_of_Interest</name>
+        <label>Update Contact Program of Interest</label>
+        <locationX>50</locationX>
+        <locationY>2195</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.traa_Program_of_Interest__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Contact_ProgramofInterestwithStartTerm</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Did_do_not_contact_change</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Update Contact Record</description>
+        <name>Update_Contact_Program_of_Interest_NoTerm</name>
+        <label>Update Contact Program of Interest</label>
+        <locationX>314</locationX>
+        <locationY>2303</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.traa_Program_of_Interest__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Contact_ProgramofInterestNOStartTerm</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Did_do_not_contact_change</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Update Contact Record</description>
+        <name>Update_Contact_Status_Advisng_Date</name>
+        <label>Update Contact Status Advisng Date</label>
+        <locationX>182</locationX>
+        <locationY>1895</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Contact_Status_Date_Advising__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Today</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Did_Area_of_interest_change</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Update Contact Record</description>
+        <name>Update_Contact_Status_Date</name>
+        <label>Update Contact Status Date</label>
+        <locationX>182</locationX>
+        <locationY>1595</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Contact_Status_Date__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Today</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Did_Contact_Advising_Status_Change</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Update Contact Record</description>
+        <name>Update_Partner_Verified_Date</name>
+        <label>Update Partner Verified Date</label>
+        <locationX>182</locationX>
+        <locationY>1295</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Partner_Verified_Date__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Today</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Did_Contact_Status_Change</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Update Contact Record</description>
+        <name>Update_SMS_Admissions_Date</name>
+        <label>Update SMS Admissions Date</label>
+        <locationX>182</locationX>
+        <locationY>395</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.SMS_Admissions_Date__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Now</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Did_SMS_Advising_Change</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Update Contact Record</description>
+        <name>Update_SMS_Advising_Date</name>
+        <label>Update SMS Advising Date</label>
+        <locationX>182</locationX>
+        <locationY>695</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.SMS_Advising_Date__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Now</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Did_SMS_Coaching_Change</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Update Contact Record</description>
+        <name>Update_SMS_Coaching_Date</name>
+        <label>Update SMS Coaching Date</label>
+        <locationX>182</locationX>
+        <locationY>995</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.SMS_Coaching_Date__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Now</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Did_Partner_Verified_Change</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>SMS - Advising &amp; SMS - Admissions. There is no global SMS opt-out field we use as we use multiple sender Id&apos;s and opt-out is based on them.</description>
+        <name>Update_SMS_opt_Out_Fields</name>
+        <label>Update SMS opt Out Fields</label>
+        <locationX>182</locationX>
+        <locationY>2603</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.SMS_Admissions__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Opt-Out</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.SMS_Advising__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Opt-Out</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Did_Best_Status_Change</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Best status needs to trigger admission best status sub-flow, hence we are checking this field to trigger that flow</description>
+        <name>Update_Trigger_Best_Admission_Calculation_True</name>
+        <label>Update &apos;Trigger Best Admission Calculation = True</label>
+        <locationX>182</locationX>
+        <locationY>2903</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Trigger_Best_Admission_Calculation__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <decisions>
+        <description>Compare records using $Record__Prior Value</description>
+        <name>Did_Area_of_interest_change</name>
+        <label>Did Area of interest change</label>
+        <locationX>314</locationX>
+        <locationY>2087</locationY>
+        <defaultConnector>
+            <targetReference>Did_do_not_contact_change</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>FALSE</defaultConnectorLabel>
+        <rules>
+            <name>TRUE_Contact_Ares_of_Interest_Changed_TermNotBlank</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record__Prior.Area_of_Interest__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.Area_of_Interest__c</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Start_Term__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Area_of_Interest__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Contact_Program_of_Interest</targetReference>
+            </connector>
+            <label>TRUE &amp; Term NOT Blank</label>
+        </rules>
+        <rules>
+            <name>TRUE_Contact_Ares_of_Interest_Changed_TermBlank</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record__Prior.Area_of_Interest__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.Area_of_Interest__c</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Start_Term__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Area_of_Interest__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Term</targetReference>
+            </connector>
+            <label>TRUE &amp; Term BLANK</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Best status needs to trigger admission best status sub-flow, hence we are checking this field to trigger that flow</description>
+        <name>Did_Best_Status_Change</name>
+        <label>Did Best Status Change</label>
+        <locationX>314</locationX>
+        <locationY>2795</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Yes</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Best_Status__c</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Trigger_Best_Admission_Calculation_True</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Compare records using $Record__Prior Value</description>
+        <name>Did_Contact_Advising_Status_Change</name>
+        <label>Did Contact Advising  Status Change</label>
+        <locationX>314</locationX>
+        <locationY>1787</locationY>
+        <defaultConnector>
+            <targetReference>Did_Area_of_interest_change</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>FALSE</defaultConnectorLabel>
+        <rules>
+            <name>TRUE_Contact_Advising_Status_Change</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record__Prior.Contact_Status_Advising__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.Contact_Status_Advising__c</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Contact_Status_Advisng_Date</targetReference>
+            </connector>
+            <label>TRUE</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Compare records using $Record__Prior Value</description>
+        <name>Did_Contact_Status_Change</name>
+        <label>Did Contact Status Change</label>
+        <locationX>314</locationX>
+        <locationY>1487</locationY>
+        <defaultConnector>
+            <targetReference>Did_Contact_Advising_Status_Change</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>FALSE</defaultConnectorLabel>
+        <rules>
+            <name>TRUE_Contact_Status_Changed</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record__Prior.Status__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.Status__c</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Contact_Status_Date</targetReference>
+            </connector>
+            <label>TRUE</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>When do not contact is checked by integrations, we need to opt students out of SMS.</description>
+        <name>Did_do_not_contact_change</name>
+        <label>Did do not contact change ?</label>
+        <locationX>314</locationX>
+        <locationY>2495</locationY>
+        <defaultConnector>
+            <targetReference>Did_Best_Status_Change</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>True_Value_Yes</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Do_Not_Contact__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Yes</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_SMS_opt_Out_Fields</targetReference>
+            </connector>
+            <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+            <label>True &amp; Value = Yes</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Compare records using $Record__Prior Value</description>
+        <name>Did_Partner_Verified_Change</name>
+        <label>Did Partner Verified Change</label>
+        <locationX>314</locationX>
+        <locationY>1187</locationY>
+        <defaultConnector>
+            <targetReference>Did_Contact_Status_Change</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>FALSE</defaultConnectorLabel>
+        <rules>
+            <name>TRUE_Partner_Verified_Changed</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record__Prior.Partner_Verified__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.Partner_Verified__c</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record__Prior.Partner_Verified__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Partner_Verified_Date</targetReference>
+            </connector>
+            <label>TRUE</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Compare records using $Record__Prior Value</description>
+        <name>Did_SMS_Admissions_Change</name>
+        <label>Did SMS Admissions Change</label>
+        <locationX>314</locationX>
+        <locationY>287</locationY>
+        <defaultConnector>
+            <targetReference>Did_SMS_Advising_Change</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>FALSE</defaultConnectorLabel>
+        <rules>
+            <name>TRUE_SMS_Admissions_Changed</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record__Prior.SMS_Admissions__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.SMS_Admissions__c</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_SMS_Admissions_Date</targetReference>
+            </connector>
+            <label>TRUE</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Compare records using $Record__Prior Value</description>
+        <name>Did_SMS_Advising_Change</name>
+        <label>Did SMS Advising Change</label>
+        <locationX>314</locationX>
+        <locationY>587</locationY>
+        <defaultConnector>
+            <targetReference>Did_SMS_Coaching_Change</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>FALSE</defaultConnectorLabel>
+        <rules>
+            <name>TRUE_SMS_Advising_Changed</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record__Prior.SMS_Advising__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.SMS_Advising__c</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_SMS_Advising_Date</targetReference>
+            </connector>
+            <label>TRUE</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Compare records using $Record__Prior Value</description>
+        <name>Did_SMS_Coaching_Change</name>
+        <label>Did SMS Coaching Change</label>
+        <locationX>314</locationX>
+        <locationY>887</locationY>
+        <defaultConnector>
+            <targetReference>Did_Partner_Verified_Change</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>FALSE</defaultConnectorLabel>
+        <rules>
+            <name>TRUE_SMS_Coaching_Changed</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record__Prior.SMS_Coaching__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.SMS_Coaching__c</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_SMS_Coaching_Date</targetReference>
+            </connector>
+            <label>TRUE</label>
+        </rules>
+    </decisions>
+    <description>Help:
+This flow is to be only run on Contact UPDATES and triggers on many field values being changed.
+Change includes adding triggers for Best Status Changes 
+Version 3 - Includes Do not Contact Field updates to SMS Opt-in or Out (IN00094944)
+Version 2 - Moved the TRAA 0 Contact POL is changed flow.
+Version 1 -Moved all the date configurations from the Contact Update Process Builder to Flow. IN00094744.
+The reason it is not built into a Single decision is that multiple fields can be changed in a single transaction. For example – when a contact is updated via the application portal, SMS Advising and SMS Admissions both would be a part of the same transaction and a single decision would not be able to handle that data.</description>
+    <environments>Default</environments>
+    <formulas>
+        <description>Formula value to be used when the contact DOES NOT have a Start Term.</description>
+        <name>Contact_ProgramofInterestNOStartTerm</name>
+        <dataType>String</dataType>
+        <expression>TEXT({!$Record.Area_of_Interest__c} )+ &apos; - &apos;+ {!Get_Term.Name}</expression>
+    </formulas>
+    <formulas>
+        <description>Formula value to be used when the contact has a Start Term.</description>
+        <name>Contact_ProgramofInterestwithStartTerm</name>
+        <dataType>String</dataType>
+        <expression>TEXT({!$Record.Area_of_Interest__c}) + &apos; - &apos;+ UPPER(TEXT({!$Record.Start_Term__c})) + &apos; - &apos; + TEXT({!$Record.Term_Year__c})</expression>
+    </formulas>
+    <formulas>
+        <description>Returns the Date Time Value</description>
+        <name>Now</name>
+        <dataType>DateTime</dataType>
+        <expression>Now ()</expression>
+    </formulas>
+    <formulas>
+        <description>Returns the Current Date</description>
+        <name>Today</name>
+        <dataType>Date</dataType>
+        <expression>TODAY()</expression>
+    </formulas>
+    <interviewLabel>RT-U-BS-Contact Update {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>RT-U-BS-Contact Update</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <description>Get the ONLY term record where it is open for applications and has the latest start date</description>
+        <name>Get_Term</name>
+        <label>Get Term</label>
+        <locationX>314</locationX>
+        <locationY>2195</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Update_Contact_Program_of_Interest_NoTerm</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Open_for_Applications__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>hed__Term__c</object>
+        <sortField>hed__Start_Date__c</sortField>
+        <sortOrder>Asc</sortOrder>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>188</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Did_SMS_Admissions_Change</targetReference>
+        </connector>
+        <filterLogic>or</filterLogic>
+        <filters>
+            <field>SMS_Admissions__c</field>
+            <operator>IsChanged</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>SMS_Advising__c</field>
+            <operator>IsChanged</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>SMS_Coaching__c</field>
+            <operator>IsChanged</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Partner_Verified__c</field>
+            <operator>IsChanged</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operator>IsChanged</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Contact_Status_Advising__c</field>
+            <operator>IsChanged</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Area_of_Interest__c</field>
+            <operator>IsChanged</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Do_Not_Contact__c</field>
+            <operator>IsChanged</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Best_Status__c</field>
+            <operator>IsChanged</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <object>Contact</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+    <triggerOrder>600</triggerOrder>
+</Flow>

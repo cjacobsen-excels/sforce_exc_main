@@ -1,0 +1,30 @@
+<apex:page showHeader="false" standardController="Contact">
+    <apex:includeScript value="{!URLFOR($Resource.smagicinteract__SMS_Insight_Reload, 'jquery_1_5_1.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.smagicinteract__SMS_Insight_Reload, 'cometd.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.smagicinteract__SMS_Insight_Reload, 'json2.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.smagicinteract__SMS_Insight_Reload, 'jquery_cometd.js')}"/>
+    
+    <apex:includeLightning rendered="true"/>
+    <div id="lightning" />
+
+    <script>
+        var recordId = "{!$CurrentPage.parameters.id}";
+        $Lightning.use(
+            "smagicinteract:conversationApp", 
+            function() {
+                $Lightning.createComponent(
+                    "smagicinteract:conversations",
+                    {
+                         recordId : recordId,
+                         sObjectName : "Contact",
+                         phoneFieldCSV : "MobilePhone",
+                         embedContext : "detail"
+                    },
+                    "lightning",
+                    function(cmp) {
+                    }
+                );
+            }
+        );
+    </script>
+</apex:page>

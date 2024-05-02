@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Non-matriculated</fullName>
+        <default>false</default>
+        <label>Non-matriculated</label>
+    </customValue>
+    <customValue>
+        <fullName>Inquiry</fullName>
+        <default>false</default>
+        <label>Inquiry</label>
+    </customValue>
+    <customValue>
+        <fullName>Applicant</fullName>
+        <default>false</default>
+        <label>Applicant</label>
+    </customValue>
+    <customValue>
+        <fullName>Expired Applicant</fullName>
+        <default>false</default>
+        <label>Expired Applicant</label>
+    </customValue>
+    <customValue>
+        <fullName>Student</fullName>
+        <default>false</default>
+        <label>Student</label>
+    </customValue>
+    <customValue>
+        <fullName>Alumni</fullName>
+        <default>false</default>
+        <label>Alumni</label>
+    </customValue>
+    <masterLabel>Role</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

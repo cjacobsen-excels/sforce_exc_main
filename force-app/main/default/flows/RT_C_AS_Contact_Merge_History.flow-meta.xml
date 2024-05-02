@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <description>This flow runs on contact merge history to trigger best admission status</description>
+    <environments>Default</environments>
+    <interviewLabel>RT-C-AS- Contact Merge History {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>RT-C-AS- Contact Merge History</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <object>Contact_Merge_History__c</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <scheduledPaths>
+            <name>X2_Minute_Delay</name>
+            <connector>
+                <targetReference>Trigger_Best_Admissions_sub_flow</targetReference>
+            </connector>
+            <label>2 Minute Delay</label>
+            <maxBatchSize>1</maxBatchSize>
+            <offsetNumber>2</offsetNumber>
+            <offsetUnit>Minutes</offsetUnit>
+            <timeSource>RecordTriggerEvent</timeSource>
+        </scheduledPaths>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <subflows>
+        <description>because we need to re-calculate those status when a contact is merged</description>
+        <name>Trigger_Best_Admissions_sub_flow</name>
+        <label>Trigger Best Admissions sub flow</label>
+        <locationX>308</locationX>
+        <locationY>276</locationY>
+        <flowName>Best_Admission_Status_Subflow</flowName>
+        <inputAssignments>
+            <name>ContactInputVar</name>
+            <value>
+                <elementReference>$Record.Parent_Contact__c</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+</Flow>

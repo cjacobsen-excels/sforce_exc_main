@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SamlSsoConfig xmlns="http://soap.sforce.com/2006/04/metadata">
+    <decryptionCertificate>0P17X000001RDaI</decryptionCertificate>
+    <identityLocation>SubjectNameId</identityLocation>
+    <identityMapping>FederationId</identityMapping>
+    <issuer>https://excelsior.my.salesforce.com</issuer>
+    <loginUrl>https://excelsior.my.salesforce.com/idp/endpoint/HttpRedirect</loginUrl>
+    <logoutUrl>https://excelsior.edu</logoutUrl>
+    <name>excelsior</name>
+    <oauthTokenEndpoint>https://excelsior--full.sandbox.my.salesforce.com/services/oauth2/token?so=00D7X000001BJvM</oauthTokenEndpoint>
+    <redirectBinding>true</redirectBinding>
+    <requestSignatureMethod>1</requestSignatureMethod>
+    <requestSigningCertId>0P14O000000GoYN</requestSigningCertId>
+    <salesforceLoginUrl>https://excelsior--full.sandbox.my.salesforce.com?so=00D7X000001BJvM&amp;sc=0LE7X00000003bJ</salesforceLoginUrl>
+    <samlEntityId>https://excelsior--full.sandbox.my.salesforce.com</samlEntityId>
+    <samlVersion>SAML2_0</samlVersion>
+    <singleLogoutBinding>RedirectBinding</singleLogoutBinding>
+    <singleLogoutUrl>https://excelsior.my.salesforce.com/services/auth/idp/saml2/logout</singleLogoutUrl>
+    <useConfigRequestMethod>false</useConfigRequestMethod>
+    <useSameDigestAlgoForSigning>true</useSameDigestAlgoForSigning>
+    <userProvisioning>false</userProvisioning>
+    <validationCert>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</validationCert>
+</SamlSsoConfig>

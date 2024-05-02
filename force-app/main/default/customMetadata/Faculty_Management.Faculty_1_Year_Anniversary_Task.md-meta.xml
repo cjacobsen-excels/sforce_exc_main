@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Faculty 1 Year Anniversary Task</label>
+    <protected>false</protected>
+    <values>
+        <field>Date__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Description_Text_Area__c</field>
+        <value xsi:type="xsd:string">The indicated Faculty member is due for their 1 Year Faculty Evaluation.</value>
+    </values>
+    <values>
+        <field>Description__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>ID__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Name_Subject__c</field>
+        <value xsi:type="xsd:string">Faculty 1 Year Evaluation Due</value>
+    </values>
+    <values>
+        <field>Quantity__c</field>
+        <value xsi:type="xsd:double">30.0</value>
+    </values>
+</CustomMetadata>

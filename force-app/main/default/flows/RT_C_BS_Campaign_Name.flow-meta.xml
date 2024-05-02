@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>59.0</apiVersion>
+    <assignments>
+        <description>Update Campaign Name</description>
+        <name>Update_Name</name>
+        <label>Update Name</label>
+        <locationX>176</locationX>
+        <locationY>287</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Name</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Name</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <description>Stamps the Campaign Name with a certain criteria. 01/25/2024-Update to not display Code or FY if blank</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>Name</name>
+        <dataType>String</dataType>
+        <expression>{!$Record.Parent.Campaign_Code__c} &amp; &quot;_&quot; &amp; 
+{!$Record.Affiliate_Code__c} &amp; &quot;_&quot; &amp; 
+{!$Record.Media_Channel_Code__c} &amp; 
+IF(ISBLANK($Record.Differentiator_Code__c) || $Record.Differentiator_Code__c = &apos;--&apos;, &apos;&apos;, &quot;_&quot; &amp; TRIM($Record.Differentiator_Code__c)) &amp;  
+IF(ISBLANK(TEXT($Record.Start_FYQ__c)), NULL, &quot;_&quot; &amp; TRIM(TEXT($Record.Start_FYQ__c)))</expression>
+    </formulas>
+    <interviewLabel>RT-CU-BS- Campaign Name {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>RT-C-BS- Campaign Name</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Update_Name</targetReference>
+        </connector>
+        <filterFormula>OR(
+  ISBLANK({!$Record.Media_Channel__c}) = FALSE,
+  ISBLANK({!$Record.Medium__c}) = FALSE,
+  ISPICKVAL({!$Record.Start_FYQ__c}, &quot;&quot;) = FALSE,
+  {!$Record.RecordType.Name} = &apos;Source&apos;
+)</filterFormula>
+        <object>Campaign</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+    <triggerOrder>500</triggerOrder>
+</Flow>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Role xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseAccessLevel>Edit</caseAccessLevel>
+    <contactAccessLevel>Edit</contactAccessLevel>
+    <description>Director - Nursing/Health Science Team</description>
+    <mayForecastManagerShare>false</mayForecastManagerShare>
+    <name>Nursing/Health Science</name>
+    <opportunityAccessLevel>Edit</opportunityAccessLevel>
+    <parentRole>Student_Success_Center</parentRole>
+</Role>

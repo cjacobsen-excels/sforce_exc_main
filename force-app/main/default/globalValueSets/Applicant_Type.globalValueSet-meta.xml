@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Military Undergraduate</fullName>
+        <default>false</default>
+        <label>Military Undergraduate</label>
+    </customValue>
+    <customValue>
+        <fullName>Military Graduate</fullName>
+        <default>false</default>
+        <label>Military Graduate</label>
+    </customValue>
+    <customValue>
+        <fullName>Civilian Undergraduate</fullName>
+        <default>false</default>
+        <label>Civilian Undergraduate</label>
+    </customValue>
+    <customValue>
+        <fullName>Civilian Graduate</fullName>
+        <default>false</default>
+        <label>Civilian Graduate</label>
+    </customValue>
+    <customValue>
+        <fullName>Partners</fullName>
+        <default>false</default>
+        <label>Partners</label>
+    </customValue>
+    <customValue>
+        <fullName>Alumni</fullName>
+        <default>false</default>
+        <label>Alumni</label>
+    </customValue>
+    <description>Identifies the applicant type used on lead, contact, and opportunity objects</description>
+    <masterLabel>Applicant Type</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

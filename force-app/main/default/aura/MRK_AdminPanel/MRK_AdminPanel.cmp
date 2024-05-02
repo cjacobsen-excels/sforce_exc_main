@@ -1,0 +1,21 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global">
+    <div class="slds-box slds-theme_default">
+        <lightning:tabset selectedTabId="two">
+            <lightning:tab label="Setup" id="one">
+                <div class="slds-text-heading_small">To update marketo api settings like error handling and log creation click on the link bellow.</div>
+                <p><lightning:formattedUrl value="https://excelsior.lightning.force.com/lightning/setup/CustomMetadata/page?address=%2Fm0Q4O000000QieC" label="Go to Marketo Settings" tooltip="Go to Marketo Settings" target="_blank" /></p>
+                
+                <div class="slds-p-top_medium slds-text-heading_small">To update or create new object syncs to marketo click the button bellow.</div>
+                <p><lightning:formattedUrl value="https://excelsior.lightning.force.com/lightning/setup/CustomMetadata/page?address=%2Fm0P%3Fsetupid%3DCustomMetadata" label="Sync Setup" tooltip="Sync Setup" target="_blank" /></p>
+            </lightning:tab>
+            <lightning:tab label="Log View" id="two">
+                <SparkTable:CustomTable objectLabel="Retry Logs" fieldSetName="Marketo_Admin_Panel" objectAPI="Marketo_Log__c" recordLimit="100" filterString="Status__c = 'Fail' AND Include_in_Retries__c = true ORDER BY CreatedDate DESC"/>
+                <SparkTable:CustomTable objectLabel="Error Logs" fieldSetName="Marketo_Admin_Panel" objectAPI="Marketo_Log__c" recordLimit="100" filterString="Status__c = 'Fail' AND Include_in_Retries__c = false ORDER BY CreatedDate DESC"/>
+                <SparkTable:CustomTable objectLabel="Success Logs" fieldSetName="Marketo_Admin_Panel" objectAPI="Marketo_Log__c" recordLimit="100" filterString="Status__c = 'Success' ORDER BY CreatedDate DESC"/>
+            </lightning:tab>
+            <lightning:tab label="API Credentials" id="three">
+                <c:MRK_ApiCredentials />
+            </lightning:tab>
+        </lightning:tabset>
+    </div>
+</aura:component>

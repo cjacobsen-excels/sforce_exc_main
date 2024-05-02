@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>59.0</apiVersion>
+    <assignments>
+        <description>Set the value of the permission set to assign in the subflow</description>
+        <name>Set_Faculty_Perm_Set</name>
+        <label>Set Faculty Perm Set</label>
+        <locationX>842</locationX>
+        <locationY>384</locationY>
+        <assignmentItems>
+            <assignToReference>vPermSetName</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>ServiceDesk_Faculty_Client</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Run_Assign_Permission_Set_Subflow</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Set the value of the permission set to assign in the subflow</description>
+        <name>Set_Staff_Perm_Set</name>
+        <label>Set Staff Perm Set</label>
+        <locationX>578</locationX>
+        <locationY>384</locationY>
+        <assignmentItems>
+            <assignToReference>vPermSetName</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>ServiceDesk_Staff_Client</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Run_Assign_Permission_Set_Subflow</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <description>If the Clinical Examiner Faculty user field is true, then run the CE User Flow Permissions</description>
+        <name>Determine_CE_Faculty_Permissions</name>
+        <label>Determine CE Faculty Permissions</label>
+        <locationX>842</locationX>
+        <locationY>684</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>CE_User</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Clinical_Examination_User__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.IsActive</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Grant_CE_User_Permission</targetReference>
+            </connector>
+            <label>CE User</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Find the user type to assign the proper Remedy permission set</description>
+        <name>Determine_User_Type</name>
+        <label>Determine User Type</label>
+        <locationX>842</locationX>
+        <locationY>276</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Staff</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Type_of_User__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Staff</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Staff_Perm_Set</targetReference>
+            </connector>
+            <label>Staff</label>
+        </rules>
+        <rules>
+            <name>Faculty</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Type_of_User__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Faculty</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Faculty_Perm_Set</targetReference>
+            </connector>
+            <label>Faculty</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Determine if a new or existing record</description>
+        <name>New_or_Existing_User</name>
+        <label>New or Existing User</label>
+        <locationX>182</locationX>
+        <locationY>276</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>New_Record</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.IsActive</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>fisNew</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_to_Active</targetReference>
+            </connector>
+            <label>New Record</label>
+        </rules>
+    </decisions>
+    <description>Gives the default permission set to a new user depending on Staff/Faculty. Replaces Process Builder - User_AssignPermissionSet_Process. The Student Type is only used for one generic user, and reactivated staff do not need remedy perms removed. Those nodes not carried over to the flow.</description>
+    <environments>Default</environments>
+    <formulas>
+        <description>Determine if the record is new or not</description>
+        <name>fisNew</name>
+        <dataType>Boolean</dataType>
+        <expression>ISNEW()</expression>
+    </formulas>
+    <interviewLabel>RT-CU-Set Remedy Permission for New User {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>RT-CU-Set Remedy Permission for New User</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <description>Set the record to active</description>
+        <name>Set_to_Active</name>
+        <label>Set to Active</label>
+        <locationX>50</locationX>
+        <locationY>384</locationY>
+        <inputAssignments>
+            <field>IsActive</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>386</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>New_or_Existing_User</targetReference>
+        </connector>
+        <filterFormula>AND(
+OR(ISPICKVAL({!$Record.Type_of_User__c},&apos;Staff&apos;),ISPICKVAL({!$Record.Type_of_User__c},&apos;Faculty&apos;)),
+OR(ISNEW(),AND(ISCHANGED({!$Record.IsActive}),{!$Record.IsActive} = TRUE))
+)</filterFormula>
+        <object>User</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <scheduledPaths>
+            <name>Assign_Permission_Sets</name>
+            <connector>
+                <targetReference>Determine_User_Type</targetReference>
+            </connector>
+            <label>Assign Permission Sets</label>
+            <offsetNumber>1</offsetNumber>
+            <offsetUnit>Minutes</offsetUnit>
+            <recordField>CreatedDate</recordField>
+            <timeSource>RecordField</timeSource>
+        </scheduledPaths>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <subflows>
+        <description>Run flow to grant CE User permission</description>
+        <name>Grant_CE_User_Permission</name>
+        <label>Grant CE User Permission</label>
+        <locationX>710</locationX>
+        <locationY>792</locationY>
+        <flowName>CE_User_Flow</flowName>
+        <inputAssignments>
+            <name>USERID</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <subflows>
+        <description>Run subflow to assign Remedy Permission Set once the correct one is determined.</description>
+        <name>Run_Assign_Permission_Set_Subflow</name>
+        <label>Run Assign Permission Set Subflow</label>
+        <locationX>842</locationX>
+        <locationY>576</locationY>
+        <connector>
+            <targetReference>Determine_CE_Faculty_Permissions</targetReference>
+        </connector>
+        <flowName>User_AssignPermissionSet</flowName>
+        <inputAssignments>
+            <name>vPermSetName</name>
+            <value>
+                <elementReference>vPermSetName</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>vUserId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <variables>
+        <description>Holds the name of the permission set to assign to staff/faculty/student</description>
+        <name>vPermSetName</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+</Flow>

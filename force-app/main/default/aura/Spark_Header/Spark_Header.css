@@ -1,0 +1,74 @@
+.THIS {
+  background: #F3F2F2;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  padding: 16px;
+}
+
+.THIS.white {
+  background: white;
+}
+
+.THIS .header-icon {
+  width: 32px;
+  height: 32px;
+  text-align: center;
+  line-height: 32px;
+  border-radius: 4px;
+  float: left;
+  margin-right: 12px;
+}
+
+.THIS .header-icon svg {
+  fill: white;
+}
+
+.THIS .header-text .subtitle {
+  color: #3E3E3C;
+  font-size: 13px;
+  margin-top: -3px;
+}
+
+.THIS .header-text .title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: -4px;
+  margin-bottom: -5px;
+}
+
+.THIS .search-box {
+  position: relative;
+  max-width: 300px;
+}
+
+.THIS .search-box lightning-icon {
+  position: absolute;
+  left: 9px;
+  top: 9px;
+}
+
+.THIS .search-box svg {
+  fill: #A8A8A8;
+}
+
+.THIS .search-box input {
+  padding: 8px 8px 8px 32px;
+  border: 1px solid #dddbda;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.THIS .search-box input:focus {
+  outline: none;
+  border: solid var(--lwc-borderWidthThin, 1px) var(--lwc-colorBorderInputActive, rgb(21, 137, 238));
+  box-shadow: var(--lwc-shadowButtonFocus, 0 0 3px #0070D2);
+}
+
+.THIS .slds-button_dual-stateful {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.THIS .slds-is-pressed svg {
+  fill: white;
+}

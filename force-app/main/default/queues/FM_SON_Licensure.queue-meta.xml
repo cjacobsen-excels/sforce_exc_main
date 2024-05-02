@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <name>FM - SON Licensure</name>
+    <queueMembers>
+        <users>
+            <user>cgiovannone@excelsior.edu</user>
+            <user>jbrunick@excelsior.edu</user>
+            <user>jsherman@excelsior.edu</user>
+            <user>khawley@excelsior.edu</user>
+            <user>nwomack@excelsior.edu</user>
+            <user>nmarshall@excelsior.edu</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Task</sobjectType>
+    </queueSobject>
+</Queue>

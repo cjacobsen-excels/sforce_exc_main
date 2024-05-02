@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>ADA_Case_Sharing_Update</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>restrictes ADA cases only to the public group</description>
+        <label>ADA Case Sharing Update</label>
+        <sharedTo>
+            <group>ADA_Accessibility_Queue_Group</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>ADA Accommodation</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_Advisee_Cases_to_Course_Managers</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>This sharing rule was create to accommodate the request for Course Managers to see Advisee Cases. Originating incident: IN00093607.</description>
+        <label>Share Advisee Cases to Course Managers</label>
+        <sharedTo>
+            <group>FM_Course_Managers</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Advising Case</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingOwnerRules>
+        <fullName>Case_StudentMgmt_RW</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Student Management group can Read/Write Student Cases.</description>
+        <label>Case_StudentMgmt_RW</label>
+        <sharedTo>
+            <group>Student_Management</group>
+        </sharedTo>
+        <sharedFrom>
+            <group>Student_Management</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+</SharingRules>

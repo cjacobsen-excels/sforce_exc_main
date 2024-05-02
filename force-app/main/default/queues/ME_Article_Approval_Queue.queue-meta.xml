@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <name>ME_Article Approval Queue</name>
+    <queueMembers>
+        <users>
+            <user>wnettleton@excelsior.edu</user>
+            <user>cyang@excelsior.edu</user>
+            <user>lcady@excelsior.edu</user>
+            <user>mburke@excelsior.edu</user>
+            <user>nmcquade@excelsior.edu</user>
+            <user>phoeg@excelsior.edu</user>
+            <user>tfunk@excelsior.edu</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>KnowledgeArticleVersion</sobjectType>
+    </queueSobject>
+</Queue>

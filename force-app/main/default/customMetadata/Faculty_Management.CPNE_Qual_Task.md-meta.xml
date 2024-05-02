@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>CI Qual Task</label>
+    <protected>false</protected>
+    <values>
+        <field>Date__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Description_Text_Area__c</field>
+        <value xsi:type="xsd:string">This faculty member is missing the required credentials for this course offering.</value>
+    </values>
+    <values>
+        <field>Description__c</field>
+        <value xsi:type="xsd:string">Create notification task to staff when faculty sign up for a Course and are hard blocked or allowed to continue but have not met all requirements</value>
+    </values>
+    <values>
+        <field>ID__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Name_Subject__c</field>
+        <value xsi:type="xsd:string">CI Qualification Task</value>
+    </values>
+    <values>
+        <field>Quantity__c</field>
+        <value xsi:nil="true"/>
+    </values>
+</CustomMetadata>

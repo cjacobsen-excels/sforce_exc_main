@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Accommodation_Expiring</name>
+        <label>Accommodation Expiring</label>
+        <locationX>50</locationX>
+        <locationY>396</locationY>
+        <actionName>NewTask</actionName>
+        <actionType>quickAction</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>OwnerId</name>
+            <value>
+                <stringValue>00G4O000004hkUw</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>Description</name>
+            <value>
+                <stringValue>This accommodation is expiring in 30 days.</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>ActivityDate</name>
+            <value>
+                <elementReference>$Record.hed__End_Date__c</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>WhoId</name>
+            <value>
+                <elementReference>$Record.hed__Contact__r.Id</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>contextId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>Subject</name>
+            <value>
+                <stringValue>ADA Expiring Accommodation </stringValue>
+            </value>
+        </inputParameters>
+        <nameSegment>NewTask</nameSegment>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <apiVersion>54.0</apiVersion>
+    <decisions>
+        <description>ADA Accommodation expiring</description>
+        <name>ADA_Accommodation_Expiration</name>
+        <label>ADA Accommodation Expiration</label>
+        <locationX>182</locationX>
+        <locationY>276</locationY>
+        <defaultConnectorLabel>Accommodation Not Expiring</defaultConnectorLabel>
+        <rules>
+            <name>Accommodation_Expiring_in_30_Days</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.hed__Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Approved</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.hed__End_Date__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Thirty_Day_Expiration_Formula</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Accommodation_Expiring</targetReference>
+            </connector>
+            <label>Accommodation Expiring in 30 Days</label>
+        </rules>
+    </decisions>
+    <description>ADA Accommodation Expiring in 30 days Task</description>
+    <formulas>
+        <name>Thirty_Day_Expiration_Formula</name>
+        <dataType>Date</dataType>
+        <expression>TODAY() + 30</expression>
+    </formulas>
+    <interviewLabel>ADA Sc {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>ADA Expiring Accommodation</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>ADA_Accommodation_Expiration</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>hed__Attribute_Type__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Accommodation</stringValue>
+            </value>
+        </filters>
+        <object>hed__Attribute__c</object>
+        <schedule>
+            <frequency>Daily</frequency>
+            <startDate>2022-03-29</startDate>
+            <startTime>04:00:00.000Z</startTime>
+        </schedule>
+        <triggerType>Scheduled</triggerType>
+    </start>
+    <status>Obsolete</status>
+    <variables>
+        <description>Person who&apos;s accommodation is expiring</description>
+        <name>Contact</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Contact</objectType>
+    </variables>
+</Flow>

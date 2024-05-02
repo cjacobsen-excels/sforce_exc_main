@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <assignments>
+        <description>Called in compensation</description>
+        <name>Set_Called_In_Comp</name>
+        <label>Set Called In Comp</label>
+        <locationX>314</locationX>
+        <locationY>431</locationY>
+        <assignmentItems>
+            <assignToReference>Compensation</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <numberValue>2500.0</numberValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Compensation</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Set the value of compensation</description>
+        <name>Set_On_Call_Comp</name>
+        <label>Set On Call Comp</label>
+        <locationX>50</locationX>
+        <locationY>431</locationY>
+        <assignmentItems>
+            <assignToReference>Compensation</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <numberValue>250.0</numberValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Compensation</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <description>When the contract is signed, determine if this is the initial $250 or called in $2500 payment and create the appropriate payment record</description>
+        <name>On_Call_or_Called_in_Payment</name>
+        <label>On Call or Called in Payment</label>
+        <locationX>314</locationX>
+        <locationY>323</locationY>
+        <defaultConnectorLabel>Default</defaultConnectorLabel>
+        <rules>
+            <name>On_Call</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Call_In_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>On Call</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_On_Call_Comp</targetReference>
+            </connector>
+            <label>On Call</label>
+        </rules>
+        <rules>
+            <name>Called_In</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Call_In_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Called In</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Called_In_Comp</targetReference>
+            </connector>
+            <label>Called In</label>
+        </rules>
+    </decisions>
+    <description>Creates either the $250 or $2500 on call payment when the contract is signed.</description>
+    <environments>Default</environments>
+    <formulas>
+        <description>This type of offering gets only one payment at end of term. This formula determines what the date of the payment will be based on number of days between the baseline payment date and the end date of the offering. Payment will either be two days or nine days before the end of the term (Sunday).</description>
+        <name>PaymentDate</name>
+        <dataType>Date</dataType>
+        <expression>{!$Record.hed__End_Date__c}-MOD({!$Record.hed__End_Date__c}-$Setup.BaselineDate__c.Baseline_Date__c,14) + 14</expression>
+    </formulas>
+    <interviewLabel>RT-C-AS Create On Call Payment {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>RT-C-AS Create On Call Payment</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <description>Creates the payment based on on call or called in status</description>
+        <name>Create_Payment_Record</name>
+        <label>Create Payment Record</label>
+        <locationX>314</locationX>
+        <locationY>731</locationY>
+        <inputAssignments>
+            <field>Clinical_Payment__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Course_Offering__c</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Pay_To__c</field>
+            <value>
+                <elementReference>$Record.hed__Faculty__r.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Payment_Amount__c</field>
+            <value>
+                <elementReference>Compensation</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Payment_Date__c</field>
+            <value>
+                <elementReference>PaymentDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Payment_Status__c</field>
+            <value>
+                <stringValue>Scheduled</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Payment__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordUpdates>
+        <description>Updates the compensation field for tracking</description>
+        <name>Update_Compensation</name>
+        <label>Update Compensation</label>
+        <locationX>314</locationX>
+        <locationY>623</locationY>
+        <connector>
+            <targetReference>Create_Payment_Record</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Compensation__c</field>
+            <value>
+                <elementReference>Compensation</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Net_Revenue_Calculation__c</field>
+            <value>
+                <elementReference>Compensation</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>188</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>On_Call_or_Called_in_Payment</targetReference>
+        </connector>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterLogic>1 AND 2</filterLogic>
+        <filters>
+            <field>Course_Offering_Type__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Clinical Instructor On Call</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Course_Offering_Sign_Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Signature Received</stringValue>
+            </value>
+        </filters>
+        <object>hed__Course_Offering__c</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <variables>
+        <description>Stores the compensation to be paid</description>
+        <name>Compensation</name>
+        <dataType>Currency</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>2</scale>
+    </variables>
+</Flow>
