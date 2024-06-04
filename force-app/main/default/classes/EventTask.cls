@@ -30,12 +30,11 @@ public class EventTask  implements Comparable{
         Integer returnValue = 0;
         if (activityDate > compareEventTask.activityDate) {
             // Set return value to a positive value.
-            returnValue = 1;
+            returnValue = -1;
         } else if (activityDate < compareEventTask.activityDate) {
             // Set return value to a negative value.
-            returnValue = -1;
+            returnValue = 1; //reverse
         }
-        return returnValue;    
-
+        return returnValue;
     }
 }

@@ -1,89 +1,92 @@
-import { LightningElement, api } from "lwc";
+import { LightningElement, api } from 'lwc';
+import { NavigationMixin } from 'lightning/navigation';
 
-export default class ActivityComponent extends LightningElement {
-  areDetailsVisible = false;
-  taskData;
-  taskNotifyMsg;
+export default class ActivityComponent extends NavigationMixin(LightningElement) {
+    areDetailsVisible = false;
+    taskData;
+    taskNotifyMsg;
 
-  @api
-  get taskDetail() {
-    return;
-  }
-  set taskDetail(value) {
-    this.taskData = JSON.parse(JSON.stringify(value));
-    this.convertDate();
-    this.updateTaskNotify();
-  }
-  get iconSVG() {
-    if (this.taskData.taskSubType === "Task") {
-      //return "/_slds/icons/standard-sprite/svg/symbols.svg#task";
-      return "standard:task";
+    @api
+    get taskDetail() {
+        return this.taskData;
     }
-    if (this.taskData.taskSubType === "Call") {
-      //return "/_slds/icons/standard-sprite/svg/symbols.svg#log_a_call";
-      return "standard:call";
+    set taskDetail(value) {
+        this.taskData = JSON.parse(JSON.stringify(value));
+        this.convertDate();
+        this.updateTaskNotify();
     }
-    if (this.taskData.taskSubType === "Email") {
-      //return "/_slds/icons/standard-sprite/svg/symbols.svg#email";
-      return "standard:email";
-    }
-    if (this.taskData.taskSubType === "Event") {
-      //return "/_slds/icons/standard-sprite/svg/symbols.svg#event";
-      return "standard:event";
-    }
-  }
 
-  expandItem() {
-    this.areDetailsVisible = !this.areDetailsVisible;
-  }
-
-  convertDate() {
-    if (this.taskData.activityDate) {
-      const [year, month, day] = this.taskData.activityDate.split("-");
-      const date = new Date(`${year}-${month}-${day}`);
-      const options = { day: "2-digit", month: "short", year: "numeric" };
-      this.taskData.activityDateText = date.toLocaleDateString(
-        "en-US",
-        options
-      );
-    } else {
-      this.taskData.activityDateText = "No due date";
-    }
-  }
-
-  updateTaskNotify() {
-    let msg;
-
-    if (this.taskData.taskSubType === "Call") {
-      msg = "You logged a call";
-    } else {
-      if (this.taskData.activityDate) {
-        const now = new Date();
-        const year = now.getFullYear();
-        let month = now.getMonth() + 1;
-        let day = now.getDate();
-        month = month < 10 ? "0" + month : month;
-        day = day < 10 ? "0" + day : day;
-        let currentDate = `${year}-${month}-${day}`;
-        const dateString1 = currentDate;
-        const dateString2 = this.taskData.activityDate;
-        const date1 = new Date(dateString1);
-        const date2 = new Date(dateString2);
-        if (date1 < date2) {
-          if (this.taskData.taskSubType === "Task") {
-            msg = "You have an upcoming task";
-          } else if (this.taskData.taskSubType === "Event") {
-            msg = "You have an upcoming event";
-          }
-        } else if (date1 > date2) {
-          if (this.taskData.taskSubType === "Task") {
-            msg = "You had a task";
-          } else if (this.taskData.taskSubType === "Event") {
-            msg = "You had an event";
-          }
+    get iconSVG() {
+        switch (this.taskData.taskSubType) {
+            case 'Task':
+                return 'standard:task';
+            case 'Call':
+                return 'standard:call';
+            case 'Email':
+                return 'standard:email';
+            case 'Event':
+                return 'standard:event';
+            default:
+                return 'standard:default';
         }
-      }
     }
-    this.taskNotifyMsg = msg;
-  }
+
+    expandItem() {
+        this.areDetailsVisible = !this.areDetailsVisible;
+    }
+
+    convertDate() {
+        if (this.taskData.activityDate) {
+            const [year, month, day] = this.taskData.activityDate.split('-');
+            const date = new Date(`${year}-${month}-${day}`);
+            const options = { day: '2-digit', month: 'short', year: 'numeric' };
+            this.taskData.activityDateText = date.toLocaleDateString('en-US', options);
+        } else {
+            this.taskData.activityDateText = 'No due date';
+        }
+    }
+
+    updateTaskNotify() {
+        let msg;
+        const { taskOwner, taskSubType, activityDate } = this.taskData;
+
+        if (taskOwner === undefined || taskOwner === null) {
+            msg = 'Owner information is missing';
+        } else {
+            if (taskSubType === 'Call') {
+                msg = `${taskOwner} logged a call`;
+            } else if (activityDate) {
+                const now = new Date();
+                const currentDate = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+                const date1 = new Date(currentDate);
+                const date2 = new Date(activityDate);
+
+                if (date1 < date2) {
+                    if (taskSubType === 'Task') {
+                        msg = `${taskOwner} has an upcoming task`;
+                    } else if (taskSubType === 'Event') {
+                        msg = `${taskOwner} has an upcoming event`;
+                    }
+                } else if (date1 > date2) {
+                    if (taskSubType === 'Task') {
+                        msg = `${taskOwner} had a task`;
+                    } else if (taskSubType === 'Event') {
+                        msg = `${taskOwner} had an event`;
+                    }
+                }
+            }
+        }
+
+        this.taskNotifyMsg = msg;
+    }
+
+    navigateToTask() {
+        this[NavigationMixin.Navigate]({
+            type: 'standard__recordPage',
+            attributes: {
+                recordId: this.taskData.taskId,
+                actionName: 'view'
+            }
+        });
+    }
 }
