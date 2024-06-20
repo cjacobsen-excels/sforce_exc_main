@@ -28,9 +28,19 @@ export default class EmailActivityLog extends NavigationMixin(
       if (element.activityName) {
         element.activityName = element.activityName;
       } else {
-        element.activityName = element.TaskSubtype;
+        element.activityName = element.taskSubType;
+      }
+      // Convert dates to ISO format to avoid timezone issues
+      if (element.activityDate) {
+        element.activityDate = this.convertDateToISO(element.activityDate);
       }
     });
+  }
+
+  convertDateToISO(date) {
+    let d = new Date(date);
+    d.setDate(d.getDate() + 1); // Add one day to the date
+    return d.toISOString().split('T')[0]; // Ensures date is in YYYY-MM-DD format and respects the UTC timezone
   }
 
   newTask() {
@@ -83,7 +93,7 @@ export default class EmailActivityLog extends NavigationMixin(
       eType = "Global.LogACall";
     }
     pageRef = {
-      type: "standard__quickAction",
+      type: "standard__quickAction", 
       attributes: {
         apiName: eType
       },
@@ -107,12 +117,17 @@ export default class EmailActivityLog extends NavigationMixin(
     this.spinnerOn = true;
     getTasksList({ contactRecId: this.recordId, limitRecords: this.recLimit })
       .then((result) => {
-        this.spinnerOn = false;
-        this.taskList = JSON.parse(JSON.stringify(result));
-        if (this.recLimit > this.taskList.length) {
-          this.showViewMore = false;
-        }
-        this.processTasks();
+        try {
+          this.spinnerOn = false;
+          this.taskList = JSON.parse(JSON.stringify(result));
+          if (this.recLimit > this.taskList.length) {
+            this.showViewMore = false;
+          }
+          console.log('****** 1 ' + this.taskList.length);
+          this.processTasks();
+          // console.log('****** 2 ' + this.taskList);
+
+        } catch (ex) {console.log(ex);}
       })
       .catch((error) => {
         this.errorMessage = true;

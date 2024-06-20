@@ -1,6 +1,5 @@
 ({
     initialize: function(component, event, helper) {
-        
         helper.getExtraFields(component, event, helper);
         var vfURL = $A.get("$Label.c.VF_Host");
         window.addEventListener('message', $A.getCallback(function(event){

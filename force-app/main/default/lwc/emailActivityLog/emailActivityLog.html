@@ -1,6 +1,6 @@
 <template>
   <template if:true={errorMessage}>
-    <p>Please contact your administar to access this feature.</p>
+    <p>Please contact your administrator to access this feature.</p>
   </template>
   <template if:true={isNonADATeam.data}>
     <template if:true={spinnerOn}>
@@ -28,15 +28,6 @@
             data-source="call"
           >
             Log a Call
-          </div>
-        </lightning-layout-item>
-        <lightning-layout-item flexibility="auto">
-          <div
-            class="slds-p-around_medium slds-text-align_center slds-theme_shade"
-            onclick={newEvent}
-            data-source="event"
-          >
-            <p>New Event</p>
           </div>
         </lightning-layout-item>
         <lightning-layout-item flexibility="auto">
